@@ -1,38 +1,23 @@
+// server.js
 const express = require('express');
+const mongoose = require('mongoose');
 const path = require('path');
 const app = express();
-const PORT = 3002;
+const PORT = process.env.PORT || 3000;
 
-
-
-
-mongoose.connect(process.env.DATABASE_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-mongoose.connection
-  .once("open", () => {
-    console.log("Mongoose connection open");
-  })
-  .on("error", err => {
-    console.error(`Connection error: ${err.message}`);
-  });
-
-// set view engine
-app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));
-
-// middleware
-// Static data
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: true }));
+// Middleware
 app.use(express.json());
+app.use(express.static('public'));
 
-app.get('/api/dashboard', (req, res) => {
-  res.json(dashboardData);
+// MongoDB Connection
+mongoose.connect('mongodb://localhost:27017/ecommerce-dashboard', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
+
+// Routes
+app.use('/api/products', require('./routes/products'));
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

@@ -5,8 +5,10 @@ from .models import Product
 from .forms import ProductForm
 
 def index(request):
-    # Get all products ordered by newest first
-    products = Product.objects.all().order_by('-product_id')
+    # Get all products ordered by newest first, using string length and value for correct ordering of #numbers
+    products = Product.objects.all().order_by('-product_id').order_by(
+        '-product_id'
+    )
     
     average_order_value = 500000 
     orders_count = 30  

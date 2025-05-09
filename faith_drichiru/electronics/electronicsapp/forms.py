@@ -18,8 +18,15 @@ class ProductForm(forms.ModelForm):
             'image': 'Upload product image'
         }
         for field_name, field in self.fields.items():
+            css_classes = ['form-control']
+            if self.is_bound:  # If the form has been submitted
+                if field_name in self.errors:
+                    css_classes.append('error')
+                elif field_name in self.cleaned_data:
+                    css_classes.append('valid')
+            
             field.widget.attrs.update({
-                'class': 'form-control',
+                'class': ' '.join(css_classes),
                 'required': 'required',
                 'placeholder': placeholders[field_name]
             })

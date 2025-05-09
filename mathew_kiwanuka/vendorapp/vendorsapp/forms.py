@@ -40,4 +40,11 @@ class ProductForm(ModelForm):
             if not part[1:].islower():
                 raise forms.ValidationError("All letters after the first must be lowercase")
         
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+
+        if len(price) < 4:
+            raise forms.ValidationError("The price must have four or more figures")
         
+        if price[0] == 0:
+            raise forms.ValidationError("The price must never start with zero.")

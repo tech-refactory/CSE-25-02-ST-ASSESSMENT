@@ -1,0 +1,69 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Product Dashboard
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    .container
+      .top-section
+        .stats-container
+          .stat-box.sales-orders
+            h2 UGX 65,000,000
+            p Sales & Orders
+          .stat-box
+            h2 UGX 42,000,000
+            p In stock
+          .stat-box.out-of-stock
+            h2 UGX 15,000,000
+            p Out of stock
+
+        .product-form
+          h2 Add Product
+          form(action="/add", method="POST", enctype="multipart/form-data", novalidate, id="productForm")
+            .form-group
+              label(for="productName") Product Name
+              input(type="text", id="productName", name="productName", required)
+            .form-group
+              label(for="category") Category
+              input(type="text", id="category", name="category", required)
+            .form-group
+              label(for="price") Price
+              input(type="number", id="price", name="price", required)
+            .form-group
+              label(for="quantity") Quantity
+              input(type="number", id="quantity", name="quantity", required)
+            .form-group
+              label(for="color") Color
+              input(type="text", id="color", name="color")
+            .form-group
+              label(for="image") Upload Image
+              input(type="file", id="image", name="image", accept="image/*")
+            .form-buttons
+              button.save-btn(type="submit") SAVE
+              button.clear-btn(type="button", id="clearForm") CLEAR
+
+      .product-table
+        table
+          thead
+            tr
+              th ID
+              th NAME
+              th CATEGORY
+              th PRICE(UGX)
+              th QUANTITY
+          tbody
+            if products && products.length
+              each product in products
+                tr
+                  td= product._id
+                  td= product.productName
+                  td= product.category
+                  td= new Intl.NumberFormat('en-US').format(product.price)
+                  td= product.quantity
+            else
+              tr
+                td(colspan="5", style="text-align: center") No products available
+
+    script(src="/js/script.js")

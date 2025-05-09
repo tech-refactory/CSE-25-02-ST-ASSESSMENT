@@ -26,7 +26,7 @@ def home(request):
         else:
             form_valid = False
 
-    # Fixed summary statistics as shown in the screenshot
+    
     total_sales = 50000000  
     total_orders = 15000000  
     in_stock_value = 42000000  

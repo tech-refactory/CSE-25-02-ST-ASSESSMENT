@@ -1,4 +1,6 @@
 
+{% load static %}
+{% load humanize %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,31 +8,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-commerce Dashboard</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
     <div class="container">
-        <!-- Statistics Cards -->
-        <div class="stats-container">
-            <div class="stats-card">
-                <h2>Total Sales</h2>
-                <div class="stats-value">UGX {{ total_sales|intcomma }}</div>
-            </div>
-            <div class="stats-card">
-                <h2>Total Orders</h2>
-                <div class="stats-value">{{ total_orders|intcomma }}</div>
-            </div>
-            <div class="stats-card">
-                <h2>In Stock</h2>
-                <div class="stats-value">UGX {{ in_stock|intcomma }}</div>
-            </div>
-            <div class="stats-card">
-                <h2>Out of Stock</h2>
-                <div class="stats-value">{{ out_of_stock }}</div>
-            </div>
-        </div>
+        
+        <div class="row">
+            <div class="col-6">
 
-        <!-- Messages -->
+                <div class="stats-container">
+                    <div class="stats-card">
+                        <h2>Total Sales</h2>
+                        <div class="stats-value">UGX {{ total_sales|intcomma }}</div>
+                    </div>
+                    <div class="stats-card">
+                        <h2>Total Orders</h2>
+                        <div class="stats-value">{{ total_orders|intcomma }}</div>
+                    </div>
+                    <div class="stats-card">
+                        <h2>In Stock</h2>
+                        <div class="stats-value">UGX {{ in_stock|intcomma }}</div>
+                    </div>
+                    <div class="stats-card">
+                        <h2>Out of Stock</h2>
+                        <div class="stats-value">{{ out_of_stock }}</div>
+                    </div>
+                </div>
+
+            </div>
+
+             <!-- Messages -->
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
@@ -41,37 +48,39 @@
         </ul>
         {% endif %}
 
-        <!-- Add Product Form -->
-        <div class="product-form">
-            <h2>Add Product</h2>
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group">
-                    <input type="text" name="product_name" placeholder="Product Name" required>
+            <div class="col-6">
+                <div class="product-form">
+                    <h2>Add Product</h2>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" name="product_name" placeholder="Product Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="category" placeholder="Category" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" name="price" placeholder="Price" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" name="quantity" placeholder="Quantity" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="color" placeholder="Color" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" name="image" class="upload-btn" required>
+                        </div>
+                        <div class="button-group">
+                            <button type="submit" class="save-btn">SAVE</button>
+                            <button type="reset" class="clear-btn">CLEAR</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <input type="text" name="category" placeholder="Category" required>
-                </div>
-                <div class="form-group">
-                    <input type="number" name="price" placeholder="Price" required>
-                </div>
-                <div class="form-group">
-                    <input type="number" name="quantity" placeholder="Quantity" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="color" placeholder="Color" required>
-                </div>
-                <div class="form-group">
-                    <input type="file" name="image" class="upload-btn" required>
-                </div>
-                <div class="button-group">
-                    <button type="submit" class="save-btn">SAVE</button>
-                    <button type="reset" class="clear-btn">CLEAR</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Products Table -->
+        
+            </div>
+         
+    
         <div class="table-container">
             <table class="product-table">
                 <thead>

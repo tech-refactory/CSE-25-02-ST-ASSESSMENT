@@ -1,11 +1,10 @@
 from django.shortcuts import render
-
+from django.contrib import messages
 # Create your views here.
 # views.py
 from django.shortcuts import render, redirect
 from .models import Product
 from .forms import ProductForm
-from django.contrib import messages
 
 
 def home(request):

@@ -2,8 +2,6 @@ from django.db import models
 from django.utils import timezone
 import uuid
 
-# Create your models here.
-
 class Product(models.Model):
     BASE_ID = 645341  # Changed to uppercase as it's a constant
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -21,14 +19,15 @@ class Product(models.Model):
                 # Get the highest product_id and increment it
                 last_product = Product.objects.all().order_by('-product_id').first()
                 if last_product:
-                    last_id = int(last_product.product_id)
-                    self.product_id = str(last_id + 1)
+                    # Remove the '#' if it exists before converting to int
+                    last_id = int(last_product.product_id.replace('#', ''))
+                    self.product_id = f"#{last_id + 1}"
                 else:
                     # If no products exist, start with BASE_ID
-                    self.product_id = str(self.BASE_ID)
+                    self.product_id = f"#{self.BASE_ID}"
             except (ValueError, TypeError):
                 # If there's any error, fall back to BASE_ID
-                self.product_id = str(self.BASE_ID)
+                self.product_id = f"#{self.BASE_ID}"
         super().save(*args, **kwargs)
 
     def __str__(self):

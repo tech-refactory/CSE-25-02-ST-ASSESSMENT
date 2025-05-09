@@ -5,7 +5,9 @@ from .models import Product
 from .forms import ProductForm
 
 def index(request):
-    products = Product.objects.all().order_by('-id')  # Changed from created_at since we don't have that field
+    # Get all products ordered by newest first
+    products = Product.objects.all().order_by('-product_id')
+    
     average_order_value = 500000 
     orders_count = 30  
     total_sales = sum(product.price * (product.quantity + 5) for product in products) or 50000000 
@@ -17,7 +19,7 @@ def index(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             product = form.save()
-            messages.success(request, 'Product created successfully!')
+            messages.success(request, 'Product has been added successfully!')
             return redirect('landing_page')
     else:
         form = ProductForm()

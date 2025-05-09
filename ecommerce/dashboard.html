@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 30px 0;
+        }
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            border: none;
+            margin-bottom: 20px;
+        }
+        .stats-value {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 8px 0 3px 0;
+            color: #2d3748;
+        }
+        .stats-label {
+            color: #718096;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+        }
+        .form-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 18px;
+            color: #2d3748;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #4a5568;
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: border 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #f4782c;
+        }
+        .button-group {
+            margin-top: 22px;
+        }
+        .btn-save {
+            background-color: #f4782c;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .btn-save:hover {
+            background-color: #e06a22;
+        }
+        .btn-clear {
+            background-color: #edf2f7;
+            color: #4a5568;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .btn-clear:hover {
+            background-color: #e2e8f0;
+        }
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            margin-top: 25px;
+        }
+        .products-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .products-table th {
+            background-color: #2d3748;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .products-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 14px;
+        }
+        .products-table tr:last-child td {
+            border-bottom: none;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            color: #2d3748;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .main-stats {
+            grid-column: span 2;
+        }
+        @media (min-width: 768px) {
+            .top-section {
+                display: grid;
+                grid-template-columns: 1.5fr 1fr;
+                gap: 20px;
+            }
+            .stats-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .main-stats {
+                flex: 2;
+            }
+            .small-stats {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Top Section -->
+        <div class="top-section">
+            <!-- Left Column - Stats Cards -->
+            <div class="stats-grid">                <div class="card main-stats">
+                    <div class="stats-value">UGX {{ total_sales|floatformat:2 }}</div>
+                    <div class="stats-label">Sales</div>
+                    <div style="margin-top: 20px;">
+                        <div class="stats-value">UGX {{ total_orders|floatformat:2 }}</div>
+                        <div class="stats-label">Orders</div>
+                    </div>
+                </div>
+                <div class="small-stats">
+                    <div class="card">
+                        <div class="stats-value">UGX {{ in_stock_value|floatformat:2 }}</div>
+                        <div class="stats-label">In stock</div>
+                    </div>
+                    <div class="card">
+                        <div class="stats-value">{{ out_of_stock_count }}</div>
+                        <div class="stats-label">Out of stock</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column - Add Product Form -->
+            <div class="card">                <div class="form-title">Add Product</div>
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="form-label">Product Name</label>
+                        <input type="text" class="form-input" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <input type="text" class="form-input" name="category" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Price</label>
+                        <input type="number" class="form-input" name="price" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Quantity</label>
+                        <input type="number" class="form-input" name="quantity" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Color</label>
+                                <input type="text" class="form-input" name="color">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Upload Image</label>
+                                <input type="file" class="form-input" name="image" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="btn-save">SAVE</button>
+                        <button type="reset" class="btn-clear">CLEAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Products Table -->
+        <div class="table-container">
+            <div class="section-title">PRODUCT INVENTORY</div>
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>CATEGORY</th>
+                        <th>PRICE (UGX)</th>
+                        <th>QUANTITY</th>
+                    </tr>
+                </thead>                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>#{{ product.id|truncatechars:8 }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price|floatformat:2 }}</td>
+                        <td>{{ product.quantity }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">No products available</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+from django.shortcuts import render
+def indexpage(request):
+    return render(request, 'index.htmlw')

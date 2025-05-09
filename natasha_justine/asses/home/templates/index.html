@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Tailwind's gray-100 */
+            background-color: #e0f2fe; /* Light blue background */
             margin: 0;
             padding: 0;
         }
@@ -20,7 +20,9 @@
 
         .dashboard h2 {
             margin-bottom: 20px;
-            color: #1e293b; /* Tailwind's gray-900 */
+            color: #0c4a6e; /* Darker blue for headings */
+            font-size: 24px;
+            font-weight: 600;
         }
 
         .stats {
@@ -29,33 +31,64 @@
             gap: 15px;
             margin-bottom: 20px;
         }
-       .stats div {
+
+        .stats div {
             background-color: #fff;
-            padding: 15px;
-            border-radius: 0.5rem; /* Tailwind's rounded-md */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Tailwind's shadow-sm */
-            border: 1px solid #e5e7eb; /* Tailwind's border-gray-200 */
-            color: #4b5563; /* Tailwind's text-gray-600 */
-            text-align: left; /* Added for alignment */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: #0369a1; /* Blue text */
         }
-        .stats div strong{
-            display: block; /* Make the strong element a block element */
-            margin-bottom: 5px; /* Add some margin below the strong element */
-            color: #1e293b;
+
+        .stats div strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #0c4a6e;
+            font-size: 0.9rem;
+        }
+
+        .product-table {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table thead th {
+            background-color: #f0f9ff; /* Very light blue header */
+            padding: 12px;
+            text-align: left;
+            color: #0c4a6e;
+            font-weight: 600;
+            border-bottom: 2px solid #e0f2fe;
+        }
+
+        .table tbody td {
+            padding: 12px;
+            color: #0369a1;
+            border-bottom: 1px solid #e0f2fe;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f0f9ff;
         }
 
         .form-container {
             background-color: #fff;
             padding: 20px;
-            border-radius: 0.5rem; /* Tailwind's rounded-md */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Tailwind's shadow-sm */
-            margin-bottom: 20px;
-            border: 1px solid #e5e7eb; /* Tailwind's border-gray-200 */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .form-container h2 {
+            color: #0c4a6e;
             margin-bottom: 20px;
-            color: #1e293b; /* Tailwind's gray-900 */
         }
 
         .form-group {
@@ -65,226 +98,115 @@
         .form-group label {
             display: block;
             margin-bottom: 5px;
-            color: #374151; /* Tailwind's text-gray-700 */
+            color: #0c4a6e;
             font-weight: 500;
-            font-size: 0.875rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5rem;
-            color: #4b5563; /* Tailwind's text-gray-600 */
-            background-color: #fff;
-            border: 1px solid #d1d5db; /* Tailwind's border-gray-300 */
-            border-radius: 0.375rem; /* Tailwind's rounded-md */
-            transition: border-color 0.15s ease-in-out, shadow-sm 0.15s ease-in-out;
+            padding: 8px 12px;
+            border: 1px solid #bae6fd;
+            border-radius: 6px;
+            color: #0369a1;
         }
 
         .form-control:focus {
             outline: none;
-            border-color: #3b82f6; /* Tailwind's border-blue-500 */
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); /* Tailwind's ring-blue-500 with opacity */
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2,132,199,0.1);
         }
-
-        .form-control.is-invalid {
-            border-color: #dc2626; /* Tailwind's border-red-500 */
-        }
-
-        .form-control.is-valid {
-            border-color: #16a34a; /* Tailwind's border-green-500 */
-        }
-
-        .invalid-feedback {
-            color: #dc2626; /* Tailwind's text-red-500 */
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-        }
-
-        .alert {
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border: 1px solid transparent;
-            border-radius: 0.375rem; /* Tailwind's rounded-md */
-        }
-
-        .alert-success {
-            color: #15803d; /* Tailwind's text-green-800 */
-            background-color: #f0fdf4; /* Tailwind's bg-green-50 */
-            border-color: #d1fae5; /* Tailwind's border-green-300 */
-        }
-
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 6px;
             font-weight: 500;
-            border-radius: 0.375rem; /* Tailwind's rounded-md */
             cursor: pointer;
-            transition: background-color 0.2s ease;
             border: none;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Tailwind's shadow-sm */
         }
 
         .btn-primary {
-            background-color: #f97316; /* Tailwind's bg-orange-500 */
-            color: #fff;
+            background-color: #0284c7;
+            color: white;
         }
 
         .btn-primary:hover {
-            background-color: #d946ef; /* Tailwind's bg-orange-600 */
+            background-color: #0369a1;
         }
 
         .btn-secondary {
-            background-color: #e5e7eb; /* Tailwind's bg-gray-200 */
-            color: #374151; /* Tailwind's text-gray-700 */
+            background-color: #e0f2fe;
+            color: #0284c7;
         }
 
         .btn-secondary:hover {
-            background-color: #d1d5db; /* Tailwind's bg-gray-300 */
+            background-color: #bae6fd;
+        }        .main-content {
+            display: grid;
+            grid-template-areas: 
+                "stats form"
+                "table table";
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-
-        .product-table {
-            margin-top: 30px;
-            background-color: #fff;
-            border-radius: 0.5rem; /* Tailwind's rounded-md */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Tailwind's shadow-sm */
-            border: 1px solid #e5e7eb; /* Tailwind's border-gray-200 */
-            padding: 1rem;
+        .stats-section {
+            grid-area: stats;
+            min-width: 300px;
         }
 
-        .product-table h2 {
-            margin-bottom: 1.5rem;
-             color: #1e293b; /* Tailwind's gray-900 */
+        .form-section {
+            grid-area: form;
+            min-width: 300px;
         }
 
-        .table {
+        .table-section {
+            grid-area: table;
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
         }
 
-        .table thead th {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #d1d5db; /* Tailwind's border-gray-300 */
-            color: #4b5563;  /* Tailwind's text-gray-600 */
-            font-weight: 600;
+        .invalid-feedback {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 4px;
         }
 
-        .table tbody td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb; /* Tailwind's border-gray-200 */
-            color: #6b7280; /* Tailwind's text-gray-500 */
-        }
-
-        .table tbody tr:last-child td {
-            border-bottom: none;
+        .alert-success {
+            background-color: #f0fdf4;
+            border: 1px solid #86efac;
+            color: #166534;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 16px;
         }
 
         @media (max-width: 768px) {
+            .main-content {
+                grid-template-areas: 
+                    "stats"
+                    "form"
+                    "table";
+            }
             .stats {
                 grid-template-columns: 1fr;
             }
         }
-        /* New styles for the layout */
-        .main-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between; /* Puts space between the columns */
-            align-items: stretch; /* Make columns stretch to equal height */
-            gap: 20px; /* Add some gap between the columns */
-        }
-
-        .left-column {
-            flex: 1; /* Take up available space */
-            min-width: 300px; /* Ensure a minimum width for the form */
-        }
-
-        .right-column {
-            flex: 1;
-            min-width: 300px;
-        }
-
     </style>
 </head>
 <body>
     <div class="dashboard">
-        <h2>Dashboard</h2>
         <div class="main-content">
-            <div class="left-column">
+            <div class="stats-section">
                 <div class="stats">
-                    <div><strong>Sales Total:</strong> UGX 50,000,000</div>
-                    <div><strong>Orders Total:</strong> UGX 15,000,000</div>
-                    <div><strong>In Stock Value:</strong> UGX 42,000,000</div>
-                    <div><strong>Out of Stock Count:</strong> 5</div>
-                </div>
-                <div class="product-table">
-                    <h2>Product List</h2>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Price (UGX)</th>
-                                <th>Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#645341</td>
-                                <td>Sumsang s25+ Ultra</td>
-                                <td>Smart Phones</td>
-                                <td>6,900,000</td>
-                                <td>981</td>
-                            </tr>
-                            <tr>
-                                <td>#645346</td>
-                                <td>Gucci XXL Shirt</td>
-                                <td>Fashion</td>
-                                <td>500,000</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>#645342</td>
-                                <td>XL Zara Shirt</td>
-                                <td>Fashion</td>
-                                <td>600,000</td>
-                                <td>56</td>
-                            </tr>
-                            <tr>
-                                <td>#645344</td>
-                                <td>iPhone 15</td>
-                                <td>Smart Phones</td>
-                                <td>7,900,000</td>
-                                <td>752</td>
-                            </tr>
-                            <tr>
-                                <td>#645343</td>
-                                <td>Smart home Curtain</td>
-                                <td>Interior Design</td>
-                                <td>500,000</td>
-                                <td>30</td>
-                            </tr>
-                            <tr>
-                                <td>#645345</td>
-                                <td>Spectrum Laptop 14.6 Inc</td>
-                                <td>Laptops</td>
-                                <td>15,800,000</td>
-                                <td>144</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div><strong>Total Sales:</strong> UGX {{ total_sales|floatformat:2 }}</div>
+                    <div><strong>Total Orders:</strong> UGX {{ total_orders|floatformat:2 }}</div>
+                    <div><strong>In Stock Value:</strong> UGX {{ in_stock_value|floatformat:2 }}</div>
+                    <div><strong>Out of Stock Count:</strong> {{ out_of_stock_count }}</div>
                 </div>
             </div>
-            <div class="right-column">
+            <div class="form-section">
                 <div class="form-container">
                     <h2>Add New Product</h2>
                     <form method="POST" enctype="multipart/form-data">
@@ -338,9 +260,8 @@
                             </div>
                         </div>
 
-                        <div style="display: flex; gap: 10px; margin-top: 1rem;">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="button" class="btn btn-secondary">Clear</button>
+                        <div style="display: flex; gap: 10px; margin-top: 1rem;">                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
                         </div>
                     </form>
                     {% if messages %}
@@ -350,6 +271,124 @@
                             {% endfor %}
                         </div>
                     {% endif %}
+                    <script>
+                        // Form validation and clear functionality
+                        function clearForm() {
+                            const form = document.querySelector('form');
+                            form.reset();
+                            // Remove validation classes
+                            form.querySelectorAll('.form-control').forEach(input => {
+                                input.classList.remove('is-valid', 'is-invalid');
+                            });
+                            // Remove any existing alert messages
+                            const alerts = document.querySelectorAll('.alert');
+                            alerts.forEach(alert => alert.remove());
+                        }
+
+                        // Client-side validation
+                        document.querySelector('form').addEventListener('submit', function(e) {
+                            let isValid = true;
+                            const name = document.getElementById('id_name');
+                            const category = document.getElementById('id_category');
+                            const price = document.getElementById('id_price');
+                            const quantity = document.getElementById('id_quantity');
+                            const color = document.getElementById('id_color');
+                            
+                            // Name validation
+                            if (name.value.length < 3) {
+                                name.classList.add('is-invalid');
+                                isValid = false;
+                            } else {
+                                name.classList.remove('is-invalid');
+                                name.classList.add('is-valid');
+                            }
+
+                            // Category validation
+                            if (category.value.length < 2) {
+                                category.classList.add('is-invalid');
+                                isValid = false;
+                            } else {
+                                category.classList.remove('is-invalid');
+                                category.classList.add('is-valid');
+                            }
+
+                            // Price validation
+                            if (!price.value || price.value <= 0 || price.value > 1000000000) {
+                                price.classList.add('is-invalid');
+                                isValid = false;
+                            } else {
+                                price.classList.remove('is-invalid');
+                                price.classList.add('is-valid');
+                            }
+
+                            // Quantity validation
+                            if (!quantity.value || quantity.value < 0 || quantity.value > 1000000) {
+                                quantity.classList.add('is-invalid');
+                                isValid = false;
+                            } else {
+                                quantity.classList.remove('is-invalid');
+                                quantity.classList.add('is-valid');
+                            }
+
+                            // Color validation
+                            if (color.value.length < 2 || color.value.length > 100) {
+                                color.classList.add('is-invalid');
+                                isValid = false;
+                            } else {
+                                color.classList.remove('is-invalid');
+                                color.classList.add('is-valid');
+                            }
+
+                            if (!isValid) {
+                                e.preventDefault();
+                            }
+                        });
+
+                        // Real-time validation feedback
+                        document.querySelectorAll('.form-control').forEach(input => {
+                            input.addEventListener('input', function() {
+                                if (this.value.trim()) {
+                                    this.classList.add('is-valid');
+                                    this.classList.remove('is-invalid');
+                                } else {
+                                    this.classList.remove('is-valid');
+                                    this.classList.add('is-invalid');
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="table-section">
+                <div class="product-table">
+                    <h2>Product List</h2>                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price (UGX)</th>
+                                <th>Quantity</th>
+                                <th>Color</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td>#{{ product.id|truncatechars:8 }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.price|floatformat:2 }}</td>
+                                <td>{{ product.quantity }}</td>
+                                <td>{{ product.color }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">No products available</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

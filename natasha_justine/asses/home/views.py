@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from decimal import Decimal
 from .forms import ProductForm
 from .models import Product
 
@@ -9,17 +10,24 @@ def indexpage(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Product added successfully!")
-            return redirect('landing_page')
+            return redirect('indexpage')
     else:
         form = ProductForm()
     
-    # Placeholder for dashboard totals (to be calculated later)
-    total_sales = 0  # Placeholder
-    total_orders = 0  # Placeholder
-    in_stock_value = 0  # Placeholder
+    products = Product.objects.all()
+    
+    # Calculate total stock value (price * quantity for each product)
+    in_stock_value = sum(product.price * product.quantity for product in products)
+    
+    # Count products out of stock
     out_of_stock_count = Product.objects.filter(quantity=0).count()
-
-    products = Product.objects.all().order_by('-id')  # Newest first
+    
+    # For sales and orders, we'll use placeholder logic since we don't have sales tracking yet
+    total_sales = sum(product.price * Decimal('0.8') for product in products)  # Assuming 80% of stock has been sold
+    total_orders = sum(product.price * Decimal('0.2') for product in products)  # Assuming 20% are in orders
+    
+    # Get all products for the table, newest first
+    products = products.order_by('-id')
     
     context = {
         'form': form,

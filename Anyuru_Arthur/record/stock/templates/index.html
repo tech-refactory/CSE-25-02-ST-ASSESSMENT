@@ -17,54 +17,95 @@
 <body>
         
         {% block content %}
-            
-            <form method="post">
-                {% csrf_token %}
-
-
-
-            </form>
-
-
-
-
-
-
-
-
-            <table class="table-striped">
-
-                <thead>
-                    <th>ID</th>
-                    <th>NAME</th>
-                    <th>CATEGORY</th>
-                    <th>PRICE(UGX)</th>
-                    <th>QUANTITY</th>
-                </thead>
-
-            
-            {% for stock in stocks %}
-            <tbody>
-                <td>{{ stock.id }}</td>
-                <td>{{ stock.name }}</td>
-                <td> {{ stock.category }} </td>
-                <td> {{ stock.price }} </td>
-                <td> {{ stock.quantity }} </td>
-            </tbody>                
-            {% endfor %}
+        <div class="container">    
+    
+    
+            <div class="row">
                 
+                    <div class="col">
+                        <div class="row mt-2">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                            <h4>UGX {{ sales }}</h4>
+                                    <div class="card-body">
+                                        <span>Sales</span>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                            <h4>UGX 15,000,000</h4>
+                                    <div class="card-body">
+                                        <span>Orders</span>
+                                    </div>
+                                </div>                                 
+                            </div>                                                       
+                        </div>
+                    </div>
 
+                <div class="col">
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="container-fluid-top" style="font-weight: 800;">
+                                <h5>Add Product</h5>
+                            </div>
+                            <form method="post">
+                                {% csrf_token %}
+                
+                                {{ sales_form | crispy }}
+                                <div class="line" style="padding-top: 7px; padding-bottom: 7px; border-radius: 10px; display: flex;">
+                                    <input type="text" placeholder="Colour" style="padding-left: 90px; padding-right: 10px; padding-top: 5px; padding-bottom: 5px;">
+                                    <input type="text" placeholder="Upload image" style="padding-left: 90px; padding-right: 50px; padding-top: 5px; padding-bottom: 5px;">
+                                </div>
+                                <div class="line" >
+                                    <input type="Submit" value="SAVE" class="btn" style="background-color: orange; color: white; padding-left: 90px; padding-right: 90px;">
+                                    <input type="Submit" value="CLEAR" class="btn" style="background-color: rgba(168, 168, 168, 0.831); color: rgb(0, 0, 0); padding-left: 90px; padding-right: 90px;">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-            </table>
+            </div>
 
-
-
-
-
-
-
-
-
+            <div class="row mt-5">
+                <table style="    font-size: large;
+                border-style: initial;
+                text-align: center;
+                align-items: justify; ">
+    
+                    <thead style="background-color: black;color: white; height: 35px;">
+                        <th style="width: 250px;"> ID</th>
+                        <th style="width: 250px;">NAME</th>
+                        <th style="width: 250px;">CATEGORY</th>
+                        <th style="width: 250px;">PRICE(UGX)</th>
+                        <th style="width: 250px;">QUANTITY</th>
+                    </thead>
+    
+                
+                {% for stock in stocks %}
+                <tbody style="background-color: white;color: black;">
+                    <td>{{ stock.id }}</td>
+                    <td>{{ stock.name }}</td>
+                    <td> {{ stock.category }} </td>
+                    <td> {{ stock.price }} </td>
+                    <td> {{ stock.quantity }} </td>
+                </tbody> 
+            </div>
+    
+               
+                {% endfor %}
+                    
+    
+    
+                </table>
+       
+       
+       
+       
+     </div>
         {% endblock content %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>

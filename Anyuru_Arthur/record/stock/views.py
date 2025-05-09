@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 # Create your views here.
@@ -17,6 +17,8 @@ def homePage(request):
             new_stock.price = stock.price
             new_stock.quantity = stock.quantity
             sales_form.save()
+        else:
+            return redirect(failPage)    
 
     context = {
         'sales_form': sales_form,
@@ -25,3 +27,6 @@ def homePage(request):
     }
     return render(request, 'index.html', context)
 
+def failPage(request):
+
+    return render(request, 'failPage.html')

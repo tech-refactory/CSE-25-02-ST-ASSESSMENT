@@ -11,12 +11,7 @@ def homePage(request):
     sales_form = addStock(request.POST)
     if request.method == 'POST':
         if sales_form.is_valid():
-            new_stock = sales_form.save(commit=False)
-            new_stock.name = stock.name
-            new_stock.category = stock.category
-            new_stock.price = stock.price
-            new_stock.quantity = stock.quantity
-            stock.save()
+            sales_form.save()
         else:
             return redirect('success/')    
 
@@ -28,5 +23,20 @@ def homePage(request):
     return render(request, 'index.html', context)
 
 def failPage(request):
+    stock = product.objects.all()
+    total_amount = 0 
+    for each in stock:
+        total_amount += each.price
+    sales_form = addStock(request.POST)
+    if request.method == 'POST':
+        if sales_form.is_valid():
+            sales_form.save()
+        else:
+            return redirect('success/')    
 
+    context = {
+        'sales_form': sales_form,
+        'stocks': stock,
+        'sales': "{:,}".format(total_amount),
+    }
     return render(request, 'failPage.html')

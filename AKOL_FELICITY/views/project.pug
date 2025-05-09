@@ -1,0 +1,87 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title Creditor Form
+    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet')
+    link(rel='stylesheet' href='/css/credit.css')
+  body
+    nav.navbar.navbar-expand-lg.navbar-light
+      button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse#navbarNav
+        ul.navbar-nav
+          li.nav-item.active
+            a.nav-link(href='/') Home
+          li.nav-item
+            a.nav-link(href='/products/producelist') View Produce
+          li.nav-item
+            a.nav-link(href='/creditorList') Creditors List
+          li.nav-item
+            a.nav-link(href='/products/producelist') Produce
+
+    h1.text-center.my-4 Credit Fill-in Form
+
+    .container
+      form#form(onsubmit='return validateForm()', method='post', action='/creditRegister')
+        .row.mb-3
+          .col
+            label.form-label(for='firstName') Name of Buyer
+            input#firstName.form-control(type='text', name='Name')
+            span#nameErr.error
+          .col
+            label.form-label(for='national') National ID
+            input#national.form-control(type='text', name='national')
+            span#nationalErr.error
+
+        .row.mb-3
+          .col
+            label.form-label(for='contact') Contact (Valid Phone Number)
+            input#contact.form-control(type='tel', name='contact', pattern='[0-9]{10}')
+            .form-text Enter a 10-digit valid phone number.
+            span#contactErr.error
+          .col
+            label.form-label(for='branch') Location / Branch
+            input#branch.form-control(type='text', name='branch')
+            span#branchErr.error
+
+        .row.mb-3
+          .col
+            label.form-label(for='type') Type of Produce
+            input#type.form-control(type='text', name='type')
+            span#typeErr.error
+          .col
+            label.form-label(for='produce') Produce Name
+            input#produce.form-control(type='text', name='produce')
+            span#produceErr.error
+
+        .row.mb-3
+          .col
+            label.form-label(for='tonnage') Tonnage (kg)
+            input#tonnage.form-control(type='number', name='tonnage')
+            span#tonnageErr.error
+          .col
+            label.form-label(for='date') Date of Dispatch
+            input#date.form-control(type='date', name='dispatchDate')
+            span#dateErr.error
+
+        .row.mb-3
+          .col
+            label.form-label(for='agent') Sales Agent Name
+            input#agent.form-control(type='text', name='agent')
+            span#agentErr.error
+          .col
+            label.form-label(for='amount') Amount Due (UGX)
+            input#amount.form-control(type='number', name='amount')
+            span#amountErr.error
+
+        .mb-3
+          label.form-label(for='dueDate') Due Date
+          input#dueDate.form-control(type='date', name='dueDate')
+          span#dueDateErr.error
+
+        button.btn.btn-primary.mt-4(type='submit') Submit
+
+    script(src='/js/credit.js')
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js')

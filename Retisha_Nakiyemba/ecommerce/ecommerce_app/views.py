@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from decimal import Decimal
+
 from .forms import ProductForm
 from .models import Product
 

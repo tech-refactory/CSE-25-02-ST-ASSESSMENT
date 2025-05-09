@@ -1,3 +1,4 @@
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -202,12 +203,12 @@
             flex-wrap: wrap;
             justify-content: space-between; /* Puts space between the columns */
             align-items: stretch; /* Make columns stretch to equal height */
-            gap: 20px; /* Add some gap between the columns */
+            gap: 10px; /* Add some gap between the columns */
         }
 
         .left-column {
             flex: 1; /* Take up available space */
-            min-width: 300px; /* Ensure a minimum width for the form */
+            min-width: 240px; /* Ensure a minimum width for the form */
         }
 
         .right-column {
@@ -223,16 +224,16 @@
         <div class="main-content">
             <div class="left-column">      
                 <div class="stats">
-                    <div><strong>Total Sales:</strong> UGX {{ total_sales }}</div>
-                    <div><strong>Total Orders:</strong> UGX {{ total_orders}}</div>
-                    <div><h1 style="color: #16a34a;">UGX {{ in_stock_value }}</h1> In Stock Value</div>
+                    <div><h2> UGX {{ total_sales|intcomma }}</h2>Sales</div>
+                    <div><h1>UGX {{ total_orders|intcomma}}</h1> Orders</div>
+                    <div><h1 style="color: #16a34a;">UGX {{ in_stock_value }}</h1> In Stock </div>
                     <div><h1 style="color:red;">{{ out_of_stock_count }} </h1> Out of Stock</div>
                 </div>
                             </div>
             <div class="right-column">
                 <div class="form-container">
                     <h2>Add New Product</h2>
-                    <form method="POST" enctype="multipart/form-data">
+                    <form method="POST" enctype="multipart/form-data" action="/">
                         {% if messages %}
                         <div class="alert alert-success">
                             {% for message in messages %}
@@ -310,7 +311,7 @@
                                 <th>Category</th>
                                 <th>Price (UGX)</th>
                                 <th>Quantity</th>
-                                <th>Color</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -319,9 +320,9 @@
                                 <td>#{{ product.id|truncatechars:8 }}</td>
                                 <td>{{ product.name }}</td>
                                 <td>{{ product.category }}</td>
-                                <td>{{ product.price|floatformat:2 }}</td>
+                                <td>{{ product.price |intcomma }}</td>
                                 <td>{{ product.quantity }}</td>
-                                <td>{{ product.color }}</td>
+                                
                             </tr>
                             {% empty %}
                             <tr>

@@ -1,0 +1,22 @@
+*{
+    background-color: rgba(228, 32, 32, 0.918);
+}
+button{
+    border-radius: 5px;
+    color: white;
+    background-color: orange;
+}
+table{
+    font-size: large;
+    border-style: dashed;
+    text-align: center;
+    align-items: justify;    
+}
+thead{
+    background-color: black;
+    color: white;
+}
+tbody{
+    background-color: white;
+    color: black;
+}

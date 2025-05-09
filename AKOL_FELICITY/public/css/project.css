@@ -87,4 +87,6 @@ th, td {
     padding: 10px;
     text-align: left;
 }
-
+#successmessage{
+    display: none; border: 2px solid green; padding: 10px; border-radius: 5px; background-color: #e6ffe6;
+}

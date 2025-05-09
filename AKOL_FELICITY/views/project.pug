@@ -44,8 +44,9 @@ html
         // Right Column
         .col-md-6
           .card.p-3
-            form(onsubmit='return validateform()' method="POST" action="/Phones" )
+            form(onsubmit='return validateform()' method="POST" action="/Phones" enctype='multipart/form-data') 
               h3 Add Product
+              h2#successmessage Successfully submitted
               .mb-3
                 input#name.form-control(type='text' placeholder='Product Name' name='productName')
                 span#name-error.text-danger
@@ -63,7 +64,7 @@ html
                   input#color.form-control(type='text' placeholder='Color' name='color')
                   span#color-error.text-danger
                 .col-md-6
-                  input#image.form-control(type='text' placeholder='Upload Image' name='image')
+                  input#image.form-control(type='file' placeholder='Upload Image' name='image')
                   span#image-error.text-danger
               button(type='submit' style='background-color: orange;') Save
               button(type='reset' style='background-color: rgb(240, 240, 240);') Clear

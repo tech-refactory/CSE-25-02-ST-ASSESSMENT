@@ -20,7 +20,7 @@ var upload = multer({ storage: storage });
 // Handle GET request to fetch phones
 router.get("/Phones", async (req, res) => {
   try {
-    let items = await Phone.find().sort({ createdAt: -1 }); 
+    let items = await Phone.find().sort({ $natural: -1 }); 
     res.render("project", { phones: items });
   } catch (error) {
     res.status(400).send("Unable to find items in the database");
@@ -28,11 +28,12 @@ router.get("/Phones", async (req, res) => {
 });
 
 
-// Handle POST request to add new phone
-router.post("/Phones", async (req, res) => {
+
+
+router.post("/Phones", upload.single("image"), async (req, res) => {
   try {
     const phone = new Phone(req.body);
-      
+    phone.image =  req.file.path  
     await phone.save();
     res.redirect("/Phones"); 
   } catch (error) {
@@ -40,8 +41,6 @@ router.post("/Phones", async (req, res) => {
     res.status(400).render("project", { error: "Failed to save phone." });
   }
 });
-
-module.exports = router;
 
 
 

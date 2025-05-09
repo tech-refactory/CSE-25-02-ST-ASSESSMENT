@@ -9,25 +9,38 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-router.post('/add', upload.single('image'), async (req, res) => {
+// GET: render product form with existing products
+router.get('/addProduct', async (req, res) => {
+  try {
+    const products = await Product.find().sort({ createdAt: -1 });
+    res.render("vendorsPage", { products });
+  } catch (err) {
+    res.status(500).send('Error loading page');
+  }
+});
+
+// POST: handle new product upload
+router.post('/addProduct', upload.single('image'), async (req, res) => {
   try {
     const { productName, category, price, quantity, color } = req.body;
+
     if (!productName || !category || !price || !quantity || !color || !req.file) {
       return res.status(400).json({ success: false, message: 'All fields are required' });
     }
 
-    const product = new Product({
-      name: productName,
+    const newProduct = new Product({
+      productName,
       category,
-      price: Number(price),
-      quantity: Number(quantity),
+      price: parseFloat(price),
+      quantity: parseInt(quantity),
       color,
-      imageUrl: `/uploads/${req.file.filename}`
+      image: `/uploads/${req.file.filename}`
     });
 
-    await product.save();
+    await newProduct.save();
     res.json({ success: true });
-  } catch (err) {
+  } catch (error) {
+    console.error("Error saving product:", error);
     res.status(500).json({ success: false, message: 'Server error' });
   }
 });

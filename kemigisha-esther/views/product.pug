@@ -54,10 +54,15 @@ head
         th CATEGORY
         th PRICE (UGX)
         th QUANTITY
+        th COLOR
+        th IMAGE
     tbody
+     each product in products
       tr
-        td 654341
-        td Samsung s25+ Ultra
-        td Smart
-        td 1000000
-        td 5
+         td #{product.productName}
+         td #{product.category}
+         td #{product. price}
+         td #{product. quantity}
+         td #{product.  color}
+         td #{product. image}
+        

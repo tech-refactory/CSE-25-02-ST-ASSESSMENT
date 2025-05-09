@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .stat-box {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background-color: #e6f3ff;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0066cc;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+        .add-product {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-save {
+            background-color: #ff9966;
+            color: white;
+        }
+        .btn-clear {
+            background-color: #f2f2f2;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        th {
+            background-color: #8b7e77;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .out-of-stock {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Inventory Management System</h2>
+        </div>
+        
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-value">UGX 50,000,000</div>
+                <div class="stat-label">Sales</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">UGX 15,000,000</div>
+                <div class="stat-label">Orders</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">UGX 42,000,000</div>
+                <div class="stat-label">In stock</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value out-of-stock">5</div>
+                <div class="stat-label">Out of stock</div>
+            </div>
+        </div>
+        
+        <div class="add-product">
+            <h3>Add Product</h3>
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="productName">
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option value="">Select category</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="home">Home Decor</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" id="price" name="price">
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity">
+            </div>
+            <div class="btn-container">
+                <button class="btn btn-save">SAVE</button>
+                <button class="btn btn-clear">CLEAR</button>
+            </div>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>CATEGORY</th>
+                    <th>PRICE (UGX)</th>
+                    <th>QUANTITY</th>
+                </tr>
+            </thead>
+            <tbody>
+               {% for stock in stocks %}
+                <tr>
+                <tr>
+                    <td>{{stock.id}}</td>
+                    <td> {{ stock.name }} </td>
+                    <td> {{ stock.category }}</td>
+                    <td> {{ stock.price }}</td>
+                    <td> {{ stock.quantity }} </td>
+                </tr>
+               { endfor}
+
+                
+            </tbody>
+        </table>
+        {{endblock}}
+    </div>
+</body>
+</html>

@@ -25,9 +25,8 @@ def indexpage(request):
             messages.error(request, "Please correct the errors below.")
     else:
         form = ProductForm()
-    
-    # Get all products, ordered by newest first
-    products = Product.objects.all().order_by('-id')
+      # Get all products, ordered by newest first (using created_at timestamp)
+    products = Product.objects.all().order_by('-created_at')
     
     # Calculate current stock value and out of stock items
     in_stock_value = sum(product.price * product.quantity for product in products)

@@ -24,31 +24,51 @@ Features:
             padding: 0 15px;
         }        .card {
             background: white;
-            border-radius: 12px;
-            padding: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            border-radius: 12px;            
+            padding: 25px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
             border: none;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+            min-height: 130px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }        .main-row .card {
+            padding: 40px;
+            min-height: 200px;
+            margin-bottom: 25px;
+        }        .main-row .stats-value {
+            font-size: 36px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .main-row .stats-label {
+            font-size: 20px;
+            margin-top: 12px;
+        }        .small-stats .card {
+            padding: 20px;
+            min-height: 100px;
         }
         .main-stats.card {
-            padding: 6px 12px;
+            min-height: 85px;
         }
         .small-stats .card {
-            padding: 18px 15px;
-            min-height: 10px;
+            min-height: 85px;
         }
         /* Stats Card Styles */.stats-value {
-            font-size: 18px;
+            font-size: 24px;
             font-weight: 700;
             margin: 0;
             color: #2d3748;
-            line-height: 1.2;
+            line-height: 1.3;
         }
         .stats-label {
             color: #718096;
             font-size: 16px;
             letter-spacing: 0.3px;
-            margin-top: 1px;
+            margin-top: 4px;
+            font-weight: 500;
         }/* Form Styles */
         .form-title {
             font-size: 17px;
@@ -114,9 +134,7 @@ Features:
         .table-container {
             background: white;
             border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
-            margin-top: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);            margin-top: 15px;  /* Reduced spacing between cards and table */
         }
         .products-table {
             width: 100%;
@@ -130,11 +148,11 @@ Features:
             text-align: left;
             font-weight: 500;
             font-size: 14px;
-        }
-        .products-table td {
+        }        .products-table td {
             padding: 12px 15px;
             border-bottom: 1px solid #edf2f7;
-            font-size: 14px;
+            font-size: 16px;  /* Increased from 14px for better readability */
+            color: #2d3748;  /* Added for better contrast */
         }
         .products-table tr:last-child td {
             border-bottom: none;
@@ -148,10 +166,12 @@ Features:
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .main-stats {
-            grid-column: span 2;
+            gap: 20px;
+        }        .main-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
         }        /* Responsive Layout */
         @media (min-width: 768px) {
             .top-section {
@@ -187,21 +207,18 @@ Features:
         <div class="top-section">
             <!-- Left Column: Dashboard Statistics -->
             <div class="stats-grid">
-                <!-- Main Stats Card: Sales and Orders -->                <div class="card main-stats">
-                    <div style="display: flex; justify-content: space-between;">
-                        <div>
-                            <div class="stats-value">UGX {{ total_sales|floatformat:2 }}</div>
-                            <div class="stats-label">Sales</div>
-                        </div>
-                        <div>
-                            <div class="stats-value">UGX {{ total_orders|floatformat:2 }}</div>
-                            <div class="stats-label">Orders</div>
-                        </div>
+                <!-- Main Stats Card: Sales and Orders -->                <div class="small-stats main-row">                    <div class="card">
+                        <div class="stats-value"><span>UGX</span>{{ total_sales|floatformat:2 }}</div>
+                        <div class="stats-label">Sales</div>
+                    </div>
+                    <div class="card">
+                        <div class="stats-value"><span>UGX</span>{{ total_orders|floatformat:2 }}</div>
+                        <div class="stats-label">Orders</div>
                     </div>
                 </div>
                 <div class="small-stats">
                     <div class="card">
-                        <div class="stats-value">UGX {{ in_stock_value|floatformat:2 }}</div>
+                        <div class="stats-value"><span>UGX</span>{{ in_stock_value|floatformat:2 }}</div>
                         <div class="stats-label">In stock</div>
                     </div>
                     <div class="card">

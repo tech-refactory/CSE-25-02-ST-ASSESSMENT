@@ -1,0 +1,83 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title Product Page
+    link(rel='stylesheet' href='/css/product.css')
+
+  body
+    .container
+      
+      .stats
+        div
+          .stat UGX 50,000,000
+            p sales
+          br
+          br
+          .stat UGX 42,000,000
+            p In stock
+        br
+        br
+        div
+          .stat UGX 15,000,000
+            p Orders
+          br
+          br
+          .stat 5
+            p Out of stock
+
+
+      
+      form#productForm(action='/product' method='post')
+        h2 Add Product
+        if success && success.length
+         .alert(style="background: #00c853; color: white; padding: 10px 20px; border-radius: 4px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;")
+          span= success[0]
+          button(type="button", onclick="this.parentElement.style.display='none'" style="background: none; border: none; color: white; font-size: 16px; cursor: pointer;") X
+        .form-group
+          label(for='name') Product Name
+          input#name.input(type='text' name='productName' placeholder='Product Name')
+          span.error-message
+        .form-group
+          label(for='category') Category
+          input#category.input(type='text' name='category' placeholder='Category')  
+          span.error-message
+        .form-group
+          label(for='price') Price
+          input#price.input(type='number' name='price' placeholder='Price')
+          span.error-message
+        .form-group
+          label(for='quantity') Quantity
+          input#quantity.input(type='number' name='quantity' placeholder='Quantity')
+          span.error-message
+        .form-group
+          label(for='color') Color
+          input#color.input(type='text' name='color' placeholder='Color')
+          span.error-message
+        button.save(type='submit' ) SAVE
+        button.clear(type='submit') CLEAR
+
+      
+      table
+        thead
+          tr
+            th ID
+            th NAME
+            th CATEGORY
+            th PRICE (UGX)
+            th QUANTITY
+        tbody
+          each product in products
+            tr
+              td #{product._id}
+              td #{product.productName}
+              td #{product.category}
+              td #{product.price}
+              td #{product.quantity}
+
+      script(src='/js/product.js')
+
+
+
+        

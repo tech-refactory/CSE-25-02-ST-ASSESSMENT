@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/css/product.css">
+</head>
+<body>
+    <div class="container">
+        <div class="stats">
+
+        <div>
+          <div class="stat">Sales: UGX 50,000,000</div><br><br>
+          <div class="stat">In stock: UGX 42,000,000</div>
+          
+        </div><br><br>
+
+          <div>
+            <div class="stat">Orders: UGX 15,000,000</div><br><br>
+          <div class="stat">Out of stock: 5</div>
+        </div>
+        
+    
+        <form id="productForm" action="/add" method="POST">
+          <h2>Add Product</h2>
+    
+          <div class="form-group">
+            <label for="name"> Product Name</label>
+            <input type="text" name="name" id="name">
+            <span class="error-message"></span>
+          </div>
+    
+          <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" name="category" id="category" >
+            <span class="error-message"></span>
+          </div>
+    
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" name="price" id="price" >
+            <span class="error-message"></span>
+          </div>
+    
+          <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="number" name="quantity" id="quantity" >
+            <span class="error-message"></span>
+          </div>
+    
+          <div class="form-group">
+            <label for="color">Color</label>
+            <input type="text" name="color" id="color" >
+            <span class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="image">Upload Image</label>
+            <input type="file" name="image" id="image" >
+            <span class="error-message"></span>
+          </div>
+    
+          <button type="submit">Save</button>
+          <button type="reset">Clear</button>
+        </form>
+    </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>NAME</th>
+              <th>CATEGORY</th>
+              <th>PRICE (UGX)</th>
+              <th>QUANTITY</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>654341</td>
+              <td>Samsung s25+ Ultra</td>
+              <td>Smart</td>
+              <td>1000000</td>
+              <td>5</td>
+    
+</body>
+</html>

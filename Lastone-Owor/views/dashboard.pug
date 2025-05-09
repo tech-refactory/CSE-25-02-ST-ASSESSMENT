@@ -1,0 +1,57 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Dashboard
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    .container
+      .row
+        .card
+          .card-flex
+            .card-center
+              .insight-value UGX 50,000,000
+              .insight-title Sales
+            .card-divider
+            .card-center
+              .insight-value UGX 15,000,000
+              .insight-title Orders
+        .add-product
+          h3 Add Product
+          form(id="productForm" novalidate='' action='/' method='POST')
+            input(type='text' placeholder='Product Name' name='name')
+            input(type='text' placeholder='Category' name='category')
+            input(type='number' placeholder='Price' name='price')
+            input(type='number' placeholder='Quantity' name='quantity')
+            .add-product-row
+              input(type='text' placeholder='Color' name='color')
+              input(type='file' disabled='')
+            .add-product-btns
+              button.save-btn(type='submit') SAVE
+              button.clear-btn(type='reset') CLEAR
+      .row
+        .card.insight-green
+          .insight-value UGX 42,000,000
+          .insight-title In stock
+        .card
+          .insight-value.insight-red 5
+          .insight-title Out of stock
+        table
+          thead
+            tr
+              th ID
+              th NAME
+              th CATEGORY
+              th PRICE(UGX)
+              th QUANTITY
+              th COLOR
+          tbody
+            each product in products
+              tr
+                td #{product._id.toString().slice(-6).toUpperCase()}
+                td #{product.name}
+                td #{product.category}
+                td #{product.price.toLocaleString()}
+                td #{product.quantity}
+                td #{product.color}
+    script(src="/js/validation.js")

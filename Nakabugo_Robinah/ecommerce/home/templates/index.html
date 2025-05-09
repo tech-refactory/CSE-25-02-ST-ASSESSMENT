@@ -1,105 +1,111 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Product Dashboard</title>
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            background-color: #f4f4f4; 
-            margin: 20px; 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<style>
+        body {
+            background-color: #f8f9fa;
         }
-
-        .container {
-            display: flex;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-        }
-
-        .form-container {
-            background: white;
+        .stats-card {
+            background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px #ccc;
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
-
-        .form-container h3 {
-            margin-top: 0;
+        .big-number {
+            font-size: 2em;
+            color: #007bff;
         }
-
-        .form-container form input,
-        .form-container form button,
-        .form-container form select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+        .stat-label {
+            font-size: 1.2em;
+            color: #6c757d;
         }
-
-        .form-container form button {
-            background-color: #f77b1e;
-            color: white;
-            font-weight: bold;
-            border: none;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0 0 10px #ccc;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background: #333;
-            color: white;
+        .form-container {
+            margin-top: 20px;
         }
     </style>
+
+
+
+
+
+
+
 </head>
+
 <body>
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <!-- Sales Stats -->
+            <div class="col-md-4">
+                <div class="card stats-card">
+                    <div class="big-number">UGX 50,000,000</div>
+                    <div class="stat-label">Sales</div>
+                </div>
+            </div>
+            <!-- Orders Stats -->
+            <div class="col-md-4">
+                <div class="card stats-card">
+                    <div class="big-number">UGX 15,000,000</div>
+                    <div class="stat-label">Orders</div>
+                </div>
+            </div>
+            <!-- Add Product Form -->
 
-    <div class="container">
-        <div class="form-container">
-            <h3>Add Product</h3>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Save</button>
-            </form>
-        </div>
-    </div>
+            <div class="col-md-4">
+                <div class="card stats-card">
+                    <div class="big-number">UGX 50,000,000</div>
+                    <div class="stat-label">In Stock</div>
+                </div>
+            </div>
+            <!-- Orders Stats -->
+            <div class="col-md-4">
+                <div class="card stats-card">
+                    <div class="big-number">UGX 15,000,000</div>
+                    <div class="stat-label">order stock</div>
+                </div>
+            </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>CATEGORY</th>
-                <th>PRICE (UGX)</th>
-                <th>QUANTITY</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products %}
-            <tr>
-                <td>#{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.quantity }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+
+            <div class="container">
+                <div class="form-container">
+                    <h3>Add Product</h3>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Save</button>
+                    </form>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>CATEGORY</th>
+                        <th>PRICE (UGX)</th>
+                        <th>QUANTITY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>#{{ product.id }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.quantity }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
 </body>
+
 </html>

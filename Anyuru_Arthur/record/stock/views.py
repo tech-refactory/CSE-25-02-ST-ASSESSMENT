@@ -4,8 +4,15 @@ from .forms import *
 # Create your views here.
 
 def homePage(request):
-    stock = product.objects.get()
+    stock = product.objects.all()
+    total_amount = 0 
+    for each in stock:
+        total_amount += each.price
 
 
-    return render(request, 'index.html', {'stocks': stock})
+    context = {
+        'stocks': stock,
+        'sales': "{;,}".format(total_amount),
+    }
+    return render(request, 'index.html', context)
 

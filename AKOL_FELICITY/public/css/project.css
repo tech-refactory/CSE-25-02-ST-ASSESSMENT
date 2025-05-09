@@ -11,7 +11,9 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   
 }
-
+.small{
+    padding: 18%;
+}
 .card .card-title {
   font-size: 1.25rem;
   font-weight: 600;
@@ -69,3 +71,20 @@ form button[type="submit"] {
 .mt-4 {
   margin-top: 1.5rem !important;
 }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+thead th {
+    background-color: black;
+    color: white;
+}
+
+
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+

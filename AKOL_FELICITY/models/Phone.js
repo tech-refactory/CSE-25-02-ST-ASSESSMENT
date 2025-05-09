@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const produceSchema = new mongoose.Schema({
+const phoneSchema = new mongoose.Schema({
   productName: {
     type: String,
     trim: true,
@@ -28,4 +28,4 @@ const produceSchema = new mongoose.Schema({
     trim: true,
   },
 });
-module.exports = mongoose.model("Produce", produceSchema);
+module.exports = mongoose.model("Phone", phoneSchema);

@@ -1,53 +1,50 @@
 const express = require("express");
 const router = express.Router();
-const multer =require ("multer")
-const path =require("path")
-const connectEnsureLogin = require("connect-ensure-login")
-//import model
-const Phone= require('../models/Phone')
+const multer = require("multer");
+const path = require("path");
+// Import the Phone model
+const Phone = require('../models/Phone');
 
-//image upload configs
+// Image upload configuration
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-  cb(null, "public/imgs/uploads");
+    cb(null, "public/imgs/uploads");
   },
   filename: (req, file, cb) => {
-  cb(null, file.originalname);
+    cb(null, file.originalname);
   },
-  });
-  var upload = multer({ storage: storage });
-
-
-router.get("/Phones",async (req, res) => {
-  
-  res.render("project");
 });
 
-router.post("/Phone", upload.single("image"), async (req, res) => {
+var upload = multer({ storage: storage });
+
+// Handle GET request to fetch phones
+router.get("/Phones", async (req, res) => {
   try {
-    const phone = new Phone(req.body);
-    phone.image = req.file.path;
-    console.log(phone);
-    await phone.save();
-    return res.redirect("/Phone"); 
+    let items = await Phone.find().sort({ createdAt: -1 }); 
+    res.render("project", { phones: items });
   } catch (error) {
-    console.error("Error saving phone:", error);
-    return res.status(400).render("phone", { error: "Failed to save phone." });
+    res.status(400).send("Unable to find items in the database");
   }
 });
-//to list of phonelist
-router.get("/phonelist",async(req,res) =>{
-  
+
+
+// Handle POST request to add new phone
+router.post("/Phones", async (req, res) => {
   try {
-     let items= await Phone.find()
-     res.render("project",{
-       phones:items,
-       
-     })
-   } catch (error) {
-   res.status(400).send("unable to find items in the database ")  
-   }
- })
+    const phone = new Phone(req.body);
+      
+    await phone.save();
+    res.redirect("/Phones"); 
+  } catch (error) {
+    console.error("Error saving phone:", error);
+    res.status(400).render("project", { error: "Failed to save phone." });
+  }
+});
+
+module.exports = router;
+
+
+
 
  
 

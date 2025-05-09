@@ -17,10 +17,10 @@ def vendor_dashboard(request):
         form = AddProductForm()
 
     # High-level insights
-    total_revenue = 0 
-    expected_revenue = 0
+    total_sales = 0 
+    Orders = 0
     capital_in_stock = sum(p.total_value for p in AddProduct.objects.all())
-    out_of_stock_count = AddProduct.objects.filter(quantity=0).count()
+    out_of_stock = AddProduct.objects.filter(quantity=0).count()
 
     # All products 
     products = AddProduct.objects.all().order_by('-id')
@@ -28,9 +28,9 @@ def vendor_dashboard(request):
     context = {
         'form': form,
         'products': products,
-        'total_revenue': total_revenue,
-        'expected_revenue': expected_revenue,
+        'total_revenue': total_sales,
+        'expected_revenue': Orders,
         'capital_in_stock': capital_in_stock,
-        'out_of_stock_count': out_of_stock_count,
+        'out_of_stock_count': out_of_stock,
     }
     return render(request, 'vendor/product_dashboard.html', context)

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vendor Dashboard</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+
+    <h1>Vendor Dashboard</h1>
+
+    <!-- High-level insights -->
+    <div class="insights">
+        <div class="card">
+            <h3>Total Revenue</h3>
+            <p>UGX{{ total_revenue }}</p>
+        </div>
+        <div class="card">
+            <h3>Expected Revenue</h3>
+            <p>UGX{{ expected_revenue }}</p>
+        </div>
+        <div class="card">
+            <h3>Capital in Stock</h3>
+            <p>UGX{{ capital_in_stock }}</p>
+        </div>
+        <div class="card">
+            <h3>Out-of-stock Products</h3>
+            <p>{{ out_of_stock_count }}</p>
+        </div>
+    </div>
+
+    <!-- Add Product Form -->
+    <div class="form-container">
+        <h2>Add Product</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert-success">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-field">
+                {{ form.product_name.label_tag }}
+                {{ form.product_name }}
+                {{ form.product_name.errors }}
+            </div>
+            <div class="form-field">
+                {{ form.category.label_tag }}
+                {{ form.category }}
+                {{ form.category.errors }}
+            </div>
+            <div class="form-field">
+                {{ form.price.label_tag }}
+                {{ form.price }}
+                {{ form.price.errors }}
+            </div>
+            <div class="form-field">
+                {{ form.quantity.label_tag }}
+                {{ form.quantity }}
+                {{ form.quantity.errors }}
+            </div>
+            <div class="form-field">
+                {{ form.color.label_tag }}
+                {{ form.color }}
+                {{ form.color.errors }}
+            </div>
+            <div class="form-field">
+                {{ form.image.label_tag }}
+                {{ form.image }}
+                {{ form.image.errors }}
+            </div>
+            <button type="submit">SAVE</button>
+            <button type="submit">CLEAR</button>
+
+        </form>
+    </div>
+
+    <!-- Product List Table -->
+    <div>
+        <h2>All Products</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Color</th>
+                    <th>Image</th>
+                    <th>Total Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.product_name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>${{ product.price }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>{{ product.color }}</td>
+                    <td>
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="Product Image" width="50">
+                        {% else %}
+                            No Image
+                        {% endif %}
+                    </td>
+                    <td>${{ product.total_value }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">No products available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

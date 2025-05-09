@@ -1,0 +1,24 @@
+body { background: #f5f6fa; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+.container { max-width: 1200px; margin: 30px auto; }
+.row { display: flex; gap: 20px; }
+.card { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 40px 30px; flex: 1; display: flex; flex-direction: column; align-items: center; }
+.card-divider { border-left: 1px solid #ddd; margin: 0 30px; height: 60px; }
+.card-flex { display: flex; align-items: center; justify-content: center; width: 100%; }
+.card-center { text-align: center; flex: 1; }
+.insight-title { color: #888; font-size: 18px; margin-top: 10px; }
+.insight-value { font-size: 2em; font-weight: bold; }
+.insight-green { color: #1bc47d; }
+.insight-red { color: #e74c3c; }
+.add-product { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 30px; margin-bottom: 20px; flex: 1; }
+.add-product h3 { margin-top: 0; }
+.add-product input[type=text], .add-product input[type=number] { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+.add-product-row { display: flex; gap: 10px; }
+.add-product input[type=file] { flex: 1; background: #eee; }
+.add-product button { padding: 12px 30px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
+.add-product .save-btn { background: #f28c38; color: #fff; margin-right: 10px; }
+.add-product .clear-btn { background: #ddd; color: #222; }
+.add-product-btns { display: flex; gap: 10px; }
+table { width: 100%; border-collapse: collapse; background: #fff; margin-top: 20px; }
+th, td { border: 1px solid #222; padding: 10px 8px; text-align: left; }
+th { background: #111; color: #fff; }
+tr:nth-child(even) { background: #f9f9f9; } 

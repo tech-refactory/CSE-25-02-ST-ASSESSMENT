@@ -78,3 +78,7 @@ def clean_color(self):
             raise forms.ValidationError("Color is required.")
         
         return color
+
+
+def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

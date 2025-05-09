@@ -78,7 +78,17 @@ input[type=text], input[type=password] {
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 50%;
+}
+
+.clear-button {
+  background-color: #e6e5e2;
+  color: rgb(26, 25, 25);
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 50%;
 }
 
 button:hover {
@@ -113,6 +123,12 @@ span.psw {
 
 .colorAndImage{
     display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.submit-buttons{
+       display: flex;
     flex-direction: row;
     gap: 10px;
 }

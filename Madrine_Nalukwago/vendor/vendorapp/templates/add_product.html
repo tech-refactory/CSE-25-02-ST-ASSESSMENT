@@ -33,8 +33,9 @@
                 <div class="col-md-6">
                     <div class="card text-gray">
                         <div class="card-body">
+                            <p class="card-text"> UGX 50,000,000</p>
                             <h5 class="card-title">Sales</h5>
-                            <p class="card-text">{{ sales}} UGX</p>
+
                         </div>
                     </div>
                 </div>
@@ -42,8 +43,9 @@
                 <div class="col-md-6">
                     <div class="card text-gray">
                         <div class="card-body">
+                            <p class="card-text">UGX 15,000,000</p>
                             <h5 class="card-title">Orders</h5>
-                            <p class="card-text">{{ orders }}</p>
+
                         </div>
                     </div>
                 </div>
@@ -51,8 +53,9 @@
                 <div class="col-md-6">
                     <div class="card text-gray">
                         <div class="card-body">
+                            <p class="card-text success">UGX 42,000,000</p>
                             <h5 class="card-title">In Stock</h5>
-                            <p class="card-text">{{ in_stock_count }}</p>
+
                         </div>
                     </div>
                 </div>
@@ -60,26 +63,25 @@
                 <div class="col-md-6">
                     <div class="card text-gray">
                         <div class="card-body">
+                            <p class="card-text">5</p>
                             <h5 class="card-title">Out of stock</h5>
-                            <p class="card-text">{{out_of_stock_count }}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Right: Product Form -->
         <div class="col-md-6">
             <div class="card shadow-lg border-success">
                 <div class="card-header text-center">
                     <h4 class="mb-0">Add Product</h4>
                 </div>
                 <div class="card-body">
-                    <!-- {% if form_submitted %} -->
-                        <!-- <div class="alert alert-success text-center" role="alert">
+                    {% if form_submitted %} 
+                        <div class="alert alert-success text-center" role="alert">
                             ✅ Product has been added successfully!
                         </div> -->
-                    <!-- {% endif %} -->
+                    {% endif %}
                     <form method="post" enctype="multipart/form-data" novalidate>
                         {% csrf_token %}
                         {{ form|crispy }}

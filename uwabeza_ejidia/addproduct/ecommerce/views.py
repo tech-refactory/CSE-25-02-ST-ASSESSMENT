@@ -12,7 +12,9 @@ def vendor_dashboard(request):
             form.save()
             # putting success message
             messages.success(request, "Product added successfully.")
+
             return redirect('product_dashboard') 
+        else:messages.error(request,'Please correct the errors below.')
     else:
         form = AddProductForm()
 

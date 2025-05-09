@@ -9,17 +9,16 @@
 </head>
 <body>
 
-    <h1>Vendor Dashboard</h1>
 
     <!-- High-level insights -->
     <div class="insights">
         <div class="card">
-            <h3>Total Revenue</h3>
-            <p>UGX{{ total_revenue }}</p>
+            <h3>Sales</h3>
+            <p>UGX{{ total_sales }}</p>
         </div>
         <div class="card">
-            <h3>Expected Revenue</h3>
-            <p>UGX{{ expected_revenue }}</p>
+            <h3>Orders</h3>
+            <p>UGX{{ Orders }}</p>
         </div>
         <div class="card">
             <h3>Capital in Stock</h3>
@@ -27,7 +26,7 @@
         </div>
         <div class="card">
             <h3>Out-of-stock Products</h3>
-            <p>{{ out_of_stock_count }}</p>
+            <p>UGX{{ out_of_stock_count }}</p>
         </div>
     </div>
 
@@ -99,7 +98,7 @@
                 <tr>
                     <td>{{ product.product_name }}</td>
                     <td>{{ product.category }}</td>
-                    <td>${{ product.price }}</td>
+                    <td>UGX{{ product.price }}</td>
                     <td>{{ product.quantity }}</td>
                     <td>{{ product.color }}</td>
                     <td>
@@ -109,7 +108,7 @@
                             No Image
                         {% endif %}
                     </td>
-                    <td>${{ product.total_value }}</td>
+                    <td>UGX{{ product.total_value }}</td>
                 </tr>
                 {% empty %}
                 <tr>

@@ -1,36 +1,36 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const Product = require('../models/AddProduct');
 
-// Import model
-const AddProduct = require("../models/AddProduct");
-
-// Show Addproduct form
-router.get("/AddProduct", (req, res) => {
-  res.render("addProduct"); 
+router.get('/addproduct', async (req, res) => {
+  const products = await Product.find();
+  res.render('addProduct', { products });
 });
 
-// ROUTE: Save new product
-router.post('/addProduct', async (req, res) => {
-    console.log(req.body);
-    try {
-        const newProduct = new Product(req.body);
-        await newProduct.save();
-        res.redirect('/Producttable');
-    } catch (error) {
-        console.error("Error saving product:", error);
-        res.status(500).send("Unable to save product to DB");
-    }
-});
+router.post('/addproduct', async (req, res) => {
+  const { productName, category, price, quantity, color } = req.body;
 
-// List all produce sales
-router.get("/Producttable", async (req, res) => {
+  if (!productName || !category || !price || !quantity || !color) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  console.log('Received data:', req.body); // Debugging line to see if the data is correct
+
+  const newProduct = new Product({
+    Id: '#' + Math.floor(Math.random() * 1000000),
+    Name: productName,
+    Category: category,
+    price: parseFloat(price),
+    Quantity: parseInt(quantity),
+    Color: color
+  });
+
   try {
-    // Fetch all products from the database and sort them by most recent
-    const Product = await Product.find().sort({ $natural: -1 });
-    res.render("producttable", { product }); // Render the list of produce sales
+    await newProduct.save();
+    res.status(201).json({ message: 'Product added successfully' });
   } catch (error) {
-    console.error("Error fetching products:", error);
-    res.status(400).send("Unable to retrieve products from the database");
+    console.error('Error saving product:', error); // Log the error if any
+    res.status(500).json({ message: 'Failed to save product' });
   }
 });
 

@@ -1,72 +1,31 @@
-//  1. Dependencies
-const express =require('express');
-const path = require('path');
-const mongoose =require('mongoose');
-const passport =require('passport')
-const expressSession = require("express-session")({
-  secret: "secret",
-  resave: false,
-  saveUninitialized: false,
-  });
+const express = require('express');
+const mongoose = require('mongoose');
+const addProductRoutes = require('./routes/addProductRoutes');
 
-require('dotenv').config();
+const app = express();
+const PORT = 3000;
 
-//import user's mode
-const AddProduct =require('./models/AddProduct')
-
-// 2.Instantations
-const app =express();
-const PORT =3000;
-
-//import routes
-  const addProductRoutes =require("./routes/addProductRoutes");
+// Connect to MongoDB
+mongoose.connect('mongodb://127.0.0.1:27017/products', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => console.log('MongoDB connected'))
+  .catch(err => console.log('MongoDB connection error: ', err));
 
 
+// Use Express' built-in middleware for parsing request bodies
+app.use(express.urlencoded({ extended: true })); // Parse form data
+app.use(express.json()); // Parse JSON data
 
+// Serve static files from the 'public' directory (for CSS, JS, etc.)
+app.use(express.static('public'));
 
-// 3. Configurations
-//set view engine to pug
-app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));//specify the views directory
+// Set Pug as the template engine
+app.set('view engine', 'pug');
+app.set('views', './views');
 
-  //app.locals.moment =moment;
-  // app.locals.moment = moment;
-mongoose.connect(process.env.DATABASE, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-//testing the connection 
-mongoose.connection
-    .on('open', () => {
-        console.log('Mongoose connection open');
-    })
-    .on('error', (err) => {
-        console.log(`Connection error: ${err.message}`);
-    });
+// Use the routes for adding products
+app.use('/', addProductRoutes);
 
-
-// 4. middleware
-app.use(express.static(path.join(__dirname, 'public')));
-app.use("/public/img/uploads", express.static(__dirname + "/public/img/uploads"));
-app.use(express.urlencoded({ extended: true })); //helps to parse data from forms
-// express session configs
-app.use(expressSession);
-app.use(passport.initialize());
-app.use(passport.session());
-
-// // passport configs
-// passport.use(Signup.createStrategy());
-// passport.serializeUser(Signup.serializeUser());
-// passport.deserializeUser(Signup.deserializeUser());
-
-
-
-//5.Routes
-//using imported routes
- app.use("/", addProductRoutes);
-
-
-
-
-//6.Bootstraping the server
-app.listen(PORT, () => console.log(`listening on PORT ${PORT}`));
+// Start the server
+app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));

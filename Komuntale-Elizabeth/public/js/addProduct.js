@@ -1,4 +1,6 @@
-function validateForm() {
+function validateForm(event) {
+  event.preventDefault(); // prevent by default, submit manually if valid
+
   const fields = [
     { id: 'productName', minLength: 3 },
     { id: 'category', minLength: 3 },
@@ -33,16 +35,18 @@ function validateForm() {
     }
   });
 
+  const messageDiv = document.getElementById('successMessage');
+
   if (allValid) {
-    alert("Form submitted successfully!");
-    clearForm();
+    messageDiv.textContent = 'Product has been added successfully!';
+    messageDiv.style.display = 'block';
+    messageDiv.style.color = 'green';
+
+    // Actually submit the form
+    event.target.submit();
+  } else {
+    messageDiv.style.display = 'none';
   }
 }
 
-function clearForm() {
-  document.querySelectorAll("input").forEach(input => {
-    input.value = '';
-    input.classList.remove('valid', 'invalid');
-  });
-  document.querySelectorAll(".error").forEach(err => err.textContent = '');
-}
+

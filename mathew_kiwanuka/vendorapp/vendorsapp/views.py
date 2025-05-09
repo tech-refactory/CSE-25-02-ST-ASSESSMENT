@@ -25,3 +25,12 @@ def dashboard(request):
     orders = 15000000
     in_stock = sum([p.price * p.quantity for p in Product.objects.all()])
     out_of_stock = Product.objects.filter(quantity=0).count()
+
+    return render(request, 'dashboard.html', {
+        'form': form,
+        'products': products,
+        'sales': sales,
+        'orders': orders,
+        'in_stock': in_stock,
+        'out_of_stock': out_of_stock,
+    })

@@ -18,7 +18,7 @@ const app = express();
 const PORT = 3002;
 
 //Import Routes
-// const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
 
 
 
@@ -39,9 +39,6 @@ mongoose.connect(process.env.DATABASE, {
       console.log(`Connection error: ${err.message}`);
     });
 
-
-
-
 //4)middleware
 //specifies folder for static files
 app.use(express.static(path.join(__dirname, "public")));
@@ -49,7 +46,7 @@ app.use(express.urlencoded({ extended: true })); //helps to parse data from form
 
 
 //routes
-// app.use("/", authRoutes);
+app.use("/", productRoutes);
 
 //Boostrapping Server
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));

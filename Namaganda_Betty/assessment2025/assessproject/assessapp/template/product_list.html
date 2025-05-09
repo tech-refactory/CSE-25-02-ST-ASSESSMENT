@@ -1,0 +1,47 @@
+
+
+
+<!-- Display summary stats and product list -->
+<div>
+    <p>Total Sales: UGX {{ total_sales }}</p>
+    <p>Total Orders: {{ total_orders }}</p>
+    <p>Total In Stock: {{ total_in_stock }}</p>
+    <p>Out of Stock: {{ out_of_stock }}</p>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+add_product.html:
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+
+
+
+

@@ -1,3 +1,7 @@
+body{
+    background-color: rgb(250, 248, 248);
+}
+
 .cards{
     width: 100%;
     padding: 35px 20px;
@@ -47,4 +51,19 @@
 .numb{
     text-align: left;
     margin-left: 0;
+}
+.user-input-box{
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    padding-bottom: 15px;
+}
+
+.user-input-box input{
+    height: 40px;
+    width: 95%;
+    border-radius: 7px;
+    outline: none;
+    border: 1px solid grey;
+    padding: 0 10px;
 }

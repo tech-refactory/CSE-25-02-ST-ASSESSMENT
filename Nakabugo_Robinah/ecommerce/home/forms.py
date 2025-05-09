@@ -16,3 +16,6 @@ class ProductForm(forms.ModelForm):
                 'required': 'This field is required',
                 'invalid': 'Invalid field'
             }
+
+
+            

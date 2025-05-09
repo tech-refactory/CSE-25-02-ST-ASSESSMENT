@@ -14,13 +14,13 @@ def landing_page(request):
     else:
         form = ProductForm()
     
-    # Placeholder for dashboard totals (to be calculated later)
-    total_sales = 0  # Placeholder
-    total_orders = 0  # Placeholder
-    in_stock_value = 0  # Placeholder
+
+    total_sales = 0  
+    total_orders = 0  
+    in_stock_value = 0  
     out_of_stock_count = Product.objects.filter(quantity=0).count()
 
-    products = Product.objects.all().order_by('-id')  # Newest first
+    products = Product.objects.all().order_by('-id') 
     
     context = {
         'form': form,

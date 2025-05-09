@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sales',
     'crispy_forms',
-    'tailwind'
+     "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -127,4 +127,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-CRISPY_TEMPLATE_PACK = 'tailwind'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"  
+CRISPY_TEMPLATE_PACK = "bootstrap5"          
+

@@ -1,20 +1,25 @@
-# forms.py
 from django import forms
 from .models import Product
 
-class ProductForm(forms.Form):
-    product_name = forms.CharField(label='Product Name')
-    category = forms.CharField(label='Category')
-    price = forms.DecimalField(label='Price (UGX)')
-    quantity = forms.IntegerField(label='Quantity')
-    color = forms.CharField(label='Color', required=False) # Example optional field
-    upload_image = forms.FileField(label='Upload Image', required=False)
 
-    def clean_product_name(self):
-        product_name = self.cleaned_data['product_name']
-        if len(product_name) < 3:
+class ProductForm(forms.ModelForm):
+    name = forms.CharField(label='Product Name', widget=forms.TextInput(attrs={'placeholder': 'Product Name'}))
+    category = forms.CharField(label='Category', widget=forms.TextInput(attrs={'placeholder': 'Category'}))
+    price = forms.DecimalField(label='Price ', widget=forms.NumberInput(attrs={'placeholder': 'Price '}))
+    quantity = forms.IntegerField(label='Quantity', widget=forms.NumberInput(attrs={'placeholder': 'Quantity'}))
+    color = forms.CharField(label='Color', required=False, widget=forms.TextInput(attrs={'placeholder': 'Color'}))
+    upload_image = forms.FileField(label='Upload Image', required=False, widget=forms.FileInput(attrs={'placeholder': 'Upload Image'}))
+
+    class Meta:
+        model = Product
+        fields = ['name', 'category', 'price', 'quantity', 'color', 'image']
+        # You can customize widgets, labels, etc., here if needed
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if len(name) < 3:
             raise forms.ValidationError("Product name must be at least 3 characters long.")
-        return product_name
+        return name
 
     def clean_price(self):
         price = self.cleaned_data['price']
@@ -28,7 +33,6 @@ class ProductForm(forms.Form):
             raise forms.ValidationError("Quantity cannot be negative.")
         return quantity
 
-    # Example of a cross-field validation
     def clean(self):
         cleaned_data = super().clean()
         quantity = cleaned_data.get('quantity')

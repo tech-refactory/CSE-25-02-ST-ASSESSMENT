@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from decimal import Decimal
 from .forms import ProductForm
 from .models import Product
 
@@ -7,20 +8,20 @@ def indexpage(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            form.save()  # Now this will work because ProductForm is a ModelForm
             messages.success(request, "Product added successfully!")
-            return redirect('landing_page')
+            return redirect('indexpage')
     else:
         form = ProductForm()
-    
-    # Placeholder for dashboard totals (to be calculated later)
-    total_sales = 0  # Placeholder
-    total_orders = 0  # Placeholder
-    in_stock_value = 0  # Placeholder
-    out_of_stock_count = Product.objects.filter(quantity=0).count()
 
-    products = Product.objects.all().order_by('-id')  # Newest first
-    
+    products = Product.objects.all()
+
+    in_stock_value = sum(product.price * product.quantity for product in products)
+    out_of_stock_count = Product.objects.filter(quantity=0).count()
+    total_sales = sum(product.price * Decimal('0.8') for product in products)
+    total_orders = sum(product.price * Decimal('0.2') for product in products)
+    products = products.order_by('-id')  # Make sure your model has an 'id' or use 'product_id'
+
     context = {
         'form': form,
         'total_sales': total_sales,

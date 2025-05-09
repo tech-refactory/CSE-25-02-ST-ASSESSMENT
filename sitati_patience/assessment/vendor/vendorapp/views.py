@@ -21,12 +21,15 @@ def dashboard(request):
     products = Product.objects.all().order_by('-id') # -id gives precedence to the last one and the vice versa is true
     total_sales = Product.objects.aggregate(total=Sum('price'))['total'] or 0
     out_of_stock_count = Product.objects.filter(quantity=0).count()
-
+    in_stock_count = Product.objects.filter(quantity__gt=0).count() #filter products where quantity is greater than 0
+    orders = Product.objects.count()
     context = {
         'form': form,
         'products': products,
         'total_sales': total_sales,
         'out_of_stock_count': out_of_stock_count,
-        'success': success
+        'success': success,
+        'orders' : orders,
+        'in_stock_count': in_stock_count
     }
     return render(request, 'dashboard.html', context)

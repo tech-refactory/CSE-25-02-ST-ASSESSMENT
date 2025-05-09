@@ -26,14 +26,14 @@
 
                 <!-- Right: Orders -->
                 <div class="flex-1 text-center">
-                    <p class="text-lg font-bold">UGX {{ total_orders|floatformat:2|intcomma }}</p>
+                    <p class="text-lg font-bold">5</p>
                     <p class="text-gray-500">Orders</p>
                 </div>
             </div>
             <!-- In Stock Card -->
             <div class="bg-white shadow p-4 flex-1 flex items-center justify-center text-center">
                 <div>
-                    <p class="text-green-600 font-bold text-xl">UGX {{ total_stock }}</p>
+                    <p class="text-green-600 font-bold text-xl">{{ in_stock_count }}</p>
                     <p class="text-gray-500">In stock</p>
                 </div>
             </div>

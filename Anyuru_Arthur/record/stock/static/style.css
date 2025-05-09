@@ -1,8 +1,7 @@
-button{
-    border-radius: 5px;
-    color: white;
-    background-color: orange;
+body{
+    background-color: hsl(220deg 14.29% 95.88%);
 }
+
 table{
     font-size: large;
     border-style: dashed;
@@ -19,7 +18,7 @@ tbody{
 }
 card{
     background-color: white;
-    border-radius: 16px;
+    border-radius: 8px;
     padding: 24px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     position: relative;

@@ -18,7 +18,7 @@ def homePage(request):
             new_stock.quantity = stock.quantity
             stock.save()
         else:
-            return redirect(failPage)    
+            return redirect('success/')    
 
     context = {
         'sales_form': sales_form,

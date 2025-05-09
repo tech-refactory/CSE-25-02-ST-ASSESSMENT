@@ -1,0 +1,55 @@
+/* Custom styles that enhance Bootstrap */
+.stats-container {
+    margin-bottom: 2rem;
+}
+
+.stat-box {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+    height: 100%;
+}
+
+.form-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+    margin-bottom: 2rem;
+}
+
+.save-btn {
+    background: #f4811e;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #e67613;
+    color: white;
+}
+
+/* Form validation styles */
+.form-control.valid {
+    border-color: #198754;
+}
+
+.form-control.invalid {
+    border-color: #dc3545;
+}
+
+/* Table styles */
+.table th {
+    background-color: #212529;
+    color: white;
+}
+
+/* Animation for new products */
+tr.new-product {
+    animation: highlightNew 2s ease-out;
+}
+
+@keyframes highlightNew {
+    0% { background-color: rgba(25, 135, 84, 0.1); }
+    100% { background-color: transparent; }
+}

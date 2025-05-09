@@ -1,0 +1,56 @@
+[
+  {
+    "id": "#645341",
+    "name": "Sumsang s25+ Ultra",
+    "category": "Smart Phones",
+    "price": 6900000,
+    "quantity": 981,
+    "color": "Black",
+    "imageUrl": ""
+  },
+  {
+    "id": "#645346",
+    "name": "Gucci XXL Shirt",
+    "category": "Fashion",
+    "price": 500000,
+    "quantity": 100,
+    "color": "Red",
+    "imageUrl": ""
+  },
+  {
+    "id": "#645342",
+    "name": "XL Zara Shirt",
+    "category": "Fashion",
+    "price": 600000,
+    "quantity": 56,
+    "color": "Blue",
+    "imageUrl": ""
+  },
+  {
+    "id": "#645344",
+    "name": "iPhone 15",
+    "category": "Smart Phones",
+    "price": 7900000,
+    "quantity": 752,
+    "color": "Silver",
+    "imageUrl": ""
+  },
+  {
+    "id": "#645343",
+    "name": "Smart home Curtain",
+    "category": "Interior Design",
+    "price": 500000,
+    "quantity": 30,
+    "color": "White",
+    "imageUrl": ""
+  },
+  {
+    "id": "#645345",
+    "name": "Spectrum Laptop 14.6 Inc",
+    "category": "Laptops",
+    "price": 15800000,
+    "quantity": 144,
+    "color": "Gray",
+    "imageUrl": ""
+  }
+]

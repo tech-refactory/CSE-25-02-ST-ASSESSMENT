@@ -20,5 +20,5 @@ from salesapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', views.chart, name='chart')
+    path('', views.chart, name='chart')
 ]

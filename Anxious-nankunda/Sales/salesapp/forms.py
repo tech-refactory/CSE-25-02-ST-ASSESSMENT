@@ -7,7 +7,7 @@ from .models import Sale
 class SaleForm(forms.ModelForm):
     class Meta:
         model = Sale
-        fields = ['product', 'category', 'price', 'quantity_sold']
+        fields = ['product','quantity_sold']
 
         widgets = {
             'product': forms.TextInput(attrs={'class': 'form-control'}),

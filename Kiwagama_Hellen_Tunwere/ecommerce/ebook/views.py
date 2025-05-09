@@ -1,14 +1,15 @@
-from django.shortcuts import render
 
-# Create your views here.
 from django.shortcuts import render, redirect
 from .models import Product
 from .forms import ProductForm
 from django.db.models import Sum
 from django.contrib import messages
 
+# Create your views here.
+
+
 def vendor_dashboard(request):
-    products = Product.objects.all()
+    products = Product.objects.order_by('-created_at')
     form = ProductForm()
 
     # Handle form submission
@@ -20,8 +21,8 @@ def vendor_dashboard(request):
             return redirect('vendor-dashboard')
 
     # Summary calculations
-    total_sales = 50000000  # Placeholder, or calculate from a Sale model
-    expected_orders = 15000000  # Placeholder
+    total_sales = 50000000  
+    expected_orders = 15000000  
     capital_in_stock = Product.objects.aggregate(total=Sum('price'))['total'] or 0
     out_of_stock_count = Product.objects.filter(quantity=0).count()
 
@@ -34,3 +35,9 @@ def vendor_dashboard(request):
         'out_of_stock_count': out_of_stock_count,
     }
     return render(request, 'ebook/dashboard.html', context)
+def delete_product(request, product_id):
+    product_id = Product.objects.get(id=product_id)
+    if request.method == 'POST':
+        product_id.delete()
+        messages.success(request, 'Product deleted successfully!')
+        return redirect('vendor-dashboard')

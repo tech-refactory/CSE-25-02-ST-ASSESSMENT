@@ -1,0 +1,73 @@
+meta(charset="UTF-8")
+meta(name="viewport", content="width=device-width,initial-scale=1")
+title Vendor Dashboard
+link(rel="stylesheet", href="/css/work.css")
+.container
+  .left-panel
+    .insights-card.stock-status
+      .stock-item.sales
+        .label Sales
+        .value
+          | UGX 
+          span#total-sales 50,000,000
+      .stock-item.orders
+        .label Orders
+        .value
+          | UGX 
+          span#total-orders 15,000,000
+    .insights-card.stock-status
+      .stock-item.in-stock
+        .label In stock
+        .value
+          span#in-stock 42,000,000
+      .stock-item.out-of-stock
+        .label Out of stock
+        .value
+          span#out-of-stock 5
+  .right-panel
+    h2 Add Product
+    #form-alert.alert(style="display:none;")
+    form#add-product-form
+      .form-group
+        label(for="product-name") Product Name
+        input#product-name(type="text", name="product-name")
+      .form-group
+        label(for="category") Category
+        input#category(type="text", name="category")
+      .form-group
+        label(for="price") Price (UGX)
+        input#price(type="number", name="price")
+      .form-group
+        label(for="quantity") Quantity
+        input#quantity(type="number", name="quantity")
+      .form-group
+        label(for="color") Color
+        input#color(type="text", name="color")
+      .form-group
+        label(for="upload-image") Upload Image
+        input#upload-image(type="file", name="upload-image")
+      .form-actions
+        button#save-button(type="button") SAVE
+        button#clear-button(type="button") CLEAR
+  .product-list
+    h2 Products List
+    table
+      thead
+        tr
+          th ID
+          th NAME
+          th CATEGORY
+          th PRICE (UGX)
+          th QUANTITY
+      tbody#product-table-body.
+      tr 
+      td #{product.productName}
+      td #{product.category}
+      td #{produce.price}
+      td #{produce.quantity}
+        
+        
+    .pagination.
+      
+      
+script(src="/js/work.js")

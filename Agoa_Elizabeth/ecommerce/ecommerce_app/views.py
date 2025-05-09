@@ -17,7 +17,7 @@ def vendors_dashboard(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Product added successfully!')
-            return redirect('vendors_dashboard')
+            return redirect('vendors-dashboard')
 
     # calculations
     total_sales = 50000000  

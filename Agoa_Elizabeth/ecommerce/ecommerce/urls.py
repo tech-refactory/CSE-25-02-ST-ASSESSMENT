@@ -24,4 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/', views.vendors_dashboard, name='vendors-dashboard'),
     path('', RedirectView.as_view(url='/dashboard/', permanent=False)),  
+    
 ]

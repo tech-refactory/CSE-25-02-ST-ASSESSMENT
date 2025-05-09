@@ -199,14 +199,7 @@ body {
                     <h2>Add Product</h2>
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <input type="text" name="product_name" placeholder="Product Name" required>
-                        <input type="text" name="category" placeholder="Category" required>
-                        <input type="number" name="price" placeholder="Price" required>
-                        <input type="number" name="quantity" placeholder="Quantity" required>
-                        <div class="form-row">
-                            <input type="text" name="color" placeholder="Color" required>
-                            <input type="file" name="image" class="upload-btn" required>
-                        </div>
+                        {{ form.as_p }}
                         <div class="button-group">
                             <button type="submit" class="save-btn">SAVE</button>
                             <button type="reset" class="clear-btn">CLEAR</button>
@@ -231,10 +224,11 @@ body {
                 <tbody>
                     {% for product in products %}
                     <tr>
+                        <td>{{ product.id }}</td>
                         <td>{{ product.name }}</td>
                         <td>{{ product.category }}</td>
                         <td>{{ product.price|intcomma }}</td>
-                        <td>{{ product.quantity }}</td>
+                        <td>{{ product.Quantity }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

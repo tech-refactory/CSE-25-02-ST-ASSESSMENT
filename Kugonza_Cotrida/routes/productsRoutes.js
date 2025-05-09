@@ -1,47 +1,49 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-
-// import models
 const Product = require('../models/Products');
 
-// Uncomment and use if you need file uploads
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "public/img/uploads");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, file.originalname);
-//   },
-// });
-// const upload = multer({ storage: storage });
-
-router.get('/dashboard', (req, res) => {
-  res.render("dashboard");
+// GET: Render dashboard with all products
+router.get('/addProduct', async (req, res) => {
+  try {
+    const products = await Product.find().sort({ $natural: -1 }).lean();
+    res.render("dashboard", { products });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error loading dashboard.");
+  }
 });
 
-router.post('/dashboard', async (req, res) => {
+// POST: Add new product to DB
+router.post('/addProduct', async (req, res) => {
   try {
-    const addProduct = new Product(req.body);
-    console.log(addProduct);
-    console.log(req.body);
-    await addProduct.save();
+    const { productName, category, price, quantity, color, image } = req.body;
+
+    // Create and save product
+    const newProduct = new Product({
+      produceName: productName,
+      category,
+      price,
+      quantity,
+      color,
+      image
+    });
+
+    await newProduct.save();
     res.redirect('/addProduct');
   } catch (error) {
     console.error(error);
-    res.status(400).render("products", { error: "Failed to add product" });
+    res.status(400).render("dashboard", { error: "Failed to add product" });
   }
 });
 
+// OPTIONAL: Separate product list route (if needed elsewhere)
 router.get("/productList", async (req, res) => {
   try {
-    const products = await Product.find().sort({ $natural: -1 });
-    res.render("productslist", {
-      products: products,
-    });
+    const products = await Product.find().sort({ $natural: -1 }).lean();
+    res.render("productslist", { products });
   } catch (error) {
-    res.status(400).send("unable to find products in the db");
+    res.status(400).send("Unable to find products in the DB");
   }
 });
 
-module.exports = router; //  EXPORT the router here
+module.exports = router;

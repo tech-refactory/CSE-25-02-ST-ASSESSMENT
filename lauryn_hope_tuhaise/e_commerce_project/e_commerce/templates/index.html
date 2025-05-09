@@ -1,18 +1,107 @@
+\index.html -->
+{% load static %}
+{% load humanize %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta name="Description" content="Enter your description here"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="assets/css/style.css">
-<title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+    <div class="container">
+        <!-- Statistics Cards -->
+        <div class="stats-container">
+            <div class="stats-card">
+                <h2>Total Sales</h2>
+                <div class="stats-value">UGX {{ total_sales|intcomma }}</div>
+            </div>
+            <div class="stats-card">
+                <h2>Total Orders</h2>
+                <div class="stats-value">{{ total_orders|intcomma }}</div>
+            </div>
+            <div class="stats-card">
+                <h2>In Stock</h2>
+                <div class="stats-value">UGX {{ in_stock|intcomma }}</div>
+            </div>
+            <div class="stats-card">
+                <h2>Out of Stock</h2>
+                <div class="stats-value">{{ out_of_stock }}</div>
+            </div>
+        </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+        <!-- Messages -->
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- Add Product Form -->
+        <div class="product-form">
+            <h2>Add Product</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="product_name" placeholder="Product Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="category" placeholder="Category" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" name="price" placeholder="Price" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" name="quantity" placeholder="Quantity" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="color" placeholder="Color" required>
+                </div>
+                <div class="form-group">
+                    <input type="file" name="image" class="upload-btn" required>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="save-btn">SAVE</button>
+                    <button type="reset" class="clear-btn">CLEAR</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Products Table -->
+        <div class="table-container">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>CATEGORY</th>
+                        <th>PRICE (UGX)</th>
+                        <th>QUANTITY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.product_id }}</td>
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price|intcomma }}</td>
+                        <td>{{ product.quantity }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center;">No products available</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

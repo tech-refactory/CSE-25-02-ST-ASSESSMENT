@@ -1,0 +1,41 @@
+doctype html
+html
+  head
+    title Product Dashboard
+    link(rel='stylesheet', href='css/style.css')
+  body
+    .container
+      .stats
+        .stat Sales: UGX #{sales.toLocaleString()}
+        .stat Orders: UGX #{orders.toLocaleString()}
+        .stat In stock: UGX #{inStockValue.toLocaleString()}
+        .stat Out of stock: #{outOfStock}
+
+      form#productForm(action='/add', method='POST')
+        h2 Add Product
+        each field in ['name', 'category', 'price', 'quantity', 'color']
+          div.form-group
+            label(for=field) #{field.charAt(0).toUpperCase() + field.slice(1)}
+            input(type=(field == 'price' || field == 'quantity') ? 'number' : 'text', name=field, id=field, required)
+            span.error-message
+
+        button(type='submit') Save
+        button(type='reset') Clear
+
+      table
+        thead
+          tr
+            th ID
+            th NAME
+            th CATEGORY
+            th PRICE (UGX)
+            th QUANTITY
+        tbody
+          each product in products
+            tr
+              td #{product._id.toString().slice(-6)}
+              td #{product.name}
+              td #{product.category}
+              td #{product.price.toLocaleString()}
+              td #{product.quantity}
+    script(src='js/script.js')

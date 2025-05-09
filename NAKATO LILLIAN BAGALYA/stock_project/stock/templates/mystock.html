@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/mystock.css' %}">
+    <title>My Stock</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="container">
+                    <div class="row">
+                       <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <p class="fw-bold">UGX 5,000,000</p>
+                                    <p class="text-muted">Sales</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <p class="fw-bold">UGX 10,000,000</p>
+                                    <p class="text-muted">Orders</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <p class="fw-bold in-stock">UGX 5,000,000</p>
+                                <p class="text-muted">In Stock</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <p class="fw-bold out-of-stock">5</p>
+                                <p class="text-muted">Out of Stock</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <form method="POST" id="productForm" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p>Add Product</p>
+                    <div>
+                        <input type="text" name="product_name" class="form-control" placeholder="Product Name" required>
+                        {% if form.product_name.errors %}
+                        <small class="text-danger">{{ form.product_name.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <input type="text" name="category" class="form-control" placeholder="Category" required>
+                        {% if form.category.errors %}
+                        <small class="text-danger">{{ form.category.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <input type="number" name="price" class="form-control" placeholder="Price" step="0.01" required>
+                        {% if form.price.errors %}
+                        <small class="text-danger">{{ form.price.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <input type="number" name="quantity" class="form-control" placeholder="Quantity" min="1"
+                            required>
+                        {% if form.quantity.errors %}
+                        <small class="text-danger">{{ form.quantity.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <input type="text" name="color" class="form-control" placeholder="Color" required>
+                        {% if form.color.errors %}
+                        <small class="text-danger">{{ form.color.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <input type="file" name="image" class="form-control" accept="image/*" required>
+                        {% if form.image.errors %}
+                        <small class="text-danger">{{ form.image.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div class="button-container">
+                        <button type="submit" class="btn btn-primary">SAVE</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearForm()">CLEAR</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Product Table -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NAME</th>
+                                <th>CATEGORY</th>
+                                <th>PRICE (UGX)</th>
+                                <th>QUANTITY</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td>#{{ product.id }}</td>
+                                <td>{{ product.product_name }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.price|floatformat:0 }}</td>
+                                <td>{{ product.quantity }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+            crossorigin="anonymous"></script>
+        <script>
+
+            function clearForm() {
+                document.getElementById('productForm').reset();
+            }
+        </script>
+</body>
+
+</html>

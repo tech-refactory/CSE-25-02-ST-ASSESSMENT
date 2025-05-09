@@ -1,0 +1,178 @@
+body {
+    background-color: rgb(245, 243, 243);
+}
+
+/* Card Styling */
+.card {
+    width: 200px;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #F5F5F5;
+    height: 140px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-body p.fw-bold {
+    font-size: 1.5rem;
+    color: #000000;
+}
+
+.card-body p.fw-bold.in-stock {
+    color: #28A745;
+}
+
+.card-body p.fw-bold.out-of-stock {
+    color: #FF0000;
+}
+
+.card-body p.text-muted {
+    font-size: 0.9rem;
+    color: #666666;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #000000;
+}
+
+/* Form Styling - Increased Size */
+.card.p-4 {
+    width: 100%;
+    height: 450px; /* Increased height */
+    max-width: 400px; /* Increased max width */
+    margin: auto;
+}
+
+/* Form Controls */
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 12px; /* Slightly increased padding */
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.form-control:focus {
+    border-color: #ff6200;
+    box-shadow: 0 0 5px rgba(255, 98, 0, 0.5);
+}
+
+/* Buttons - Smaller & Side-by-Side */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-primary, .btn-secondary {
+    flex: 1; /* Makes both buttons equal width */
+    margin: 1px; /* Adds space between buttons */
+    padding: 15px; /* Reduced padding to make buttons smaller */
+    font-size: 0.9rem; /* Slightly smaller text */
+}
+
+/* Primary Button */
+.btn-primary {
+    background-color: #ff6200;
+    border-color: #ff6200;
+}
+
+.btn-primary:hover {
+    background-color: #e65c00;
+    border-color: #e65c00;
+}
+
+/* Secondary Button */
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #5a6268;
+}
+
+/* Table Styling */
+.table {
+    margin-top: 20px;
+}
+
+.table-striped thead th {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+}
+
+.table-striped tbody td {
+    color: #000000;
+    font-size: 0.9rem;
+}
+
+/* Success & Error Messages */
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    font-size: 1rem;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    font-size: 1rem;
+}
+
+/* File Upload Styles */
+.custom-file {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.custom-file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-file-label {
+    display: inline-block;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #495057;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.custom-file-input:focus ~ .custom-file-label {
+    border-color: #ff6200;
+    box-shadow: 0 0 5px rgba(255, 98, 0, 0.5);
+}
+
+.col-md-4 {
+    padding-left: 15px;
+}
+
+
+
+
+

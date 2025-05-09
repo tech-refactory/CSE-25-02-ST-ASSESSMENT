@@ -25,9 +25,11 @@ html
           br
           .stat  5
               p Out of stock
-
+      
       form#productForm(action='/product' method='post')
         h2 Add Product
+        .success-message(style="display: none;")
+          p Product successfully added!
         .form-group
           label(for='name') Product Name
           input#name.input(type='text' name='productName' placeholder='Product Name')
@@ -52,8 +54,8 @@ html
           label(for='image') Upload Image
           input#image.input(type='file' name='image')
           span.error-message
-        button.save(type='submit') Save
-        button.clear(type='reset') Clear
+        button.save(type='submit') SAVE
+        button.clear(type='reset') CLEAR
 
      
       table

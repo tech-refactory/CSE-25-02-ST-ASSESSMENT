@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db.models import Sum, F
+from decimal import Decimal
 from .forms import ProductForm
 from .models import Product
 
@@ -14,13 +16,25 @@ def landing_page(request):
     else:
         form = ProductForm()
     
-
-    total_sales = 0  
-    total_orders = 0  
-    in_stock_value = 0  
-    out_of_stock_count = Product.objects.filter(quantity=0).count()
-
-    products = Product.objects.all().order_by('-id') 
+    # Calculate statistics
+    products = Product.objects.all()
+    
+    # Calculate total value of products in stock
+    in_stock_value = products.aggregate(
+        total=Sum(F('price') * F('quantity'))
+    )['total'] or Decimal('0')
+    
+    # Count products out of stock
+    out_of_stock_count = products.filter(quantity=0).count()
+    
+    # Assuming 20% of in_stock_value represents total sales (for demo purposes)
+    total_sales = in_stock_value * Decimal('0.2')
+    
+    # Assuming 10% of in_stock_value represents pending orders (for demo purposes)
+    total_orders = in_stock_value * Decimal('0.1')
+    
+    # Get all products ordered by most recent first
+    products = products.order_by('-id') 
     
     context = {
         'form': form,

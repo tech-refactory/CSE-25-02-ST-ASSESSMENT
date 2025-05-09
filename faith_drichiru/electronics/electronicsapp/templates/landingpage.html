@@ -25,20 +25,19 @@
             margin-bottom: 20px;
             color: #1e293b;
             text-align: left;
-        }
-
-        .stats {
+        }        .stats {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
             margin-bottom: 20px;
+            width: 100%;
         }
 
         .stats div {
             background-color: #fff;
-            padding: 15px;
+            padding: 20px;
             border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border: 1px solid #e5e7eb;
             color: #4b5563;
             text-align: left;
@@ -46,9 +45,15 @@
 
         .stats div strong {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             color: #1e293b;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .stats div span {
+            font-size: 0.875rem;
+            color: #6b7280;
         }
 
         .form-container {
@@ -136,24 +141,23 @@
             transition: background-color 0.2s ease;
             border: none;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-primary {
-            background-color: #f97316;
+        }        .btn-primary {
+            background-color: #2563eb;
             color: #fff;
         }
 
         .btn-primary:hover {
-            background-color: #d946ef;
+            background-color: #1d4ed8;
         }
 
         .btn-secondary {
-            background-color: #e5e7eb;
+            background-color: #f3f4f6;
             color: #374151;
+            border: 1px solid #d1d5db;
         }
 
         .btn-secondary:hover {
-            background-color: #d1d5db;
+            background-color: #e5e7eb;
         }
 
 
@@ -228,18 +232,122 @@
             min-width: 300px;
         }
 
-    </style>
+    </style>    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const clearButton = document.querySelector('button[type="button"]');
+            
+            // Function to clear the form
+            function clearForm() {
+                // Reset all form fields
+                form.reset();
+                
+                // Clear file input separately (since reset doesn't always work for file inputs)
+                const fileInput = document.querySelector('#id_image');
+                if (fileInput) {
+                    fileInput.value = '';
+                }
+                
+                // Remove validation classes
+                form.querySelectorAll('.form-control').forEach(input => {
+                    input.classList.remove('is-valid', 'is-invalid');
+                });
+                
+                // Remove any existing messages
+                const alerts = document.querySelectorAll('.alert');
+                alerts.forEach(alert => alert.remove());
+                
+                // Remove any error messages
+                const errorMessages = document.querySelectorAll('.invalid-feedback');
+                errorMessages.forEach(msg => msg.style.display = 'none');
+            }
+            
+            // Add clear button functionality
+            clearButton.addEventListener('click', clearForm);
+            
+            // Clear form after successful submission (triggered by Django's success message)
+            if (document.querySelector('.alert-success')) {
+                clearForm();
+            }
+                    successAlert.remove();
+                }
+            });            // Real-time validation
+            form.querySelectorAll('.form-control').forEach(input => {
+                input.addEventListener('input', function() {
+                    validateField(input);
+                });
+            });
+
+            // Form validation on submit
+            form.addEventListener('submit', function(event) {
+                let isValid = true;
+                
+                // Validate all fields
+                form.querySelectorAll('.form-control').forEach(input => {
+                    if (!validateField(input)) {
+                        isValid = false;
+                    }
+                });
+
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+
+            // Field validation function
+            function validateField(input) {
+                let isValid = true;
+                const errorDiv = input.nextElementSibling;
+                
+                // Clear previous validation
+                input.classList.remove('is-valid', 'is-invalid');
+                
+                // Required field validation
+                if (input.type !== 'file' && !input.value.trim()) {
+                    input.classList.add('is-invalid');
+                    if (errorDiv) errorDiv.textContent = 'This field is required';
+                    isValid = false;
+                }
+                
+                // Specific field validations
+                if (input.id === 'id_price' && input.value.trim()) {
+                    const price = parseFloat(input.value);
+                    if (isNaN(price) || price <= 0) {
+                        input.classList.add('is-invalid');
+                        if (errorDiv) errorDiv.textContent = 'Price must be greater than 0';
+                        isValid = false;
+                    }
+                }
+                
+                if (input.id === 'id_quantity' && input.value.trim()) {
+                    const quantity = parseInt(input.value);
+                    if (isNaN(quantity) || quantity < 0) {
+                        input.classList.add('is-invalid');
+                        if (errorDiv) errorDiv.textContent = 'Quantity cannot be negative';
+                        isValid = false;
+                    }
+                }
+                
+                // Add valid class if field is valid
+                if (isValid && input.value.trim()) {
+                    input.classList.add('is-valid');
+                }
+                
+                return isValid;
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="dashboard">
+
         <div class="main-content">
             <div class="left-column">
-                <div class="cards-and-form">
-                    <div class="stats">
-                        <div><strong>Sales Total:</strong> UGX 50,000,000</div>
-                        <div><strong>Orders Total:</strong> UGX 15,000,000</div>
-                        <div><strong>In Stock Value:</strong> UGX 42,000,000</div>
-                        <div><strong>Out of Stock Count:</strong> 5</div>
+                <div class="cards-and-form">                    <div class="stats">
+                        <div><strong>UGX {{ total_sales|floatformat:0 }}</strong>Sales </div>
+                        <div><strong>UGX {{ total_orders|floatformat:0 }}</strong> Orders </div>
+                        <div><strong>UGX {{ in_stock_value|floatformat:0 }}</strong> In Stock </div>
+                        <div><strong>{{ out_of_stock_count }}</strong> Out of Stock </div>
                     </div>
                     <div class="form-container">
                         <h2>Add New Product</h2>
@@ -319,50 +427,16 @@
                                 <th>Price (UGX)</th>
                                 <th>Quantity</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                        </thead>                        <tbody>
+                            {% for product in products %}
                             <tr>
-                                <td>#645341</td>
-                                <td>Sumsang s25+ Ultra</td>
-                                <td>Smart Phones</td>
-                                <td>6,900,000</td>
-                                <td>981</td>
+                                <td>#{{ product.id }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.price|floatformat:0 }}</td>
+                                <td>{{ product.quantity }}</td>
                             </tr>
-                            <tr>
-                                <td>#645346</td>
-                                <td>Gucci XXL Shirt</td>
-                                <td>Fashion</td>
-                                <td>500,000</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>#645342</td>
-                                <td>XL Zara Shirt</td>
-                                <td>Fashion</td>
-                                <td>600,000</td>
-                                <td>56</td>
-                            </tr>
-                            <tr>
-                                <td>#645344</td>
-                                <td>iPhone 15</td>
-                                <td>Smart Phones</td>
-                                <td>7,900,000</td>
-                                <td>752</td>
-                            </tr>
-                            <tr>
-                                <td>#645343</td>
-                                <td>Smart home Curtain</td>
-                                <td>Interior Design</td>
-                                <td>500,000</td>
-                                <td>30</td>
-                            </tr>
-                            <tr>
-                                <td>#645345</td>
-                                <td>Spectrum Laptop 14.6 Inc</td>
-                                <td>Laptops</td>
-                                <td>15,800,000</td>
-                                <td>144</td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

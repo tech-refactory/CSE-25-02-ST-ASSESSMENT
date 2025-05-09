@@ -6,21 +6,103 @@ body{
 }
 
 .card {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      font-size: 18px;
-    }
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 18px;
+    width: 100%;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-    .top {
-      color: black;
-    }
+.card.top {
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    grid-column: 1 / span 2;  /* Make card span both columns */
+}
 
-    .bottom {
-      color: green;
+.card-section {
+    flex: 1;
+    padding: 20px;
+}
+
+.card-section:first-child {
+    border-right: 2px solid #808080;  /* Add grey divider */
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.saveBtn, button[onclick="(clearForm)"] {
+    flex: 1;
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.saveBtn {
+    background-color: orangered;
+    color: white;
+}
+
+button[onclick="(clearForm)"] {
+    background-color: #808080;
+    color: white;
+}
+
+.success-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
     }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.top {
+    color: black;
+}
+
+.bottom {
+    color: green;
+}
 
 table {
     width: 100%;
@@ -40,10 +122,6 @@ table th {
     background-color: #2c3e50;
     color: white;
     font-weight: 500;
-}
-button .saveBtn{
-    background-color: orangered;
-    color: white;
 }
 
 

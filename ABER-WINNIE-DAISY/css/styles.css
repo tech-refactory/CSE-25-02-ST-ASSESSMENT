@@ -40,29 +40,37 @@ body {
     border-radius: 4px;
 }
 
-.saveBtn, button[onclick="(clearForm)"] {
-    width: 48%; /* Changed from 100% to 48% to fit two buttons */
-    display: inline-block;
-    margin-bottom: 10px;
+.color-upload-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
-.saveBtn {
-    margin-right: 4%; /* Add space between buttons */
-    background-color: #ff6b00;
-    color: white;
+.color-upload-container input {
+    flex: 1;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+}
+
+.saveBtn, button[onclick="(clearForm)"] {
+    flex: 1;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.saveBtn {
+    background-color: #ff6b00;
+    color: white;
 }
 
 button[onclick="(clearForm)"] {
     background-color: #808080;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
 #productTable {

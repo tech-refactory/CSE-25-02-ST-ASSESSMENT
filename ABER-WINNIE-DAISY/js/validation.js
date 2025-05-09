@@ -1,71 +1,46 @@
-document.getElementById('creditSaleForm').addEventListener('submit', function(e) {
+document.getElementById('creditSaleForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    // Reset previous messages
     clearMessages();
-    
     let isValid = true;
     
-    // Product Name validation
-    const productName = document.getElementById('prodctName').value;
-    if (productName.trim() === '') {
-        showError('prodctName', 'Product name is required');
-        isValid = false;
-    } else {
-        showSuccess('prodctName');
-    }
+    const fields = ['prodctName', 'catergory', 'price', 'quantity', 'color'];
     
-    // Category validation
-    const category = document.getElementById('catergory').value;
-    if (category.trim() === '') {
-        showError('catergory', 'Category is required');
-        isValid = false;
-    } else {
-        showSuccess('catergory');
-    }
-    
-    // Price validation
-    const price = document.getElementById('price').value;
-    if (price.trim() === '') {
-        showError('price', 'Price is required');
-        isValid = false;
-    } else if (isNaN(price) || price <= 0) {
-        showError('price', 'Please enter a valid price');
-        isValid = false;
-    } else {
-        showSuccess('price');
-    }
-    
-    // Quantity validation
-    const quantity = document.getElementById('quantity').value;
-    if (quantity.trim() === '') {
-        showError('quantity', 'Quantity is required');
-        isValid = false;
-    } else if (!Number.isInteger(Number(quantity)) || quantity < 0) {
-        showError('quantity', 'Please enter a valid quantity');
-        isValid = false;
-    } else {
-        showSuccess('quantity');
-    }
-    
-    // Color validation
-    const color = document.getElementById('color').value;
-    if (color.trim() === '') {
-        showError('color', 'Color is required');
-        isValid = false;
-    } else {
-        showSuccess('color');
-    }
+    fields.forEach(field => {
+        const input = document.getElementById(field);
+        if (!input.value.trim()) {
+            showError(field, 'Invalid field');
+            isValid = false;
+        }
+    });
     
     if (isValid) {
-        // Show success message
-        showFormSuccess();
-        // Reset the form
-        document.getElementById('creditSaleForm').reset();
-        // Clear success styling after 3 seconds
-        setTimeout(() => {
-            clearMessages();
-        }, 3000);
+        try {
+            const formData = {
+                productName: document.getElementById('prodctName').value,
+                category: document.getElementById('catergory').value,
+                price: document.getElementById('price').value,
+                quantity: document.getElementById('quantity').value,
+                color: document.getElementById('color').value,
+                image: document.getElementById('upload').value
+            };
+
+            const response = await fetch('/index/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                showFormSuccess();
+                document.getElementById('creditSaleForm').reset();
+                fetchAndDisplayRecords();
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 });
 
@@ -94,18 +69,15 @@ function showSuccess(inputId) {
 }
 
 function showFormSuccess() {
-    const formDiv = document.getElementById('creditSaleForm');
     const successMessage = document.createElement('div');
-    successMessage.className = 'message form-success';
-    successMessage.style.color = 'green';
-    successMessage.style.fontSize = '16px';
-    successMessage.style.padding = '10px';
-    successMessage.style.marginTop = '10px';
-    successMessage.style.backgroundColor = '#e8f5e9';
-    successMessage.style.borderRadius = '4px';
-    successMessage.style.textAlign = 'center';
-    successMessage.textContent = 'Form submitted successfully!';
-    formDiv.appendChild(successMessage);
+    successMessage.className = 'success-popup';
+    successMessage.textContent = 'Product has been added successfully!';
+    document.body.appendChild(successMessage);
+
+    // Remove the message after 3 seconds
+    setTimeout(() => {
+        successMessage.remove();
+    }, 3000);
 }
 
 function clearMessages() {
@@ -115,3 +87,31 @@ function clearMessages() {
     const inputs = document.querySelectorAll('input');
     inputs.forEach(input => input.style.borderColor = '#ddd');
 }
+
+async function fetchAndDisplayRecords() {
+    try {
+        const response = await fetch('/index/records');
+        const records = await response.json();
+        
+        const tbody = document.querySelector('#productTable tbody');
+        tbody.innerHTML = '';
+        
+        records.forEach(record => {
+            const row = `
+                <tr>
+                    <td>${record._id}</td>
+                    <td>${record.productName}</td>
+                    <td>${record.category}</td>
+                    <td>${record.price}</td>
+                    <td>${record.quantity}</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Call this function when page loads
+document.addEventListener('DOMContentLoaded', fetchAndDisplayRecords);

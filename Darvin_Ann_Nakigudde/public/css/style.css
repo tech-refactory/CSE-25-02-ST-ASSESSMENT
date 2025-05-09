@@ -114,3 +114,18 @@
             flex-direction: column;
             justify-content: center;
         }
+        .error-input {
+            border: 2px solid red !important;
+        }
+        .valid-input {
+            border: 2px solid green !important;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.8em;
+            display: none;
+            margin-top: 0.2em;
+        }
+        .error-message.active {
+            display: block; 
+        }

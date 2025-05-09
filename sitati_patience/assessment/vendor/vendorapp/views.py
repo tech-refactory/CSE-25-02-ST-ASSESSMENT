@@ -18,7 +18,7 @@ def dashboard(request):
     if request.GET.get('success'):
         success = True
 
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('-id') # -id gives precedence to the last one and the vice versa is true
     total_sales = Product.objects.aggregate(total=Sum('price'))['total'] or 0
     total_orders = Product.objects.aggregate(expected=Sum(models.F('price') * models.F('quantity')))['expected'] or 0
     total_stock = Product.objects.aggregate(stock=Sum(models.F('price') * models.F('quantity')))['stock'] or 0

@@ -12,24 +12,24 @@
 <div class="max-w-7xl mx-auto p-4">
     <!-- Cards that summarise the aggregations on the dashboard-->
     <!-- Dashboard layout: cards left, form right -->
-<div class="grid grid-cols-3 gap-4 mb-6">
+<div class="flex flex-wrap md:flex-nowrap gap-6 mb-6">
     <!-- Left side: Cards -->
-    <div class="col-span-2 grid grid-cols-2 gap-4">
-        <div class="bg-white shadow p-4 flex justify-betweengrid-cols-2 col-span-2">
+    <div class="flex-1 grid grid-cols-2 gap-4">
+        <div class="bg-white shadow p-2 flex justify-around col-span-2">
             <div>
-                <p class="text-lg font-bold">UGX {{ total_sales|default:"0" }}</p>
+                <p class="text-center text-lg font-bold">UGX {{ total_sales|default:"0" }}</p>
                 <p class="text-gray-500"> Sales</p>
             </div>
-            <div class="text-right">
+            <div class="text-center border-l border-gray-300 pl-6 ml-6">
                 <p class="text-lg font-bold">UGX {{ total_orders }} </p>
                 <p class="text-gray-500">Orders</p>
             </div>
         </div>
-        <div class="bg-white shadow p-4">
+        <div class="bg-white shadow p-4 text-left">
             <p class="text-green-600 justify-centre font-bold">UGX {{ total_stock }}</p>
             <p class="text-gray-500 justify-centre ">In stock</p>
         </div>
-        <div class="bg-white shadow p-4">
+        <div class="bg-white shadow p-4 text-right">
             <p class="text-red-600 justify-centre font-bold ">{{ out_of_stock_count }}</p>
             <p class="text-gray-500 justify-centre ">Out of stock</p>
         </div>
@@ -52,9 +52,9 @@
                     value="{{ form.product_name.value|default_if_none:'' }}"
                     class="w-full px-4 py-2 rounded border text-sm
                     {% if form.product_name.errors %}border-red-500{% elif form.is_bound %}border-green-500{% else %}border-gray-300{% endif %}">
-            {% if form.product_name.errors %}
-                <p class="text-red-500 text-xs mt-1">{{ form.product_name.errors.0 }}</p>
-            {% endif %}
+                    {% if form.product_name.errors %}
+                        <p class="text-red-500 text-xs mt-1">{{ form.product_name.errors.0 }}</p>
+                    {% endif %}
             </div>
 
             <!-- Category -->

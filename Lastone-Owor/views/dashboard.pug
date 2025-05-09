@@ -1,0 +1,82 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Dashboard
+  body
+    .container
+      .row(style="margin-bottom: 20px;")
+        .card(style="flex:2;")
+          .(style="display: flex; align-items: center; justify-content: center;")
+            div(style="text-align:center; flex:1;")
+              .insight-value UGX 50,000,000
+              .insight-title Sales
+            .card-divider(style="height:60px;")
+            div(style="text-align:center; flex:1;")
+              .insight-value UGX 15,000,000
+              .insight-title Orders
+        .add-product(style="flex:1;")
+          h3 Add Product
+          form
+            input(type="text", placeholder="Product Name")
+            input(type="text", placeholder="Category")
+            input(type="number", placeholder="Price")
+            input(type="number", placeholder="Quantity")
+            .add-product-row
+              input(type="text", placeholder="Color")
+              input(type="file", disabled, style="background:#eee;")
+            div(style="display:flex; gap:10px;")
+              button.save-btn(type="submit") SAVE
+              button.clear-btn(type="reset") CLEAR
+      .row(style="margin-bottom: 20px;")
+        .card.insight-green(style="flex:1;")
+          .insight-value UGX 42,000,000
+          .insight-title In stock
+        .card(style="flex:1;")
+          .insight-value.insight-red 5
+          .insight-title Out of stock
+      table
+        thead
+          tr
+            th ID
+            th NAME
+            th CATEGORY
+            th PRICE(UGX)
+            th QUANTITY
+        tbody
+          tr
+            td #645341
+            td Sumsang s25+ Ultra
+            td Smart Phones
+            td 6,900,000
+            td 981
+          tr
+            td #645346
+            td Gucci XXL Shirt
+            td Fashion
+            td 500,000
+            td 100
+          tr
+            td #645342
+            td XL Zara Shirt
+            td Fashion
+            td 600,000
+            td 56
+          tr
+            td #645344
+            td iPhone 15
+            td Smart Phones
+            td 7,900,000
+            td 752
+          tr
+            td #645343
+            td Smart home Curtain
+            td Interior Design
+            td 500,000
+            td 30
+          tr
+            td #645345
+            td Spectrum Laptop 14.6 Inc
+            td Laptops
+            td 15,800,000
+            td 144 

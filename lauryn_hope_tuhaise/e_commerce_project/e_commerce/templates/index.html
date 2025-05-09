@@ -27,11 +27,13 @@
         <div class="dashboard-layout">
             
             <div class="stats-section">
-                <div class="stats-row" style="background-color: white; border: 1px solid #ccc ;padding: 60px; display: flex; justify-content: center; align-items: center;"" >
+                <div class="stats-row" style="background-color: white; border: 1px solid #ccc ;padding: 40px; display: flex; justify-content: center; align-items: center;"" >
                     <div class="col">
                         <div class="stats-value">UGX {{ total_sales|intcomma }}</div>
                         <div class="stats-label">Sales</div>
                       </div>
+
+                      <div style="width: 1px; height: 60px; background-color: #ccc; margin: 0 20px;"></div>
 
                       <div class="col">
                         <div class="stats-value">UGX {{ total_orders|intcomma }}</div>
@@ -39,7 +41,7 @@
                     </div>
                     
                 </div>
-                <br><br><br><br><br>
+                <br><br>
                 <div class="stats-row">
                     <div class="stats-card in-stock">
                         <div class="stats-value">UGX {{ in_stock|intcomma }}</div>
@@ -55,28 +57,87 @@
             
             <div class="form-section">
                 <div class="product-form">
-                    <h2>Add Product</h2>
-                    <form method="POST" enctype="multipart/form-data">
+                    <strong><h1>Add Product</h1></strong>
+                    <form method="POST" enctype="multipart/form-data" novalidate>
                         {% csrf_token %}
-                        {% for field in form %}
-                        <div class="form-group {% if field.errors %}Invalid Field{% endif %}">
-                            {{ field }}
-                            {% if field.errors %}
-                            <div class="error-message">
-                                {{ field.errors.0 }}
-                            </div>
+                        <div class="form-group">
+                            {{ form.product_name }}
+                            {% if form.product_name.errors %}
+                                <div class="error-message">{{ form.product_name.errors.0 }}</div>
+                                <style>
+                                    #id_product_name {
+                                        border-color: #dc3545;
+                                        background-color: #fff8f8;
+                                    }
+                                </style>
                             {% endif %}
-                                <input type="text" name="product_name" placeholder="Product Name" required>
-                                <input type="text" name="category" placeholder="Category" required>
-                                <input type="number" name="price" placeholder="Price" required>
-                                <input type="number" name="quantity" placeholder="Quantity" required>
-                                <div class="form-row">
-                                    <input type="text" name="color" placeholder="Color" required>
-                                    <input type="file" name="image" class="upload-btn" required>
-                                </div>
-                            
                         </div>
-                        {% endfor %}
+                        
+                        <div class="form-group">
+                            {{ form.category }}
+                            {% if form.category.errors %}
+                                <div class="error-message">{{ form.category.errors.0 }}</div>
+                                <style>
+                                    #id_category {
+                                        border-color: #dc3545;
+                                        background-color: #fff8f8;
+                                    }
+                                </style>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.price }}
+                            {% if form.price.errors %}
+                                <div class="error-message">{{ form.price.errors.0 }}</div>
+                                <style>
+                                    #id_price {
+                                        border-color: #dc3545;
+                                        background-color: #fff8f8;
+                                    }
+                                </style>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.quantity }}
+                            {% if form.quantity.errors %}
+                                <div class="error-message">{{ form.quantity.errors.0 }}</div>
+                                <style>
+                                    #id_quantity {
+                                        border-color: #dc3545;
+                                        background-color: #fff8f8;
+                                    }
+                                </style>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.color }}
+                            {% if form.color.errors %}
+                                <div class="error-message">{{ form.color.errors.0 }}</div>
+                                <style>
+                                    #id_color {
+                                        border-color: #dc3545;
+                                        background-color: #fff8f8;
+                                    }
+                                </style>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.image }}
+                            {% if form.image.errors %}
+                                <div class="error-message">{{ form.image.errors.0 }}</div>
+                                <style>
+                                    #id_image {
+                                        border-color: #dc3545;
+                                        background-color: #fff8f8;
+                                    }
+                                </style>
+                            {% endif %}
+                        </div>
+                        
                         <div class="button-group">
                             <button type="submit" class="save-btn">SAVE</button>
                             <button type="reset" class="clear-btn">CLEAR</button>
@@ -126,7 +187,53 @@
                 }, 5000);
             });
         });
+        document.addEventListener('DOMContentLoaded', function() {
+        // Auto-dismiss success messages after 5 seconds
+        const successMessages = document.querySelectorAll('.alert-success');
+        successMessages.forEach(function(message) {
+            setTimeout(function() {
+                message.style.opacity = '0';
+                setTimeout(function() {
+                    message.remove();
+                }, 500);
+            }, 5000);
+        });
+        
+        // Add validation classes to form fields
+        const form = document.querySelector('.product-form form');
+        const inputs = form.querySelectorAll('input');
+        
+        // Add event listener for blur event on each input
+        inputs.forEach(function(input) {
+            input.addEventListener('blur', function() {
+                // If field has value and no error message displayed for it
+                if (input.value.trim() !== '' && !input.nextElementSibling || 
+                    !input.nextElementSibling.classList.contains('error-message')) {
+                    // Add valid styling
+                    input.style.borderColor = '#28a745';
+                    input.style.backgroundColor = '#f8fff8';
+                }
+            });
+        });
+
+        // Reset validation styling on clear button click
+        const clearBtn = document.querySelector('.clear-btn');
+        clearBtn.addEventListener('click', function() {
+            inputs.forEach(function(input) {
+                input.style.borderColor = '#ccc';
+                input.style.backgroundColor = '#fff';
+                
+                // Remove any error message elements
+                const nextElem = input.nextElementSibling;
+                if (nextElem && nextElem.classList.contains('error-message')) {
+                    nextElem.remove();
+                }
+            });
+        });
+    });
     </script>
+     
+</script>
 
 
 </body>

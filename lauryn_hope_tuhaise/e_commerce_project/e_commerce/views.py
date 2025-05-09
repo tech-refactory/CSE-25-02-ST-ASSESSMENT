@@ -8,7 +8,7 @@ from .forms import *
 def index(request):
     products = Product.objects.all().order_by('-created_at')
     average_order_value = 500000 
-    orders_count = 30  
+    orders_count = 5
     total_sales = sum(product.price * (product.quantity + 5) for product in products) or 50000000 
     total_orders = orders_count * average_order_value or 15000000
     
@@ -22,7 +22,9 @@ def index(request):
             messages.success(request, 'Product created successfully!')
             return redirect('index')
         else:
-            messages.error(request, 'Please correct the errors below.')
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field.replace('_', ' ').title()}: {error}")
     else:
         form = ProductForm()
 

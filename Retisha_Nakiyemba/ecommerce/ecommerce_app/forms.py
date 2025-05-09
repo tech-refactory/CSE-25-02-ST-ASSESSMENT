@@ -7,8 +7,8 @@ class ProductForm(forms.ModelForm):
     category = forms.CharField(label='Category', widget=forms.TextInput(attrs={'placeholder': 'Category'}))
     price = forms.DecimalField(label='Price ', widget=forms.NumberInput(attrs={'placeholder': 'Price '}))
     quantity = forms.IntegerField(label='Quantity', widget=forms.NumberInput(attrs={'placeholder': 'Quantity'}))
-    color = forms.CharField(label='Color', required=False, widget=forms.TextInput(attrs={'placeholder': 'Color'}))
-    upload_image = forms.FileField(label='Upload Image', required=False, widget=forms.FileInput(attrs={'placeholder': 'Upload Image'}))
+    color = forms.CharField(label='Color', required=True, widget=forms.TextInput(attrs={'placeholder': 'Color'}))
+    upload_image = forms.FileField(label='Upload Image', required=True, widget=forms.FileInput(attrs={'placeholder': 'Upload Image'}))
 
     class Meta:
         model = Product

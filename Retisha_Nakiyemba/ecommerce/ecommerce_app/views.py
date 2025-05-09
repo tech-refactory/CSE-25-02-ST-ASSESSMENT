@@ -8,7 +8,7 @@ def indexpage(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()  # Now this will work because ProductForm is a ModelForm
+            form.save()  
             messages.success(request, "Product added successfully!")
             return redirect('indexpage')
     else:
@@ -20,7 +20,7 @@ def indexpage(request):
     out_of_stock_count = Product.objects.filter(quantity=0).count()
     total_sales = sum(product.price * Decimal('0.8') for product in products)
     total_orders = sum(product.price * Decimal('0.2') for product in products)
-    products = products.order_by('-id')  # Make sure your model has an 'id' or use 'product_id'
+    products = products.order_by('-id') 
 
     context = {
         'form': form,

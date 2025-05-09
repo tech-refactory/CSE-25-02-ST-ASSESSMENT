@@ -218,15 +218,15 @@
     <div class="dashboard">
         <h2>Dashboard</h2>
         <div class="main-content">
-            <div class="left-column">                <div class="stats">
+            <div class="left-column">      
+                <div class="stats">
                     <div><strong>Total Sales:</strong> UGX {{ total_sales|floatformat:2 }}</div>
                     <div><strong>Total Orders:</strong> UGX {{ total_orders|floatformat:2 }}</div>
                     <div><strong>In Stock Value:</strong> UGX {{ in_stock_value|floatformat:2 }}</div>
                     <div><strong>Out of Stock Count:</strong> {{ out_of_stock_count }}</div>
                 </div>
                 <div class="product-table">
-                    <h2>Product List</h2>                  
-                      <table class="table">
+                    <h2>Product List</h2>                    <table class="table">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -234,7 +234,7 @@
                                 <th>Category</th>
                                 <th>Price (UGX)</th>
                                 <th>Quantity</th>
-                                
+                                <th>Color</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -245,7 +245,7 @@
                                 <td>{{ product.category }}</td>
                                 <td>{{ product.price|floatformat:2 }}</td>
                                 <td>{{ product.quantity }}</td>
-                               
+                                <td>{{ product.color }}</td>
                             </tr>
                             {% empty %}
                             <tr>
@@ -310,7 +310,8 @@
                             </div>
                         </div>
 
-                        <div style="display: flex; gap: 10px; margin-top: 1rem;">                            <button type="submit" class="btn btn-primary">Save</button>
+                        <div style="display: flex; gap: 10px; margin-top: 1rem;">                           
+                             <button type="submit" class="btn btn-primary">Save</button>
                             <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
                         </div>
                     </form>
@@ -321,92 +322,7 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    <script>
-                        // Form validation and clear functionality
-                        function clearForm() {
-                            const form = document.querySelector('form');
-                            form.reset();
-                            // Remove validation classes
-                            form.querySelectorAll('.form-control').forEach(input => {
-                                input.classList.remove('is-valid', 'is-invalid');
-                            });
-                            // Remove any existing alert messages
-                            const alerts = document.querySelectorAll('.alert');
-                            alerts.forEach(alert => alert.remove());
-                        }
-
-                        // Client-side validation
-                        document.querySelector('form').addEventListener('submit', function(e) {
-                            let isValid = true;
-                            const name = document.getElementById('id_name');
-                            const category = document.getElementById('id_category');
-                            const price = document.getElementById('id_price');
-                            const quantity = document.getElementById('id_quantity');
-                            const color = document.getElementById('id_color');
-                            
-                            // Name validation
-                            if (name.value.length < 3) {
-                                name.classList.add('is-invalid');
-                                isValid = false;
-                            } else {
-                                name.classList.remove('is-invalid');
-                                name.classList.add('is-valid');
-                            }
-
-                            // Category validation
-                            if (category.value.length < 2) {
-                                category.classList.add('is-invalid');
-                                isValid = false;
-                            } else {
-                                category.classList.remove('is-invalid');
-                                category.classList.add('is-valid');
-                            }
-
-                            // Price validation
-                            if (!price.value || price.value <= 0 || price.value > 1000000000) {
-                                price.classList.add('is-invalid');
-                                isValid = false;
-                            } else {
-                                price.classList.remove('is-invalid');
-                                price.classList.add('is-valid');
-                            }
-
-                            // Quantity validation
-                            if (!quantity.value || quantity.value < 0 || quantity.value > 1000000) {
-                                quantity.classList.add('is-invalid');
-                                isValid = false;
-                            } else {
-                                quantity.classList.remove('is-invalid');
-                                quantity.classList.add('is-valid');
-                            }
-
-                            // Color validation
-                            if (color.value.length < 2 || color.value.length > 100) {
-                                color.classList.add('is-invalid');
-                                isValid = false;
-                            } else {
-                                color.classList.remove('is-invalid');
-                                color.classList.add('is-valid');
-                            }
-
-                            if (!isValid) {
-                                e.preventDefault();
-                            }
-                        });
-
-                        // Real-time validation feedback
-                        document.querySelectorAll('.form-control').forEach(input => {
-                            input.addEventListener('input', function() {
-                                if (this.value.trim()) {
-                                    this.classList.add('is-valid');
-                                    this.classList.remove('is-invalid');
-                                } else {
-                                    this.classList.remove('is-valid');
-                                    this.classList.add('is-invalid');
-                                }
-                            });
-                        });
-                    </script>
+                    
                 </div>
             </div>
         </div>

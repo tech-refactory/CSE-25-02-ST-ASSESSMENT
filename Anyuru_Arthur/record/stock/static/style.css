@@ -1,0 +1,26 @@
+body{
+    background-color: hsl(220deg 14.29% 95.88%);
+}
+
+table{
+    font-size: large;
+    border-style: dashed;
+    text-align: center;
+    align-items: justify;    
+}
+thead{
+    background-color: black;
+    color: white;
+}
+tbody{
+    background-color: white;
+    color: black;
+}
+card{
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}

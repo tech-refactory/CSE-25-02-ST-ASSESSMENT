@@ -18,10 +18,10 @@ def dashboard(request):
     if request.GET.get('success'):
         success = True
 
-    products = Product.objects.all().order_by('-id') # -id gives precedence to the last one and the vice versa is true
+    products = Product.objects.all().order_by('-id') 
     total_sales = Product.objects.aggregate(total=Sum('price'))['total'] or 0
     out_of_stock_count = Product.objects.filter(quantity=0).count()
-    in_stock_count = Product.objects.filter(quantity__gt=0).count() #filter products where quantity is greater than 0
+    in_stock_count = Product.objects.filter(quantity__gt=0).count() 
     orders = Product.objects.count()
     context = {
         'form': form,

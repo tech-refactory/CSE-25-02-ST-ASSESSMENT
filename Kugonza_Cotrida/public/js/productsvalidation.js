@@ -1,75 +1,108 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("productForm");
-  const fields = [
-    { id: "productname", type: "text" },
-    { id: "category", type: "text" },
-    { id: "price", type: "number", min: 40000 },
-    { id: "quantity", type: "number" },
-    { id: "color", type: "text" },
-    { id: "image", type: "url" },
-  ];
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("productForm");
+    const productName = document.getElementById("productname");
+    const category = document.getElementById("category");
+    const price = document.getElementById("price");
+    const quantity = document.getElementById("quantity");
+    const color = document.getElementById("color");
+    const image = document.getElementById("image");
+    
+    const errorProductName = document.getElementById("error-productname");
+    const errorCategory = document.getElementById("error-category");
+    const errorPrice = document.getElementById("error-price");
+    const errorQuantity = document.getElementById("error-quantity");
+    const errorColor = document.getElementById("error-color");
+    const errorImage = document.getElementById("error-image");
 
-  let currentId = document.querySelectorAll("#product-body tr").length;
+    form.addEventListener("submit", function (e) {
+        let isValid = true;
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+        // Clear previous error messages
+        errorProductName.textContent = '';
+        errorCategory.textContent = '';
+        errorPrice.textContent = '';
+        errorQuantity.textContent = '';
+        errorColor.textContent = '';
+        errorImage.textContent = '';
 
-    let valid = true;
-    fields.forEach((field) => {
-      const input = document.getElementById(field.id);
-      const errorDiv = document.getElementById(`${field.id}-error`);
-      input.classList.remove("is-invalid", "is-valid");
-      errorDiv.textContent = "";
-
-      if (!input.value.trim()) {
-        errorDiv.textContent = "This field is required.";
-        input.classList.add("is-invalid");
-        valid = false;
-      } else if (field.type === "text" && !/[a-zA-Z]/.test(input.value)) {
-        errorDiv.textContent = "This field must contain text.";
-        input.classList.add("is-invalid");
-        valid = false;
-      } else if (field.id === "price" && parseFloat(input.value) < field.min) {
-        errorDiv.textContent = `Price must be at least UGX ${field.min}.`;
-        input.classList.add("is-invalid");
-        valid = false;
-      } else {
-        input.classList.add("is-valid");
-      }
-    });
-
-    if (valid) {
-      alert("Product saved successfully!");
-      currentId += 1;
-
-      const tbody = document.getElementById("product-body");
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${currentId}</td>
-        <td>${document.getElementById("productname").value}</td>
-        <td>${document.getElementById("category").value}</td>
-        <td>${document.getElementById("price").value}</td>
-        <td>${document.getElementById("quantity").value}</td>
-      `;
-      tbody.appendChild(row);
-      form.reset();
-
-      fields.forEach(f => {
-        const input = document.getElementById(f.id);
-        input.classList.remove("is-invalid");
-        if (input.classList.contains("is-valid")) {
-          input.classList.add("is-valid");
+        // Validate product name
+        if (productName.value.trim() === "") {
+            isValid = false;
+            errorProductName.textContent = 'Product name is required.';
+            productName.classList.add('is-invalid');
+        } else {
+            productName.classList.remove('is-invalid');
         }
-      });
-    }
-  });
 
-  document.getElementById("clear-btn").addEventListener("click", () => {
-    fields.forEach(f => {
-      const input = document.getElementById(f.id);
-      const errorDiv = document.getElementById(`${f.id}-error`);
-      input.classList.remove("is-valid", "is-invalid");
-      errorDiv.textContent = "";
+        // Validate category
+        if (category.value.trim() === "") {
+            isValid = false;
+            errorCategory.textContent = 'Category is required.';
+            category.classList.add('is-invalid');
+        } else {
+            category.classList.remove('is-invalid');
+        }
+
+        // Validate price (should not be less than 40,000)
+        if (price.value.trim() === "") {
+            isValid = false;
+            errorPrice.textContent = 'Price is required.';
+            price.classList.add('is-invalid');
+        } else if (parseFloat(price.value) < 40000) {
+            isValid = false;
+            errorPrice.textContent = 'Price must be at least 40,000 UGX.';
+            price.classList.add('is-invalid');
+        } else {
+            price.classList.remove('is-invalid');
+        }
+
+        // Validate quantity
+        if (quantity.value.trim() === "") {
+            isValid = false;
+            errorQuantity.textContent = 'Quantity is required.';
+            quantity.classList.add('is-invalid');
+        } else {
+            quantity.classList.remove('is-invalid');
+        }
+
+        // Validate color
+        if (color.value.trim() === "") {
+            isValid = false;
+            errorColor.textContent = 'Color is required.';
+            color.classList.add('is-invalid');
+        } else {
+            color.classList.remove('is-invalid');
+        }
+
+        // Validate image URL (should not be empty)
+        if (image.value.trim() === "") {
+            isValid = false;
+            errorImage.textContent = 'Image URL is required.';
+            image.classList.add('is-invalid');
+        } else {
+            const urlPattern = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|svg))$/;
+            if (!urlPattern.test(image.value)) {
+                isValid = false;
+                errorImage.textContent = 'Please provide a valid image URL.';
+                image.classList.add('is-invalid');
+            } else {
+                image.classList.remove('is-invalid');
+            }
+        }
+
+        // If the form is not valid, prevent submission
+        if (!isValid) {
+            e.preventDefault();
+        } else {
+            // Set green border if all fields are valid
+            if (productName.value && category.value && price.value >= 40000 && quantity.value && color.value && image.value) {
+                productName.classList.add('is-valid');
+                category.classList.add('is-valid');
+                price.classList.add('is-valid');
+                quantity.classList.add('is-valid');
+                color.classList.add('is-valid');
+                image.classList.add('is-valid');
+            }
+        }
     });
-  });
 });

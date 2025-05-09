@@ -1,0 +1,101 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 2px solid black !important;
+    border-collapse: collapse;
+  }
+
+thead{
+    background-color: black;
+    color:white
+}
+td, th {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+.no-header-border th {
+    border: none;
+  }
+
+.divider {
+    width: 1px;
+    background-color: #ccc;
+    margin: 0 20px;
+}
+
+label{
+    display: none;
+}
+
+.btn-orange {
+    background-color: rgb(255, 115, 0);
+    color: white;
+    border: none;
+}
+.btn-orange:hover {
+    background-color: rgb(255, 115, 0) !important;
+    color: white !important;
+}
+.btn-grey {
+    background-color: grey;
+    color: white;
+    border: none;
+}
+.btn-grey:hover {
+    background-color: grey !important;
+    color: white !important;
+}
+
+.is-invalid {
+    border-color: red !important;
+}
+
+.is-invalid:focus {
+    border-color: darkred !important;
+    box-shadow: 0 0 5px darkred !important;
+}
+
+.custom-alert {
+    background-color:  rgb(68, 145, 68) ;  
+    color: white ;             
+    text-align: center;                  
+    position: relative;
+    padding-right: 2.5rem;  
+  }
+  
+  .custom-close {
+    position: absolute;
+    top: 0.25rem;           
+    right: 0.25rem;
+    font-size: 0.75rem;      
+    width: 1.25rem;         
+    height: 1.25rem;        
+    padding: 0.25rem; 
+    color: white;      
+  }
+
+/* Initial state: light gray border */
+input, select, textarea {
+    border: 2px solid #ccc;
+    transition: border 0.3s;
+    outline: none;
+}
+
+/* Red border only after user interacts and input is invalid */
+input:invalid:focus, select:invalid:focus, textarea:invalid:focus {
+    border: 2px solid red;
+}
+
+input:invalid:blur, select:invalid:blur, textarea:invalid:blur {
+    border: 2px solid red;
+}
+
+/* Green border only if user fixed a previously invalid field */
+input:valid:focus, select:valid:focus, textarea:valid:focus,
+input:valid:not(:placeholder-shown), select:valid:not(:placeholder-shown), textarea:valid:not(:placeholder-shown) {
+    border: 2px solid green;
+}

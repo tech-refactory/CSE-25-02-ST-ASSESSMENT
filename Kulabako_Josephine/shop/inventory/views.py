@@ -9,7 +9,7 @@ def product_dashboard(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('product_dashboard')
     else:
         form = ProductForm()
 

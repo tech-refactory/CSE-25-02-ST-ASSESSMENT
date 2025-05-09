@@ -4,40 +4,38 @@ html(lang="en")
     meta(charset="UTF-8")
     title Dashboard
     link(rel="stylesheet", href="/css/style.css")
-    script(src="/js/produce.js")  
-  body
-    .container
-      .row
-        .card
-          .card-flex
-            .card-center
-              .insight-value UGX 50,000,000
-              .insight-title Sales
-            .card-divider
-            .card-center
-              .insight-value UGX 15,000,000
-              .insight-title Orders
-        .add-product
-          h3 Add Product
-          form(action="/", method="POST")
-            input(type='text' placeholder='Product Name')
-            input(type='text' placeholder='Category')
-            input(type='number' placeholder='Price')
-            input(type='number' placeholder='Quantity')
-            .add-product-row
-              input(type='text' placeholder='Color')
-              input(type='file' disabled='')
-            .add-product-btns
-              button.save-btn(type='submit') SAVE
-              button.clear-btn(type='reset') CLEAR
-      .row
-        .card.insight-green
-          .insight-value UGX 42,000,000
-          .insight-title In stock
-        .card
-          .insight-value.insight-red 5
-          .insight-title Out of stock
-      table
+.container
+  .row
+    .card
+      .card-flex
+        .card-center
+          .insight-value UGX 50,000,000
+          .insight-title Sales
+        .card-divider
+        .card-center
+          .insight-value UGX 15,000,000
+          .insight-title Orders
+    .add-product
+      h3 Add Product
+      form(novalidate='' action='/' method = 'POST')
+        input(type='text' placeholder='Product Name')
+        input(type='text' placeholder='Category')
+        input(type='number' placeholder='Price')
+        input(type='number' placeholder='Quantity')
+        .add-product-row
+          input(type='text' placeholder='Color')
+          input(type='file' disabled='')
+        .add-product-btns
+          button.save-btn(type='submit') SAVE
+          button.clear-btn(type='reset') CLEAR
+  .row
+    .card.insight-green
+      .insight-value UGX 42,000,000
+      .insight-title In stock
+    .card
+      .insight-value.insight-red 5
+      .insight-title Out of stock
+        table
         thead
           tr
             th ID
@@ -45,40 +43,16 @@ html(lang="en")
             th CATEGORY
             th PRICE(UGX)
             th QUANTITY
+            th COLOR
         tbody
-          tr
-            td #645341
-            td Sumsang s25+ Ultra
-            td Smart Phones
-            td 6,900,000
-            td 981
-          tr
-            td #645346
-            td Gucci XXL Shirt
-            td Fashion
-            td 500,000
-            td 100
-          tr
-            td #645342
-            td XL Zara Shirt
-            td Fashion
-            td 600,000
-            td 56
-          tr
-            td #645344
-            td iPhone 15
-            td Smart Phones
-            td 7,900,000
-            td 752
-          tr
-            td #645343
-            td Smart home Curtain
-            td Interior Design
-            td 500,000
-            td 30
-          tr
-            td #645345
-            td Spectrum Laptop 14.6 Inc
-            td Laptops
-            td 15,800,000
-            td 144
+          each product in products
+            tr
+              td #{product._id.toString().slice(-6).toUpperCase()}
+              td #{product.name}
+              td #{product.category}
+              td #{product.price.toLocaleString()}
+              td #{product.quantity}
+              td #{product.color}
+            script(src="/js/validation.js")
+
+                

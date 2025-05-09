@@ -20,8 +20,12 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if not self.product_id:
             last = Product.objects.order_by('-product_id').first()
-            self.product_id = self.base_id + 1 if not last else last.product_id + 1
+            if not last:
+                new_id = str(self.base_id + 1)
+            else:
+                new_id = str(int(last.product_id) + 1)
+            self.product_id = new_id
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.product_id} - {self.name}"
+        return f"{self.product_id} - {self.product_name}" 

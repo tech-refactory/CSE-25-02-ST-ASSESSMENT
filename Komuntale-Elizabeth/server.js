@@ -16,7 +16,7 @@ const AddProduct =require('./models/AddProduct')
 
 // 2.Instantations
 const app =express();
-const PORT =3004;
+const PORT =3000;
 
 //import routes
   const addProductRoutes =require("./routes/addProductRoutes");

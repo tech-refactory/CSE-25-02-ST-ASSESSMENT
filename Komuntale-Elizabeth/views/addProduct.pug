@@ -49,9 +49,12 @@ head
           th QUANTITY
       tbody#productTableBody
         tr
-          td #{product.ID}
-          td #{product.NAME}
-          td #{product.}
-          td #{product.}
-          td #{product.}
+            if products && products.length
+            each product in products
+          td #{product.Id}
+          td #{product.Name}
+          td #{product.Category}
+          td #{product.price}
+          td #{product.Quantity}
+
 script(src='/js/addProduct.js')

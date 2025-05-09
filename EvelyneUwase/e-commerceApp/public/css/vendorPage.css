@@ -1,0 +1,129 @@
+
+  /* Reset and base styles */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f6f7;
+    margin: 0;
+    padding: 2rem;
+    color: #222;
+  }
+
+  h1 {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+  }
+
+  /* Summary Cards Section */
+  .dashboard-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .summary-card {
+    flex: 1 1 200px;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 6px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    min-width: 180px;
+  }
+
+  .summary-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+  .summary-subtitle {
+    color: #888;
+    margin-top: 0.4rem;
+  }
+
+  .green-card .summary-title {
+    color: #14a44d;
+  }
+
+  .red-card .summary-title {
+    color: red;
+  }
+
+  /* Form styles */
+  form {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    max-width: 400px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
+  }
+
+  form input[type="text"],
+  form input[type="number"],
+  form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 0.4rem;
+    margin-bottom: 0.2rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+  }
+
+  .error-message {
+    font-size: 0.8rem;
+    color: red;
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+
+  .form-buttons {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .save-btn,
+  .clear-btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .save-btn {
+    background-color: #e67e22;
+    color: white;
+  }
+
+  .clear-btn {
+    background-color: #ccc;
+    color: black;
+  }
+
+  /* Table styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    background-color: white;
+    border: 1px solid #ddd;
+  }
+
+  table thead {
+    background-color: black;
+    color: white;
+  }
+
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+

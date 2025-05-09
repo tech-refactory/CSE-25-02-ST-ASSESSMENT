@@ -6,10 +6,13 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'category', 'price', 'quantity', 'color', 'image']
-        widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Product Name'}),
-            'category': forms.TextInput(attrs={'placeholder': 'Category'}),
-            'price': forms.NumberInput(attrs={'placeholder': 'Price'}),
-            'quantity': forms.NumberInput(attrs={'placeholder': 'Quantity'}),
-            'color': forms.TextInput(attrs={'placeholder': 'Color'}),
-        }
+        
+    def __init__(self, *args, **kwargs):
+        super(ProductForm, self).__init__(*args, **kwargs)
+        # Make all fields required
+        for field_name, field in self.fields.items():
+            field.required = True
+            field.error_messages = {
+                'required': 'This field is required',
+                'invalid': 'Invalid field'
+            }

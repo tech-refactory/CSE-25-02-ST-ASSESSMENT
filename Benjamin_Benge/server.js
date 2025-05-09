@@ -16,7 +16,7 @@ const PORT = 3003;
 
 //import routes
 
-const productRoutes = require("./routes/studyRoutes")
+const productRoutes = require("./routes/productRoutes")
 
 
 //3)configurations

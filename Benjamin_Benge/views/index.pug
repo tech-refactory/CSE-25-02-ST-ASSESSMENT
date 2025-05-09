@@ -2,12 +2,12 @@ doctype html
 head
   meta(charset='UTF-8')
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  link(rel='stylesheet' href='/public/index.css')
+  link(rel='stylesheet' href='/css/index.css')
   title Document
 .container
   .box-1 A
   .box-2
-    form(action='/' method='post')
+    form(action='/addProduct' method='post')
       h8 Add Product
       .myform
         label(for='addProduct')
@@ -36,37 +36,16 @@ head
 .box-3
   table
     tr
-      th Company
-      th Contact
-      th Country
-      th Country
-      th Country
+      th ID
+      th Product
+      th Categry
+      th Price
+      th Quantity
+  tbody
+   if products.length
+   each product in products
     tr
-      td Alfreds Futterkiste
-      td Maria Anders
-      td Germany
-      td Germany
-    tr
-      td Centro comercial Moctezuma
-      td Francisco Chang
-      td Mexico
-      td Germany
-      td Germany
-    tr
-      td Ernst Handel
-      td Roland Mendel
-      td Austria
-      td Germany
-      td Germany
-    tr
-      td Island Trading
-      td Helen Bennett
-      td UK
-    tr
-      td Laughing Bacchus Winecellars
-      td Yoshi Tannamuri
-      td Canada
-    tr
-      td Magazzini Alimentari Riuniti
-      td Giovanni Rovelli
-      td Italy
+      td #{product.addProduct}
+      td #{product.category}
+      td #{product.price}
+      td #{product.quantity}

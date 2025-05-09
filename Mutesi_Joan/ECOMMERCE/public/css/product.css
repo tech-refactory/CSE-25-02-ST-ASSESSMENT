@@ -1,0 +1,216 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f6f7;
+  margin: 0;
+  padding: 2rem;
+  color: #222;
+}
+
+h1 {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+}
+
+/* Columns Layout for Cards and Form */
+.dashboard-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.left-column {
+  flex: 2;
+  min-width: 300px;
+}
+
+.right-column {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Responsive stacking */
+@media (max-width: 768px) {
+  .dashboard-columns {
+    flex-direction: column;
+  }
+}
+
+/* Summary Cards Section */
+.dashboard-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.summary-card {
+  flex: 1 1 200px;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  min-width: 180px;
+}
+
+.summary-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.summary-subtitle {
+  color: #888;
+  margin-top: 0.4rem;
+}
+
+.green-card .summary-title {
+  color: #14a44d;
+}
+
+.red-card .summary-title {
+  color: #dc3545;
+}
+
+/* Enhanced Form styles */
+form {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 400px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Unified input styling */
+input {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  margin: 8px 0;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.3s;
+  background-color: #fff;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* Solid border validation states */
+input.valid {
+  border: 2px solid #28a745;
+  background-color: #f8fff8;
+}
+
+input.invalid {
+  border: 2px solid #dc3545;
+  background-color: #fff8f8;
+}
+
+/* File input specific styling */
+input[type="file"] {
+  padding: 8px;
+  background-color: #f8f9fa;
+}
+
+/* Enhanced error messages */
+.error-message {
+  color: #dc3545;
+  font-size: 13px;
+  margin: -5px 0 10px 2px;
+  display: none;
+  font-weight: 500;
+}
+
+/* Improved button styles */
+.form-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.save-btn,
+.clear-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.save-btn {
+  background-color: #e67e22;
+  color: white;
+}
+
+.clear-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
+.clear-btn:hover {
+  background-color: #ccc;
+  color: black;
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  background-color: white;
+  border: 1px solid #ddd;
+}
+
+table thead {
+  background-color: black;
+  color: white;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Enhanced success alert */
+.success-alert {
+  background-color: #28a745;
+  border: 2px solid #218838;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.success-alert .close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.success-alert .close-btn:hover {
+  opacity: 1;
+}

@@ -1,6 +1,7 @@
-# from django.urls import path
-# from . import views
+from django.urls import path
+from . import views
 
-# urlpatterns = [
-#     path('', views.sale_create, name='sale_create'),
-# ]
+urlpatterns = [
+    path('', views.dashboard, name='dashboard'),
+    # path('add_product/', views.add_product, name='add_product'),
+]

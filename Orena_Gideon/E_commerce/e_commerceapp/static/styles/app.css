@@ -1,0 +1,19 @@
+.btn {
+    background-color: orange; /* css for the save btn */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.ntb {
+    background-color: gray; /* css for the clear btn */
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}

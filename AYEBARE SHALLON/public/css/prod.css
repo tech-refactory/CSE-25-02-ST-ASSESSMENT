@@ -1,0 +1,66 @@
+/* Custom styles */
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 8px;
+}
+
+.form-control {
+    padding: 0.75rem 1rem;
+}
+
+.form-control:focus {
+    border-color: #f4811e;
+    box-shadow: 0 0 0 0.2rem rgba(244, 129, 30, 0.25);
+}
+
+.btn-warning {
+    background-color: #f4811e;
+    border-color: #f4811e;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #e67613;
+    border-color: #e67613;
+    color: white;
+}
+
+.table th {
+    font-weight: 500;
+    padding: 1rem;
+}
+
+.table td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+/* Form validation styles */
+.form-control.valid {
+    border-color: #198754;
+    background-color: #f8fff9;
+}
+
+.form-control.invalid {
+    border-color: #dc3545;
+    background-color: #fff8f8;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Animation for new entries */
+tr.new-product {
+    animation: highlightNew 2s ease-out;
+}
+
+@keyframes highlightNew {
+    from { background-color: rgba(244, 129, 30, 0.1); }
+    to { background-color: transparent; }
+}

@@ -17,6 +17,7 @@
     "axios": "^1.9.0",
     "express": "^5.1.0",
     "nodemon": "^3.1.10",
+    "pinia": "^3.0.2",
     "toastification": "^0.1.5",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1"

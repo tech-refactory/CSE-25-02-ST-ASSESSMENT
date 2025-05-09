@@ -1,0 +1,72 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='/public/index.css')
+  title Document
+.container
+  .box-1 A
+  .box-2
+    form(action='/' method='post')
+      h8 Add Product
+      .myform
+        label(for='addProduct')
+          b
+        input(type='text' placeholder='Add Product' name='addProduct' r='')
+        label(for='category')
+          b
+        input(type='text' placeholder='category' name='category' required='')
+        label(for='price')
+          b
+        input(type='text' placeholder='price' name='price' required='')
+        label(for='quantity')
+          b
+        input(type='text' placeholder='quantity' name='quantity' required='')
+        .colorAndImage
+          label(for='color')
+            b
+          input(type='text' placeholder='color' name='color' required='')
+          label(for='image')
+            b
+          input(type='text' placeholder='image' name='image' required='')
+        .submit-buttons
+          button.save-button(type='submit') save
+          button.clear-button(type='clear') clear
+  .box-3 c
+.box-3
+  table
+    tr
+      th Company
+      th Contact
+      th Country
+      th Country
+      th Country
+    tr
+      td Alfreds Futterkiste
+      td Maria Anders
+      td Germany
+      td Germany
+    tr
+      td Centro comercial Moctezuma
+      td Francisco Chang
+      td Mexico
+      td Germany
+      td Germany
+    tr
+      td Ernst Handel
+      td Roland Mendel
+      td Austria
+      td Germany
+      td Germany
+    tr
+      td Island Trading
+      td Helen Bennett
+      td UK
+    tr
+      td Laughing Bacchus Winecellars
+      td Yoshi Tannamuri
+      td Canada
+    tr
+      td Magazzini Alimentari Riuniti
+      td Giovanni Rovelli
+      td Italy

@@ -2,6 +2,7 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  font-size: small;
 }
 
 body {
@@ -50,6 +51,9 @@ body {
   grid-column-end: 12;
   grid-row-start: 7;
   grid-row-end: 12;
+   background-color:white;
+
+   margin-top: 200px;
 }
 
 input[type=text], input[type=password] {
@@ -131,4 +135,21 @@ span.psw {
        display: flex;
     flex-direction: row;
     gap: 10px;
+}
+
+table {
+
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th{
+background-color:black;
+color: white
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 }

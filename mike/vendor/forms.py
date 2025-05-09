@@ -5,13 +5,7 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'category', 'price', 'quantity', 'image']
-        widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter product name'}),
-            'category': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter category'}),
-            'price': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter price'}),
-            'quantity': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter quantity'}),
-            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
-        }
+       
 
     def clean_name(self):
         name = self.cleaned_data.get('name')

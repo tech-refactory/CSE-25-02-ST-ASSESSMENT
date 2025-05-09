@@ -4,12 +4,13 @@ from django import forms
 # Create your models here.
 
 class Product(models.Model):
-   name = models.CharField(max_length=255)
+   name = models.CharField(max_length=255, blank=False)
    category = models.CharField(max_length=100)
-   price = models.PositiveIntegerField(max_length=100)
-   Quantity = models.IntegerField(max_length=100)
+   price = models.PositiveIntegerField( blank=False)
+   Quantity = models.PositiveIntegerField(blank=False)
    color = models.CharField(max_length=50)
-   image = models.ImageField(upload_to='products/', blank=True, null=True)
+   image = models.FileField(upload_to='products/', blank=True, null=True)
+   
 
 
 def __str__(self):

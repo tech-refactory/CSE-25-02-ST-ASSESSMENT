@@ -12,63 +12,44 @@
 </head>
 <body>
     <div class="container">
-        
-        <div class="row">
-            <div class="col-6">
-
-                <div class="stats-container">
-                    <div class="stats-card">
-                        <h2>Total Sales</h2>
+        <div class="dashboard-layout">
+            <!-- Left Side - Stats Cards -->
+            <div class="stats-section">
+                <div class="stats-row">
+                    <div class="stats-card sales">
                         <div class="stats-value">UGX {{ total_sales|intcomma }}</div>
+                        <div class="stats-label">Sales</div>
                     </div>
-                    <div class="stats-card">
-                        <h2>Total Orders</h2>
-                        <div class="stats-value">{{ total_orders|intcomma }}</div>
-                    </div>
-                    <div class="stats-card">
-                        <h2>In Stock</h2>
-                        <div class="stats-value">UGX {{ in_stock|intcomma }}</div>
-                    </div>
-                    <div class="stats-card">
-                        <h2>Out of Stock</h2>
-                        <div class="stats-value">{{ out_of_stock }}</div>
+                    <div class="stats-card orders">
+                        <div class="stats-value">UGX {{ total_orders|intcomma }}</div>
+                        <div class="stats-label">Orders</div>
                     </div>
                 </div>
-
+                <br><br><br><br><br><br>
+                <div class="stats-row">
+                    <div class="stats-card in-stock">
+                        <div class="stats-value">UGX {{ in_stock|intcomma }}</div>
+                        <div class="stats-label">In stock</div>
+                    </div>
+                    <div class="stats-card out-of-stock">
+                        <div class="stats-value">{{ out_of_stock }}</div>
+                        <div class="stats-label">Out of stock</div>
+                    </div>
+                </div>
             </div>
 
-             <!-- Messages -->
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li class="message {% if message.tags %}{{ message.tags }}{% endif %}">
-                {{ message }}
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-
-            <div class="col-6">
+            <!-- Right Side - Form -->
+            <div class="form-section">
                 <div class="product-form">
                     <h2>Add Product</h2>
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <input type="text" name="product_name" placeholder="Product Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="category" placeholder="Category" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="number" name="price" placeholder="Price" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="number" name="quantity" placeholder="Quantity" required>
-                        </div>
-                        <div class="form-group">
+                        <input type="text" name="product_name" placeholder="Product Name" required>
+                        <input type="text" name="category" placeholder="Category" required>
+                        <input type="number" name="price" placeholder="Price" required>
+                        <input type="number" name="quantity" placeholder="Quantity" required>
+                        <div class="form-row">
                             <input type="text" name="color" placeholder="Color" required>
-                        </div>
-                        <div class="form-group">
                             <input type="file" name="image" class="upload-btn" required>
                         </div>
                         <div class="button-group">
@@ -77,10 +58,10 @@
                         </div>
                     </form>
                 </div>
-        
             </div>
-         
-    
+        </div>
+
+        <!-- Table Section -->
         <div class="table-container">
             <table class="product-table">
                 <thead>
@@ -100,10 +81,6 @@
                         <td>{{ product.category }}</td>
                         <td>{{ product.price|intcomma }}</td>
                         <td>{{ product.quantity }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" style="text-align: center;">No products available</td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -85,3 +85,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
   
+  //success dialog box 
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    var success = !{success};
+    if (success) {
+      $('#successModal').modal('show');
+    }
+  });

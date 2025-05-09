@@ -45,8 +45,8 @@ body{
     margin-top: 0;
 }
 .card{
-    margin-top: 100px;
-    margin-left: 0;
+    margin-top: 0px;
+    margin-left:40px;
 }
 .numb{
     text-align: left;
@@ -55,8 +55,9 @@ body{
 .user-input-box{
     display: flex;
     flex-wrap: wrap;
-    width: 50%;
+    width: 150%;
     padding-bottom: 15px;
+    height: 40px;
 }
 
 .user-input-box input{
@@ -66,6 +67,14 @@ body{
     outline: none;
     border: 1px solid grey;
     padding: 0 10px;
+}
+.form-content12{
+    width: 80%;
+    padding-bottom: 15px;
+    height: 40px;
+}
+#uploadimage{
+    margin-top: 0%;
 }
 .save {
     background-color: rgb(241, 168, 108);
@@ -103,6 +112,7 @@ body{
   table {
     width: 100%;
     border-collapse: collapse; 
+    margin-left: 40px;
   }
   
   th, td {
@@ -117,6 +127,6 @@ body{
   }
   
   thead th {
-    color: white; 
+    color: white; /* Sets the text color of header cells to white for contrast */
   }
   

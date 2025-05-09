@@ -1,0 +1,120 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard Review</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Vendor Dashboard</h1>
+        </div>
+        <div class="insights-container">
+            <div class="insight-card">
+                <div class="insight-value">UGX {{ total_sales|intcomma }}</div>
+                <div class="insight-label">Sales</div>
+            </div>
+            <div class="insight-card">
+                <div class="insight-value">UGX {{ expected_revenue|intcomma }}</div>
+                <div class="insight-label">Orders</div>
+            </div>
+            <div class="insight-card">
+                <div class="insight-value" style="color: #27ae60;">UGX {{ capital_in_stock|intcomma }}</div>
+                <div class="insight-label">In stock</div>
+            </div>
+            <div class="insight-card">
+                <div class="insight-value" style="color: #e74c3c;">{{ out_of_stock }}</div>
+                <div class="insight-label">Out of stock</div>
+            </div>
+        </div>
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+            <div style="flex: 2;">
+                <div class="products-section">
+                    <div class="section-header">
+                        <h2>Products List</h2>
+                    </div>
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Price (UGX)</th>
+                                <th>Quantity</th>
+                                <th>Color</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.price|intcomma }}</td>
+                                <td>{{ product.quantity }}</td>
+                                <td>{{ product.color }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr><td colspan="5">No products found.</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="flex: 1;">
+                <div class="form-container">
+                    <h2 style="margin-bottom: 15px;">Add Product</h2>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-error">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    <form id="productForm" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <table style="width:100%">
+                            <tr>
+                                <td><label for="id_name">Product Name</label></td>
+                                <td>{{ form.name }}{% if form.name.errors %}<div class="alert alert-error">{{ form.name.errors }}</div>{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><label for="id_category">Category</label></td>
+                                <td>{{ form.category }}{% if form.category.errors %}<div class="alert alert-error">{{ form.category.errors }}</div>{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><label for="id_price">Price</label></td>
+                                <td>{{ form.price }}{% if form.price.errors %}<div class="alert alert-error">{{ form.price.errors }}</div>{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><label for="id_quantity">Quantity</label></td>
+                                <td>{{ form.quantity }}{% if form.quantity.errors %}<div class="alert alert-error">{{ form.quantity.errors }}</div>{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><label for="id_color">Color</label></td>
+                                <td>{{ form.color }}{% if form.color.errors %}<div class="alert alert-error">{{ form.color.errors }}</div>{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td><label for="id_image">Upload Image</label></td>
+                                <td>{{ form.image|add_class:'file-input' }}<span class="file-name" id="fileName">No file chosen</span>{% if form.image.errors %}<div class="alert alert-error">{{ form.image.errors }}</div>{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align:right">
+                                    <button type="submit" class="btn btn-primary">SAVE</button>
+                                    <button type="reset" class="btn btn-secondary" id="clearForm">CLEAR</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html> 

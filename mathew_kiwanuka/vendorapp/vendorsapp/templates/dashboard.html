@@ -8,6 +8,35 @@
     <title>Document</title>
 </head>
 <body class="bg-light p-4">
+
+    
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card p-3 text-center">
+                <h4><strong>UGX {{ sales|intcomma }}</strong></h4>
+                <span>Sales</span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3 text-center">
+                <h4><strong>UGX {{ orders|intcomma }}</strong></h4>
+                <span>Orders</span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3 text-center border-success text-success">
+                <h4><strong>UGX {{ in_stock|intcomma }}</strong></h4>
+                <span>In stock</span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3 text-center border-danger text-danger">
+                <h4><strong>{{ out_of_stock }}</strong></h4>
+                <span>Out of stock</span>
+            </div>
+        </div>
+    </div>
     
 </body>
 </html>

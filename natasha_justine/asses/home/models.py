@@ -1,6 +1,11 @@
 from django.db import models
+import uuid
+# Create your models here.
+# model for Product
+
 
 class Product(models.Model):
+    id=models.UUIDField(primary_key=True,default =uuid.uuid4,editable=False)
     name = models.CharField(max_length=255)
     category = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -8,5 +13,5 @@ class Product(models.Model):
     color = models.CharField(max_length=100)
     image = models.ImageField(upload_to='product_images/', blank=True, null=True)
 
-    def _str_(self):
-        return self.name 
+    def str(self):
+        return self.name

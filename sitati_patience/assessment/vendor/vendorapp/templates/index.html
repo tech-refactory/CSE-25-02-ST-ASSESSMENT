@@ -1,0 +1,84 @@
+<!-- templates/dashboard.html -->
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vendor Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="max-w-7xl mx-auto p-4">
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-3 gap-4 mb-6">
+        <div class="bg-white shadow p-4">
+            <p class="text-lg font-bold">UGX {{ total_sales|default:"0"|intcomma }}</p>
+            <p class="text-gray-500">Sales</p>
+        </div>
+        <div class="bg-white shadow p-4">
+            <p class="text-lg font-bold">UGX {{ total_orders|default:"0"|intcomma }}</p>
+            <p class="text-gray-500">Orders</p>
+        </div>
+        <div class="bg-white shadow p-4 flex justify-between">
+            <div>
+                <p class="text-green-600 font-bold">UGX {{ total_stock|default:"0"|intcomma }}</p>
+                <p class="text-gray-500">In stock</p>
+            </div>
+            <div>
+                <p class="text-red-600 font-bold text-right">{{ out_of_stock_count }}</p>
+                <p class="text-gray-500 text-right">Out of stock</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Form -->
+    <div class="bg-white shadow p-6 mb-6">
+        {% if success %}
+            <div class="bg-green-500 text-white p-2 mb-4">Product has been added successfully!</div>
+        {% endif %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="grid grid-cols-3 gap-4">
+                {{ form.product_name|as_crispy_field }}
+                {{ form.category|as_crispy_field }}
+                {{ form.price|as_crispy_field }}
+                {{ form.quantity|as_crispy_field }}
+                {{ form.color|as_crispy_field }}
+                {{ form.image|as_crispy_field }}
+            </div>
+            <div class="mt-4 flex gap-4">
+                <button type="submit" class="bg-orange-500 text-white py-2 px-6">SAVE</button>
+                <a href="." class="bg-gray-300 text-black py-2 px-6">CLEAR</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Product Table -->
+    <div class="bg-white shadow p-4">
+        <table class="table-auto w-full border">
+            <thead>
+                <tr class="bg-gray-200 text-left">
+                    <th class="px-2 py-1">ID</th>
+                    <th class="px-2 py-1">NAME</th>
+                    <th class="px-2 py-1">CATEGORY</th>
+                    <th class="px-2 py-1">PRICE(UGX)</th>
+                    <th class="px-2 py-1">QUANTITY</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr class="border-t">
+                    <td class="px-2 py-1">#{{ product.id }}</td>
+                    <td class="px-2 py-1">{{ product.product_name }}</td>
+                    <td class="px-2 py-1">{{ product.category }}</td>
+                    <td class="px-2 py-1">{{ product.price|intcomma }}</td>
+                    <td class="px-2 py-1">{{ product.quantity }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

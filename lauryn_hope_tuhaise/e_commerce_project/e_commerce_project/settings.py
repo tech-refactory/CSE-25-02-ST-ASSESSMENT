@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'e_commerce',
      'django.contrib.humanize',
+     'widget_tweaks'
 ]
 
 MIDDLEWARE = [

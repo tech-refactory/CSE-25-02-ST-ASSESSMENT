@@ -48,8 +48,8 @@
                         <div class="stats-label" style="display: flex; justify-content: center; align-items: center; height: 100%;">In stock</div>
                     </div>
                     <div class="stats-card out-of-stock">
-                        <div class="stats-value" style="display: flex; justify-content: center; align-items: center; height: 100%;">{{ out_of_stock }}</div>
-                        <div class="stats-label" style="display: flex; justify-content: center; align-items: center; height: 100%;">Out of stock</div>
+                        <div class="stats-value" style="display: flex; justify-content: center; align-items: center">{{ out_of_stock }}</div>
+                        <div class="stats-label" style="display: flex; justify-content: center; align-items: center">Out of stock</div>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
             
             <div class="form-section">
                 <div class="product-form">
-                    <strong><h1>Add Product</h1></strong>
+                    <strong><h2>Add Product</h2></strong>
                     <form method="POST" enctype="multipart/form-data" novalidate>
                         {% csrf_token %}
                         <div class="form-group">

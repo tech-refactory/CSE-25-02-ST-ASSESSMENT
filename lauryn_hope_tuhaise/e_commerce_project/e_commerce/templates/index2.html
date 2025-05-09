@@ -1,0 +1,131 @@
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Dashboard</title>
+    <link rel="stylesheet" href="{% static 'style3.css' %}">
+</head>
+<style>
+    .messages {
+            margin-bottom: 15px;
+        }
+        .message-success {
+            color: #1ebe44;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+        .message-error {
+            color: #dc3545;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+        .invalid-feedback {
+            display: none;
+        }
+        .is-invalid + .invalid-feedback {
+            display: block;
+        }
+</style>
+<body>
+    <div class="container">
+        <div class="dashboard-layout">
+            <!-- Left Side - Stats Cards -->
+            <div class="stats-section">
+                <div class="stats-row">
+                    <div class="stats-card sales">
+                        <div class="stats-value">UGX {{ total_sales|intcomma }}</div>
+                        <div class="stats-label">Sales</div>
+                    </div>
+                    <div class="stats-card orders">
+                        <div class="stats-value">UGX {{ total_orders|intcomma }}</div>
+                        <div class="stats-label">Orders</div>
+                    </div>
+                </div>
+                <br><br><br><br><br><br>
+                <div class="stats-row">
+                    <div class="stats-card in-stock">
+                        <div class="stats-value">UGX {{ in_stock|intcomma }}</div>
+                        <div class="stats-label">In stock</div>
+                    </div>
+                    <div class="stats-card out-of-stock">
+                        <div class="stats-value">{{ out_of_stock }}</div>
+                        <div class="stats-label">Out of stock</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Form -->
+            <div class="form-section">
+                <div class="product-form">
+                    <h2>Add Product</h2>
+                    <div class="messages">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="{% if message.tags == 'success' %}message-success{% elif message.tags == 'error' %}message-error{% endif %}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+
+
+                    </div>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in sale_form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            <input
+                                type="{{ field.field.widget.input_type }}"
+                                name="{{ field.name }}"
+                                id="{{ field.id_for_label }}"
+                                class="form-control {% if field.errors %}is-invalid{% endif %}"
+                                value="{{ field.value|default_if_none:'' }}"
+                            >
+                            {% for error in field.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                        <div class="button-group">
+                            <button type="submit" class="save-btn">SAVE</button>
+                            <button type="reset" class="clear-btn">CLEAR</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="table-container">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>CATEGORY</th>
+                        <th>PRICE (UGX)</th>
+                        <th>QUANTITY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.product_id }}</td>
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price|intcomma }}</td>
+                        <td>{{ product.quantity }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -37,7 +37,7 @@ class ProductForm(ModelForm):
     price = forms.IntegerField(
         required=True,
         validators=[
-            MinValueValidator(1000, message='Price must be at least 1,000 UGX.')
+            MinValueValidator(1000, message='Invalid Field')
         ],
         widget=forms.NumberInput(attrs={
             'placeholder': 'Price',
@@ -90,3 +90,23 @@ class ProductForm(ModelForm):
         cleaned_data = super().clean()
         return cleaned_data
 
+class ProductsForm(ModelForm):
+    class Meta:
+        model = Product
+        fields= '__all__'
+        widgets = {
+            'product_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Product Name'}),
+            'category': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Category'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Price'}),
+            'quantity': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}),
+            'color': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Color'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
+        error_messages = {
+            'name': {'required': 'Invalid field'},
+            'category': {'required': 'Invalid field'},
+            'price': {'required': 'Invalid field'},
+            'quantity': {'required': 'Invalid field '},
+            'color': {'required': 'Invalid field'},
+            'Image': {'required': 'Invalid field'},
+        }

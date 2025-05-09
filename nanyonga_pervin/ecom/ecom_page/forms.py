@@ -1,84 +1,85 @@
 from .models import Product
 from django import forms
 
+
+
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['product_name', 'category', 'price', 'quantity', 'color', 'image']
+        widgets = {
+            'product_name': forms.TextInput(attrs={'placeholder': 'Enter product name'}),
+            'category': forms.TextInput(attrs={'placeholder': 'Category'}),
+            'price': forms.NumberInput(attrs={'placeholder': 'Price'}),
+            'quantity': forms.NumberInput(attrs={'placeholder': 'Quantity'}),
+            'color': forms.TextInput(attrs={'placeholder': 'Color'}),
+            'image': forms.TextInput(attrs={'placeholder': 'Upload Image'}),  # no placeholder for file inputs
+        }
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
 
-
-def clean_price(self):
-    price = self.cleaned_data.get('price')
-
-    if not price:
-        raise forms.ValidationError("Price is required.")
+        if not price:
+            raise forms.ValidationError("Invalid Field")
     
-    if price <= 0:
-        raise forms.ValidationError("Price must be greater than zero.")
+        if price <= 0:
+            raise forms.ValidationError("Invalid Field")
     
-    if not price.isdigit():
-        raise forms.ValidationError("Price must be a number.")
+        
 
-    return price
+        return price
 
 
-def clean_quantity(self):
-    quantity = self.cleaned_data.get('quantity')
+    def clean_quantity(self):
+        quantity = self.cleaned_data.get('quantity')
 
-    if not quantity:
-        raise forms.ValidationError("Quantity is required.")
+        if not quantity:
+            raise forms.ValidationError("Invalid Field")
     
-    if quantity <= 0:
-        raise forms.ValidationError("Quantity must be greater than zero.")
+        if quantity <= 0:
+            raise forms.ValidationError("Invalid Field")
     
-    if not quantity.isdigit():
-        raise forms.ValidationError("Quantity must be a number.")
+        
+        return quantity
 
-    return quantity
-
-def product_name(self):
-    product_name = self.cleaned_data.get('product_name')
-    if not product_name:
-        raise forms.ValidationError("Product name is required.")
+    def clean_product_name(self):
+        product_name = self.cleaned_data.get('product_name')
+        if not product_name:
+            raise forms.ValidationError("Invalid Field")
     
-    if len(product_name) < 3:
-        raise forms.ValidationError("Product name must be at least 3 characters long.")
+        if len(product_name) < 3:
+            raise forms.ValidationError("Invalid Field")
     
-    if product_name.isdigit():
-            raise forms.ValidationError("Product name cannot be only numbers.")
+        if product_name.isdigit():
+            raise forms.ValidationError("Invalid Field")
 
 
-    return product_name
+        return product_name
 
 
-def clean_category(self):
+    def clean_category(self):
         category = self.cleaned_data.get('category')
 
         if not category:
-            raise forms.ValidationError("Category is required.")
+            raise forms.ValidationError("Invalid Field")
         
-        valid_choices = [choice[0] for choice in Product.CATEGORY_CHOICES]
-        if category not in valid_choices:
-            raise forms.ValidationError("Invalid category selected.")
+        
         return category
 
 
-def clean_image(self):
+    def clean_image(self):
         image = self.cleaned_data.get('image')
 
         if not image:
-            raise forms.ValidationError("No image uploaded.")
+            raise forms.ValidationError("Invalid Field")
         
         return image
 
-def clean_color(self):
+    def clean_color(self):
         color = self.cleaned_data.get('color')
 
         if not color:
-            raise forms.ValidationError("Color is required.")
+            raise forms.ValidationError("Invalid Field")
         
         return color
 
 
-def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)

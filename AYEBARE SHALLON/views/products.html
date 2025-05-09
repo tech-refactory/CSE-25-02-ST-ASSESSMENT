@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>E-COMMERCE</title>
+    <script src="script.js" defer></script>
     <style>
         .container {
             display: flex;
@@ -104,13 +105,13 @@
 
         <div class="form-container">
             <h2>Add Product</h2>
-            <form id="productForm">
-                <input type="text" class="form-input" placeholder="Product Name">
-                <input type="text" class="form-input" placeholder="Category">
-                <input type="number" class="form-input" placeholder="Price">
-                <input type="number" class="form-input" placeholder="Quantity">
-                <input type="text" class="form-input" placeholder="Color">
-                <input type="file" class="form-input" accept="image/*">
+           <form id="productForm">
+    <input type="text" name="name" class="form-input" placeholder="Product Name" required>
+    <input type="text" name="category" class="form-input" placeholder="Category" required>
+    <input type="number" name="price" class="form-input" placeholder="Price" required>
+    <input type="number" name="quantity" class="form-input" placeholder="Quantity" required>
+    <input type="text" name="color" class="form-input" placeholder="Color">
+    <input type="file" name="image" class="form-input" accept="image/*">
                 
                 <div class="button-group">
                     <button type="submit" class="save-btn">SAVE</button>

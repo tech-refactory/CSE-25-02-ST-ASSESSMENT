@@ -1,0 +1,107 @@
+doctype html
+head
+  title E-COMMERCE
+  script(src='script.js' defer='')
+  style.
+    .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    }
+    .stats-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    }
+    .stat-box {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    flex: 1;
+    }
+    .form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .form-input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    }
+    .button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    }
+    .save-btn {
+    background: #f4811e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+    .clear-btn {
+    background: #ccc;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    }
+    th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    }
+    th {
+    background-color: black;
+    color: white;
+    }
+.container
+  .stats-container
+    .stat-box
+      h2 UGX 50,000,000
+      p Sales
+    .stat-box
+      h2 UGX 15,000,000
+      p Orders
+    .stat-box
+      h2 UGX 42,000,000
+      p In stock
+    .stat-box
+      h2 5
+      p Out of stock
+  .form-container
+    h2 Add Product
+    form#productForm
+      input.form-input(type='text' name='name' placeholder='Product Name' required='')
+      input.form-input(type='text' name='category' placeholder='Category' required='')
+      input.form-input(type='number' name='price' placeholder='Price' required='')
+      input.form-input(type='number' name='quantity' placeholder='Quantity' required='')
+      input.form-input(type='text' name='color' placeholder='Color')
+      input.form-input(type='file' name='image' accept='image/*')
+      .button-group
+        button.save-btn(type='submit') SAVE
+        button.clear-btn(type='reset') CLEAR
+table
+  thead
+    tr
+      th ID
+      th NAME
+      th CATEGORY
+      th PRICE (UGX)
+      th QUANTITY
+  tbody#productTable
+    // Table data will be populated dynamically

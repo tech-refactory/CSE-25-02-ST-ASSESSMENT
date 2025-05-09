@@ -4,6 +4,9 @@ from e_commerceapp.models import Product
 
 # A view for handling the e-commerce application.
 def index(request):
+
+    # Define error
+    error = None
     if request.method == 'POST':
         data = request.POST
 
@@ -35,13 +38,14 @@ def index(request):
             # Give an error if the requierments a not met.
             error = 'product and quantity a required'
 
-            products = Product.objects.all()
+    products = Product.objects.all()
 
-            context = {
-                'all_products' : products, 
-                'error' : error,
-            }
+    # Use a context to pass the products table in the tampate.
+    context = {
+        'all_products' : products, 
+        'error' : error,
+    }
 
 
-            return render(request, 'index.html', context)                  
-    return render(request, 'index.html')  
+    return render(request, 'index.html', context)                  
+    

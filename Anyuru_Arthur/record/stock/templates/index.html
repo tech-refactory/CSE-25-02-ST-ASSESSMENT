@@ -1,3 +1,5 @@
+{% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,13 +10,11 @@
     <meta name="E-commerce" content="Loading page for stock addition" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="{ {% static 'style.css' %}}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>Update stock</title>
 </head>
 
 <body>
-
-
         
         {% block content %}
             
@@ -26,8 +26,36 @@
             </form>
 
 
-        {% endblock content %}
+
+
+
+
+
+
+            <table class="table-striped">
+
+                <thead>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>CATEGORY</th>
+                    <th>PRICE(UGX)</th>
+                    <th>QUANTITY</th>
+                </thead>
+
             
+            {% for stock in stocks %}
+            <tbody>
+                <td>{{ stock.id }}</td>
+                <td>{{ stock.name }}</td>
+                <td> {{ stock.category }} </td>
+                <td> {{ stock.price }} </td>
+                <td> {{ stock.quantity }} </td>
+            </tbody>                
+            {% endfor %}
+                
+
+
+            </table>
 
 
 
@@ -37,6 +65,7 @@
 
 
 
+        {% endblock content %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>

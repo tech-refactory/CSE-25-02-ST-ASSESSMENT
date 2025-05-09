@@ -1,8 +1,7 @@
-from django.forms import ModelForm
-from .models import *
 from django import forms
+from .models import Product
 
-class AddProductForm(ModelForm):
+class AddProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'category', 'price', 'quantity', 'color', 'image']
@@ -19,8 +18,20 @@ class AddProductForm(ModelForm):
             raise forms.ValidationError("Quantity cannot be negative.")
         return quantity
 
-    def clean(self):
-        cleaned_data = super().clean()
-        name = cleaned_data.get('name')
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
         if not name:
             raise forms.ValidationError("Product name is required.")
+        return name
+
+    def clean_category(self):
+        category = self.cleaned_data.get('category')
+        if not category:
+            raise forms.ValidationError("Category is required.")
+        return category
+
+    def clean_color(self):
+        color = self.cleaned_data.get('color')
+        if not color:
+            raise forms.ValidationError("Color is required.")
+        return color

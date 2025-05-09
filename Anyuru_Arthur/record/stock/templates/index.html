@@ -33,13 +33,13 @@
                                     </div>
                                 </div>                                
                             </div>
-                            <br>
+                            <br> <br> <br> <br>
                             <div class="col">
-                                <div class="card" style="background-color: white; border-radius: 6px;">
+                                <div class="card" style="border-radius: 6px;">
                                     <div class="card-header">
-                                            <h4>UGX 15,000,000</h4>
+                                            <h4 style="color: rgb(148, 234, 20);">UGX 42,000,000</h4>
                                     <div class="card-body">
-                                        <span>Orders</span>
+                                        <span>In stock</span>
                                     </div>
                                 </div>                                 
                             </div>                                                       
@@ -47,10 +47,10 @@
                     </div>
 
                 <div class="col">
-                    <div class="container-fluid">
-                        <div class="card" style=" border-radius: 6px;">
+                    <div class="container container-fluid">
+                        <div class="card p-4" style=" border-radius: 6px;">
                             <div class="container-fluid-top" style="font-weight: 800;">
-                                <h5>Add Product</h5>
+                                <h4>Add Product</h4>
                             </div>
                             <form method="post">
                                 {% csrf_token %}
@@ -61,8 +61,8 @@
                                     <input type="text" placeholder="Upload image" style="padding-left: 90px; padding-right: 50px; padding-top: 5px; padding-bottom: 5px;">
                                 </div>
                                 <div class="line" >
-                                    <input type="Submit" value="SAVE" class="btn" style="background-color: orange; color: white; padding-left: 90px; padding-right: 90px;">
-                                    <input type="Submit" value="CLEAR" class="btn" style="background-color: rgba(168, 168, 168, 0.831); color: rgb(0, 0, 0); padding-left: 90px; padding-right: 90px;">
+                                    <input type="Submit" value="SAVE" class="btn" style="background-color: orange; color: white; padding-left: 130px; padding-right: 130px;">
+                                    <input type="Submit" value="CLEAR" class="btn" style="background-color: rgba(168, 168, 168, 0.831); color: rgb(0, 0, 0); padding-left: 130px; padding-right: 130px;">
                                 </div>
                             </form>
                         </div>
@@ -73,7 +73,7 @@
 
             <div class="row mt-5">
                 <table style="    font-size: large;
-                border-style: initial;
+                border-style: none;
                 text-align: center;
                 align-items: justify; ">
     
@@ -87,7 +87,7 @@
     
                 
                 {% for stock in stocks %}
-                <tbody style="background-color: white;color: black;">
+                <tbody style="background-color: white;color: black; border-style: inset;">
                     <td>{{ stock.id }}</td>
                     <td>{{ stock.name }}</td>
                     <td> {{ stock.category }} </td>

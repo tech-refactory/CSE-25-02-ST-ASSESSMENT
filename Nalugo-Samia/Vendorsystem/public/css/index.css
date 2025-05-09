@@ -61,9 +61,36 @@ body{
 
 .user-input-box input{
     height: 40px;
-    width: 95%;
+    width: 200%;
     border-radius: 7px;
     outline: none;
     border: 1px solid grey;
     padding: 0 10px;
+}
+.save {
+    background-color: rgb(241, 168, 108);
+    width: 120px;
+    padding: 10px 15px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+.clear {
+    background-color: rgb(224, 226, 225);
+    width: 120px;
+    padding: 10px 15px;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    transition: background-color 0.3s  
+}
+.image{
+    margin-right: 0;
 }

@@ -19,3 +19,9 @@ def dashboard(request):
             return redirect('dashboard')
         else:
             messages.error(request, "Please correct the errors below.")
+
+    
+    sales = 50000000  
+    orders = 15000000
+    in_stock = sum([p.price * p.quantity for p in Product.objects.all()])
+    out_of_stock = Product.objects.filter(quantity=0).count()

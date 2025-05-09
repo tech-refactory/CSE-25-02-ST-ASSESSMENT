@@ -19,7 +19,7 @@ const PORT = 3000;
 
 const productsRoutes = require("./routes/productsRoutes");
 
-const directorsRoute = require("./routes/directorsRoute")
+
 
 
 app.locals.moment = moment;
@@ -56,7 +56,7 @@ app.use(express.urlencoded({ extended: true }));
 //routes
 
 app.use("/", productsRoutes);
-app.use("/", directorsRoute);
+
 
 
 

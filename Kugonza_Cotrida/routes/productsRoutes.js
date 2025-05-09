@@ -20,7 +20,7 @@ router.post('/addProduct', async (req, res) => {
 
     // Create and save product
     const newProduct = new Product({
-      produceName: productName,
+      productName: productName,
       category,
       price,
       quantity,
@@ -36,15 +36,7 @@ router.post('/addProduct', async (req, res) => {
   }
 });
 
-// OPTIONAL: Separate product list route (if needed elsewhere)
-router.get("/productList", async (req, res) => {
-  try {
-    const products = await Product.find().sort({ $natural: -1 }).lean();
-    res.render("productslist", { products });
-  } catch (error) {
-    res.status(400).send("Unable to find products in the DB");
-  }
-});
+
 
 module.exports = router;
 

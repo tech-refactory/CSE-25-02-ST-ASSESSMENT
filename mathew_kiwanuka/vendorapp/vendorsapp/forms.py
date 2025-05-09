@@ -46,6 +46,25 @@ class ProductForm(ModelForm):
         if not price > 1000:
             raise forms.ValidationError("The price must be greater than 1000")
         
-        
+    def clean_quantity(self):
+        quantity = self.cleaned_data.get('quantity')
 
+        if not quantity > 0:
+            raise forms.ValidationError("Invalid field")
+
+    def clean_color(self):
+        color = self.cleaned_data.get('color')
+
+        
+        if len(color) < 2:
+            raise forms.ValidationError("Please use more letters.")
+        
+        for part in color:
+            if not part.isalpha():
+                raise forms.ValidationError("Names must only contain letters.")
+            if not part[0].isupper():
+                raise forms.ValidationError("Each name must start with a capital letter.")
+            
+            if not part[1:].islower():
+                raise forms.ValidationError("All letters after the first must be lowercase")
         

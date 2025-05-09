@@ -245,7 +245,7 @@
                         </div>
                         <div class="form-actions">
                             <button type="submit" class="btn-save">SAVE</button>
-                           <button type="reset" class="btn-clear" onclick="clearForm()">CLEAR</button>
+                           <button type="reset" class="btn-clear">CLEAR</button>
                         </div>
                     </form>
                 </div>
@@ -273,7 +273,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>PRODUCT NAME</th>
+                            <th> NAME</th>
                             <th>CATEGORY</th>
                             <th>PRICE (UGX)</th>
                             <th>QUANTITY</th>
@@ -297,14 +297,14 @@
 
   <script>
     function clearForm() {
-        const form = document.querySelector('form'); // Select the form element
-        form.reset(); // Reset all form fields to their default values
+        const form = document.querySelector('form');
+        form.reset(); 
 
-        // Clear the values of all input fields explicitly
+    
         const inputs = form.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
-            input.value = ''; // Clear the value of each input field
-            input.classList.remove('is-invalid', 'is-valid'); // Remove validation classes
+            input.value = ''; 
+            input.classList.remove('is-invalid', 'is-valid'); 
         });
     }
 </script>

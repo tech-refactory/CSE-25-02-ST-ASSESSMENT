@@ -11,14 +11,11 @@ def mystock(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Product added successfully!")
-            return redirect('mystock')
+            return redirect("mystock")
     else:
         form = ProductForm()
 
-    return render(request, "mystock.html", {
-        'products': products,
-        'form': form
-    })
+    return render(request, "mystock.html", {"products": products, "form": form})
     
         
 

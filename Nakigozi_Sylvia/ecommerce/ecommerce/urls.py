@@ -19,10 +19,12 @@ from django.urls import path
 from salesapp import views
 from django.urls import path, include
 from salesapp.views import add_product_view
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('add-product/', add_product_view, name='add_product'),
+    path('', add_product_view, name='add_product'),
 
 ]

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .forms import ProductForm
 from .models import Product
-from django.db.models import Sum
+from django.db.models import Sum, F
 
 # Create your views here.
 def product_page(request):
@@ -11,7 +11,9 @@ def product_page(request):
     
     sales = Product.objects.count()
 
-    total_sales = Product.objects.aggregate(total_sales=Sum('price' * 'quantity'))
+    total_sales = Product.objects.aggregate(
+        total_sales=Sum(F('price') * F('quantity'))
+    )
 
     if request.method == 'POST':
         form = ProductForm(request.POST)

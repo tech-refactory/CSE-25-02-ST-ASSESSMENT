@@ -20,5 +20,5 @@ from ecomm_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('addproduct/', views.addproductView, name= 'addproductPath')
+    path('', views.addproductView, name= 'addproductPath')
 ]

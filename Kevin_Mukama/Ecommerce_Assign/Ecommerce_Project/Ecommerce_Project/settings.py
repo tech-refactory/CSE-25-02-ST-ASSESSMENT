@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'ecomm_app',
     'crispy_forms',
     'crispy_bootstrap4',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

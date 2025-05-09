@@ -1,4 +1,5 @@
 {%load crispy_forms_tags%}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,32 +18,32 @@
                     <div class="col-md-6 mb-4">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h5 class="card-title">Card 1</h5>
-                                <p class="card-text">Content for card 1.</p>
+                                <h5 class="card-title">0</h5>
+                                <p class="card-text">Sales</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h5 class="card-title">Card 2</h5>
-                                <p class="card-text">Content for card 2.</p>
+                                <h5 class="card-title">{{total_revenue | intcomma}}</h5>
+                                <p class="card-text">Orders</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h5 class="card-title">Card 3</h5>
-                                <p class="card-text">Content for card 3.</p>
+                                <h5 class="card-title">{{total_revenue | intcomma}}</h5>
+                                <p class="card-text">In Stock</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h5 class="card-title">Card 4</h5>
-                                <p class="card-text">Content for card 4.</p>
+                                <h5 class="card-title">{{out_of_stock}}</h5>
+                                <p class="card-text">Out of Stock</p>
                             </div>
                         </div>
                     </div>
@@ -60,8 +61,8 @@
                     </div>
                     
                     <div class="d-flex justify-content-between">
-                        <button type="submit" class="btn btn-primary">SAVE</button>
-                        <button type="reset" class="btn btn-secondary">Clear</button>
+                        <button type="submit" class="btn btn-warning">SAVE</button>
+                        <button type="reset" class="btn btn-secondary">CLEAR</button>
                     </div>
                 </form>
             </div>
@@ -78,13 +79,13 @@
                   <th>Quantity</th>
                 </tr>
               </thead>
-              {% for item in all_products %}
+              {% for item in products %}
               <tbody>
                 <tr>
                   <td>1</td>
                   <td>{{item.name}}</td>
                   <td>{{item.category}}</td>
-                  <td>{{item.price}}</td>
+                  <td>{{item.price | intcomma}}</td>
                   <td>{{item.quantity}}</td>
                 </tr>
                 <!-- Add more rows as needed -->

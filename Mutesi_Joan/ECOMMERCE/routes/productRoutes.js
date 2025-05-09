@@ -1,46 +1,55 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const multer = require("multer");
-const path = require("path");
-const Product = require("../models/Product");
+const multer = require('multer');
+const path = require('path');
+const Product = require('../models/Product');
 
+// Set up storage engine for Multer
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
+  destination: (req, file, cb) => cb(null, 'public/uploads/'),
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
 });
+const upload = multer({ storage });
 
-const upload = multer({ storage: storage });
-
-// Render product form and product list
-router.get("/", async (req, res) => {
-  const products = await Product.find().sort({ createdAt: -1 });
-  res.render("product", { products });
-});
-
-// Save new product
-router.post("/", upload.single("productImage"), async (req, res) => {
-  const { productName, category, price, quantity, color } = req.body;
-
+// GET: render product form with existing products
+router.get('/addProduct', async (req, res) => {
   try {
+    const products = await Product.find().sort({ createdAt: -1 });
+    res.render("product", { products });
+  } catch (err) {
+    res.status(500).send('Error loading page');
+  }
+});
+
+// POST: handle new product upload
+router.post('/addProduct', upload.single('image'), async (req, res) => {
+  try {
+    const { productName, category, price, quantity, color } = req.body;
+
+    console.log("Form data:", req.body);
+    console.log("File data:", req.file);
+
+    if (!productName || !category || !price || !quantity || !color || !req.file) {
+      return res.status(400).json({ success: false, message: 'All fields are required' });
+    }
+
     const newProduct = new Product({
       productName,
       category,
-      price,
-      quantity,
+      price: parseFloat(price),
+      quantity: parseInt(quantity),
       color,
-      productImage: req.file.filename,
+      image: `/uploads/${req.file.filename}`
     });
 
     await newProduct.save();
-    res.redirect("/products");
+    res.redirect('/addProduct')
   } catch (error) {
-    console.error("Failed to save product:", error);
-    res.status(500).send("Error saving product");
+    console.error("Error saving product:", error);
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
   }
 });
+
+
 
 module.exports = router;

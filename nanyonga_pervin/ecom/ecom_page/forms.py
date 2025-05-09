@@ -62,6 +62,9 @@ class ProductForm(forms.ModelForm):
         if not category:
             raise forms.ValidationError("Invalid Field")
         
+        if category.isdigit():
+            raise forms.ValidationError("Invalid Field")
+
         
         return category
 

@@ -59,6 +59,13 @@
         <!-- RIGHT COLUMN: Form -->
         <div class="right-column">
             <div class="form-container">
+                    {% if messages %}
+                        <div class="alert alert-success">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 <h2>Add Product</h2>
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
@@ -137,11 +144,11 @@
                         <tbody>
                             {% for product in products %}
                             <tr>
-                                <td><strong>#{{ product.id|truncatechars:8 }}</strong></td>
-                                <td>{{ product.name }}</td>
-                                <td>{{ product.category }}</td>
-                                <td>{{ product.price|floatformat:2 }}</td>
-                                <td>{{ product.quantity }}</td>
+                                <td><strong>#64534{{ product.id|truncatechars:8 }}</strong></td>
+                                <td><strong>{{ product.name }}</strong></td>
+                                <td><strong>{{ product.category }}</strong></td>
+                                <td><strong>{{ product.price|floatformat:2 }}</strong></td>
+                                <td><strong>{{ product.quantity }}</strong></td>
         
                             </tr>
                             {% empty %}

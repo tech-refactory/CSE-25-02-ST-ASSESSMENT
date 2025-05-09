@@ -1,68 +1,76 @@
 doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title Document
-  link(rel='stylesheet' href='/public/css/product.css')
-.container
-  .stats
-    div
-      .stat Sales: UGX 50,000,000
-      br
-      br
-      .stat In stock: UGX 42,000,000
-    br
-    br
-    div
-      .stat Orders: UGX 15,000,000
-      br
-      br
-      .stat Out of stock: 5
-    form#productForm(action='/product' method='post')
-      h2 Add Product
-      .form-group
-        label(for='name')  Product Name
-        input#name(type='text' name='productName')
-        span.error-message
-      .form-group
-        label(for='category') Category
-        input#category(type='text' name='category')
-        span.error-message
-      .form-group
-        label(for='price') Price
-        input#price(type='number' name='price')
-        span.error-message
-      .form-group
-        label(for='quantity') Quantity
-        input#quantity(type='number' name='quantity')
-        span.error-message
-      .form-group
-        label(for='color') Color
-        input#color(type='text' name='color')
-        span.error-message
-      .form-group
-        label(for='image') Upload Image
-        input#image(type='file' name='image')
-        span.error-message
-      button(type='submit') Save
-      button(type='reset') Clear
-  table
-    thead
-      tr
-        th ID
-        th NAME
-        th CATEGORY
-        th PRICE (UGX)
-        th QUANTITY
-        th COLOR
-        th IMAGE
-    tbody
-     each product in products
-      tr
-         td #{product.productName}
-         td #{product.category}
-         td #{product. price}
-         td #{product. quantity}
-         td #{product.  color}
-         td #{product. image}
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title Product Page
+    link(rel='stylesheet' href='/css/product.css')
+
+  body
+    .container
+      .stats
+        div
+          .stat Sales: UGX 50,000,000
+          br
+          br
+          .stat In stock: UGX 42,000,000
+        br
+        br
+        div
+          .stat Orders: UGX 15,000,000
+          br
+          br
+          .stat Out of stock: 5
+
+      form#productForm(action='/product' method='post')
+        h2 Add Product
+        .form-group
+          label(for='name') Product Name
+          input#name(type='text' name='productName')
+          span.error-message
+        .form-group
+          label(for='category') Category
+          input#category(type='text' name='category')
+          span.error-message
+        .form-group
+          label(for='price') Price
+          input#price(type='number' name='price')
+          span.error-message
+        .form-group
+          label(for='quantity') Quantity
+          input#quantity(type='number' name='quantity')
+          span.error-message
+        .form-group
+          label(for='color') Color
+          input#color(type='text' name='color')
+          span.error-message
+        .form-group
+          label(for='image') Upload Image
+          input#image(type='file' name='image')
+          span.error-message
+        button(type='submit') Save
+        button(type='reset') Clear
+
+      table
+        thead
+          tr
+            th ID
+            th NAME
+            th CATEGORY
+            th PRICE (UGX)
+            th QUANTITY
+            th COLOR
+            th IMAGE
+        tbody
+          each product in products
+            tr
+              td #{product._id}
+              td #{product.productName}
+              td #{product.category}
+              td #{product.price}
+              td #{product.quantity}
+              td #{product.color}
+              td #{product.image}
+
+
         

@@ -1,51 +1,42 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.db.models import Sum
 from .models import Product
 from .forms import ProductForm
-
+from django.db.models import Sum
+from django.contrib import messages
 
 # Create your views here.
 
-def homepage(request):
-    total_sales = Product.objects.aggregate(Sum('price'))['price__sum'] or 0
-    total_orders = 150000000  # Replace with actual logic if needed
-    total_instock = Product.objects.filter(Quantity__gt=0).aggregate(Sum('price'))['price__sum'] or 0
-    total_outofstock = Product.objects.filter(Quantity=0).count()
 
-    context = {
-        'total_sales': total_sales,
-        'total_orders': total_orders,
-        'total_instock': total_instock,
-        'total_outofstock': total_outofstock,
-    }
-    return render(request, "vendors.html", context)
-
-def vendors_products(request):
-    products = Product.objects.all()
+def vendors_dashboard(request):
+    products = Product.objects.order_by('-id')
     form = ProductForm()
-    if request.method == "POST":
-        form = ProductForm(request.POST)
+
+    # Handle form submission
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            form = ProductForm()
-            success = True 
-        else:
-            success = False
-    else:
-        success = None
+            messages.success(request, 'Product added successfully!')
+            return redirect('vendors_dashboard')
+
+    # calculations
+    total_sales = 50000000  
+    expected_orders = 15000000  
+    capital_in_stock = Product.objects.aggregate(total=Sum('price'))['total'] or 0
+    out_of_stock_count = Product.objects.filter(Quantity=0).count()
 
     context = {
-        "products": products,
-        "form": form,
-        "success": success,
+        'form': form,
+        'products': products,
+        'total_sales': total_sales,
+        'expected_orders': expected_orders,
+        'capital_in_stock': capital_in_stock,
+        'out_of_stock_count': out_of_stock_count,
     }
-    return render(request, "vendors.html", context)
-
-def add_product(request):
-    if request.method == "POST":
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("homepage")
-    return redirect("homepage")
+    return render(request, 'vendors_dashboard.html', context)
+def delete_product(request, product_id):
+    product_id = Product.objects.get(id=product_id)
+    if request.method == 'POST':
+        product_id.delete()
+        messages.success(request, 'Product deleted successfully!')
+        return redirect('vendors-dashboard')

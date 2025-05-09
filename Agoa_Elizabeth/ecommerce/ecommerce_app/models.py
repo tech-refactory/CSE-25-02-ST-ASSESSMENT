@@ -15,3 +15,14 @@ class Product(models.Model):
 
 def __str__(self):
         return self.name
+
+@property
+def total_value(self):
+        return self.price * self.quantity
+@property
+def is_out_of_stock(self):
+        return self.quantity == 0
+
+
+
+

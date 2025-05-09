@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (alert) {
       setTimeout(() => {
         alert.style.display = 'none';
-      }, 3000); // 3 seconds
+      }, 3000); 
     }
   };
 

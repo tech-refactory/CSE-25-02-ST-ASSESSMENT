@@ -75,14 +75,13 @@ body {
     padding: 10px;
   }
   .success-message {
-    background-color: #4CAF50; /* Green background for success */
+    background-color: #4CAF50; 
     color: white;
     padding: 15px;
     margin: 10px 0;
     text-align: center;
     font-size: 16px;
-    border-radius: 5px;
-    display: none; /* Hidden by default */
+    display: none; 
   }
   
   .form-container{
@@ -90,4 +89,29 @@ body {
     width: 400px;
     padding-left: 30px;
     padding-bottom: 20px;
+  }
+
+  .save {
+    background-color: #f57c00;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; 
+  }
+  
+  .clear {
+    background-color: #e0e0e0;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+   
+    cursor: pointer;
+  }
+  
+ 
+  .button-container {
+    display: flex; 
+    align-items: center; 
   }

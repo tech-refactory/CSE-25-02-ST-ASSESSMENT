@@ -4,7 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const Product = require('../models/Product');  
 
-// GET route to fetch all products
+
 router.get("/product", async (req, res) => {
   try {
     const products = await Product.find(); 
@@ -14,7 +14,7 @@ router.get("/product", async (req, res) => {
   }
 });
 
-// POST route to add a new product
+
 router.post("/product", async (req, res) => {
   try {
     const { productName, category, price, quantity } = req.body;

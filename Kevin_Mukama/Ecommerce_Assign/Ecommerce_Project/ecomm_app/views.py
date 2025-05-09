@@ -1,5 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import *
 
 # Create your views here.
 def addproductView(request):
-    return render(request, 'mainpage.html')
+    if request.method == 'POST':
+        form = AddProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('allstockPath')
+    
+    else:
+        form = AddProductForm()
+        return render(request, "mainpage.html", {"form":form})

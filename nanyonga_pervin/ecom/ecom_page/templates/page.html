@@ -15,7 +15,7 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-6">
-                <div class="row p-4">
+                <div class="row">
                     <div class=" card bg-white">
                         <div class="d-flex align-items-center justify-content-center">
                             <div class="d-flex flex-column align-items-start p-2">
@@ -68,7 +68,7 @@
                         <button type="button" class="btn-close custom-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     {% endif %}
-                    <form action="" method="post">
+                    <form action="" method="post" novalidate>
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-12 column-wrapper">   
@@ -101,23 +101,23 @@
         <div class="row justify-content-center">
             <div class="col-md-12 ">
                 <table class="table table-bordered">
-                    <thead class="thead-dark">
+                    <thead class="table-dark">
                         <tr>
-                            <th class="col-md-2">ID</th>
-                            <th class="col-md-2">NAME</th>
-                            <th class="col-md-2">CATEGORY</th>
-                            <th class="col-md-2">PRICE (UGX)</th>
-                            <th class="col-md-2">QUANTITY</th>
+                            <th class="col-md-2 text-center">ID</th>
+                            <th class="col-md-2 text-center">NAME</th>
+                            <th class="col-md-2 text-center">CATEGORY</th>
+                            <th class="col-md-2 text-center">PRICE (UGX)</th>
+                            <th class="col-md-2 text-center">QUANTITY</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for product in product %}
                             <tr>
-                                <td>{{ product.id }}</td>
-                                <td>{{ product.product_name }}</td>
-                                <td>{{ product.category }}</td>
-                                <td>{{ product.price|intcomma }}</td>
-                                <td>{{ product.quantity|intcomma }}</td>
+                                <td class="text-center">{{ product.id }}</td>
+                                <td class="text-center">{{ product.product_name }}</td>
+                                <td class="text-center">{{ product.category }}</td>
+                                <td class="text-center">{{ product.price|intcomma }}</td>
+                                <td class="text-center">{{ product.quantity|intcomma }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -127,10 +127,7 @@
     </div>
    
     
-
-
-
-
+    
 
 
 

@@ -1,12 +1,13 @@
 const express = require("express");
-const path = require(path);
+const path = require("path");
 const mongoose = require("mongoose");
 require('dotenv').config();
 
 // imprt models
-
+const Product = require("./models/Product");
 
 // import routes
+const vendorRoutes = require("./routes/vendorRoutes");
 
 
 const app = express();
@@ -36,11 +37,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// routes
+app.use("/", )
+
 
 // fall back
-app.get("/", (req, res) => {
-  res.send("Error! Page does not exist.");
-});
+
 
 app.listen(port, () => {
   console.log(` Server listening on port ${port}`);

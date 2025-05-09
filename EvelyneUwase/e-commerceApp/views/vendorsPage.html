@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce App</title>
+</head>
+
+<body>
+
+    <div class="dashboard-summary">
+        <div class="summary-card">
+            <div class="summary-title">UGX 50,000,000</div>
+            <div class="summary-subtitle">Sales</div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-title">UGX 15,000,000</div>
+            <div class="summary-subtitle">Orders</div>
+        </div>
+
+        <div class="summary-card green-card">
+            <div class="summary-title">UGX 42,000,000</div>
+            <div class="summary-subtitle">In stock</div>
+        </div>
+
+        <div class="summary-card red-card">
+            <div class="summary-title">5</div>
+            <div class="summary-subtitle">Out of stock</div>
+        </div>
+    </div>
+
+    <div>
+        <h1>Add produce</h1>
+        <form id="productForm" action="/products/add" method="POST" enctype="multipart/form-data">
+            <input type="text" name="productName" placeholder="Product Name" required />
+            <span class="error-message">Invalid field</span>
+
+            <input type="text" name="category" placeholder="Category" required />
+            <span class="error-message">Invalid field</span>
+
+            <input type="number" name="price" placeholder="Price" required />
+            <span class="error-message">Invalid field</span>
+
+            <input type="number" name="quantity" placeholder="Quantity" required />
+            <span class="error-message">Invalid field</span>
+
+            <input type="text" name="color" placeholder="Color" required />
+            <span class="error-message">Invalid field</span>
+
+            <input type="file" name="image" accept="image/*" required />
+            <span class="error-message">Invalid field</span>
+
+            <div class="form-buttons">
+                <button type="submit" class="save-btn">SAVE</button>
+                <button type="reset" class="clear-btn">CLEAR</button>
+            </div>
+        </form>
+    </div>
+
+    <div></div>
+
+
+
+</body>
+
+</html>

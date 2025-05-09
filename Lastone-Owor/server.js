@@ -9,6 +9,7 @@ const expressSession = require("express-session");
 const app = express();
 const PORT = 3002;
 
+console.log('MongoDB URI:', process.env.DATABASE);
 mongoose.connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

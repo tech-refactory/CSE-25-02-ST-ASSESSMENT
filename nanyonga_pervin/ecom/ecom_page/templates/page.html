@@ -1,4 +1,5 @@
 {% load crispy_forms_tags %}
+{% load humanize %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -17,12 +18,12 @@
                 <div class="row p-4">
                     <div class=" card bg-white">
                         <div class="d-flex align-items-center justify-content-center">
-                            <div class="d-flex flex-column align-items-start">
+                            <div class="d-flex flex-column align-items-start p-2">
                                 <h2 class="mb-0">UGX 50,000,000</h2>
                                 <h6 class="mb-0">Sales</h6>
                             </div>
                             <div class="divider" style="height: 40px;"></div>
-                            <div class="d-flex flex-column align-items-start">
+                            <div class="d-flex flex-column align-items-start p-2">
                                 <h2 class="mb-0">UGX 15,000,000</h2>
                                 <h6 class="mb-0">Orders</h6>
                             </div>
@@ -115,8 +116,8 @@
                                 <td>{{ product.id }}</td>
                                 <td>{{ product.product_name }}</td>
                                 <td>{{ product.category }}</td>
-                                <td>{{ product.price }}</td>
-                                <td>{{ product.quantity }}</td>
+                                <td>{{ product.price|intcomma }}</td>
+                                <td>{{ product.quantity|intcomma }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce App</title>
+    <link rel="stylesheet" href="../css/style.css">
+  </head>
+  <body>
+    <div class="dashboard-columns">
+      <div class="left-column">
+        <div class="dashboard-summary">
+          <div class="summary-card">
+            <div class="summary-title">UGX 50,000,000</div>
+            <div class="summary-subtitle">Sales</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-title">UGX 15,000,000</div>
+            <div class="summary-subtitle">Orders</div>
+          </div>
+          <div class="summary-card green-card">
+            <div class="summary-title">UGX 42,000,000</div>
+            <div class="summary-subtitle">In stock</div>
+          </div>
+          <div class="summary-card red-card">
+            <div class="summary-title">5</div>
+            <div class="summary-subtitle">Out of stock</div>
+          </div>
+        </div>
+      </div>
+      <div class="right-column">
+        <h1>Add Product</h1>
+        <div id="successAlert" class="success-alert" style="display: none;">
+          <span>Product has been added successfully!</span>
+          <button class="close-btn" type="button" onclick="document.getElementById('successAlert').style.display='none'">&times;</button>
+        </div>
+        <form id="productForm" action="/addProduct" method="post" enctype="multipart/form-data">
+          <input id="productName" type="text" name="productName" placeholder="Product Name">
+          <span class="error-message">Invalid field</span>
+          <input id="category" type="text" name="category" placeholder="Category">
+          <span class="error-message">Invalid field</span>
+          <input id="price" type="number" name="price" placeholder="Price">
+          <span class="error-message">Please enter a valid price.</span>
+          <input id="quantity" type="number" name="quantity" placeholder="Quantity">
+          <span class="error-message">Invalid field</span>
+          <input id="color" type="text" name="color" placeholder="Color">
+          <span class="error-message">Invalid field</span>
+          <input id="image" type="file" name="image" accept="image/*">
+          <span class="error-message">Invalid field</span>
+          <div class="form-buttons">
+            <button class="save-btn" type="submit">SAVE</button>
+            <button class="clear-btn" type="reset">CLEAR</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>CATEGORY</th>
+            <th>PRICE(UGX)</th>
+            <th>QUANTITY</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Assuming "products" is passed from your server-side code -->
+          <!-- Example of dynamically populating the products -->
+          <tr>
+            <td>product_id_1</td>
+            <td>Product 1</td>
+            <td>Category 1</td>
+            <td>5000</td>
+            <td>100</td>
+          </tr>
+          <tr>
+            <td>product_id_2</td>
+            <td>Product 2</td>
+            <td>Category 2</td>
+            <td>10000</td>
+            <td>50</td>
+          </tr>
+          <!-- If no products are found -->
+          <tr>
+            <td colspan="5">No products found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script src="/js/main.js"></script> <!-- Ensure this path is correct -->
+  </body>
+</html>

@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const multer = require("multer");
 const mongoose = require("mongoose");
 require('dotenv').config();
 
@@ -38,7 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // routes
-app.use("/", )
+app.use("/", vendorRoutes )
 
 
 // fall back

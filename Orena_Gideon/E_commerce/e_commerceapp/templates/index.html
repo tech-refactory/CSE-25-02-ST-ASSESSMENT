@@ -6,44 +6,6 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-6">
-            <h1><strong> A product entry from </strong></h1>
-
-            <!-- Display the error message in the context -->
-            {% if error %}
-                <p style="color: red;"> {{ error }} </p>
-            {% endif %}
-            <form method="POST" action="">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label for="name" class="form-lable"> Enter the product name </label>
-                    <input name="name" required type="text" class="form-control" placeholder="Enter the product name">
-                </div>
-                <div class="mb-3">
-                    <label for="category" class="form-lable"> Enter the category</label>
-                    <input name="category" required type="text" class="form-control" placeholder="Enter the catergory">
-                </div>
-                <div class="mb-3">
-                    <label for="price" class="form-lable"> Enter product price </label>
-                    <input name="price" type="number" required class="form-control" placeholder="Enter the product price">
-                </div>
-                <div class="mb-3">
-                    <label for="quantity" class="form-lable"> Enter the quantity </label>
-                    <input name="quantity" type="number" required class="form-control" placeholder="Enter the quantity">
-                </div>
-                <div class="mb-3">
-                    <label for="color" class="form-lable"> Enter the product color </label>
-                    <input name="color" type="text" class="form-control" placeholder="Enter the prudcut color">
-                </div>
-                <div class="mb-3">
-                    <label for="image" class="form-lable"> Enter the product image </label>
-                    <input name="image" type="file" class="form-control">
-                </div> 
-                <input type="submit" class="btn" value="SAVE">
-                <input type="submit" class="btn" value="CLEAR">
-            </form>
-        </div>
-        
         <div class="col-md-6">
             <div class="card mb-3">
                 <div class="card-body">
@@ -70,18 +32,68 @@
                 </div>
             </div>
         </div>
+        <div class="col-6">
+            <h1><strong> A product entry from </strong></h1>
+
+            <!-- Display success or error messages -->
+            {% if success %}
+            <div class="alert alert-success" role="alert">
+                {{ success }}
+            </div>
+            {% endif %}
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <!-- Render the form-->
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-lable"> Enter the product name </label>
+                    <input name="name" required type="text" class="form-control" placeholder="Enter the product name">
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-lable"> Enter the category</label>
+                    <input name="category" required type="text" class="form-control" placeholder="Enter the catergory">
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-lable"> Enter product price </label>
+                    <input name="price" type="number" required class="form-control"
+                        placeholder="Enter the product price">
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="form-lable"> Enter the quantity </label>
+                    <input name="quantity" type="number" required class="form-control" placeholder="Enter the quantity">
+                </div>
+                <div class="mb-3">
+                    <label for="color" class="form-lable"> Enter the product color </label>
+                    <input name="color" type="text" class="form-control" placeholder="Enter the prudcut color">
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-lable"> Enter the product image </label>
+                    <input name="image" type="file" class="form-control">
+                </div>
+                <div class="d-flex justify-content-between">
+                    <input type="submit" class="btn" value="SAVE">
+                    <button type="submit" name="clear" class="ntb">CLEAR</button>
+                </div>
+
+            </form>
+        </div>
     </div>
 
     <!-- The produc display form -->
     <h1><strong> Table to display products recorded </strong></h1>
-        <table class="table table-hover">
+    <table class="table table-hover">
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>Product Name</th>
                 <th>Category</th>
                 <th>Price</th>
-                <th>Quantity</th>               
+                <th>Quantity</th>
             </tr>
         </thead>
         <tbody>
@@ -91,10 +103,10 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.category }}</td>
                 <td>{{ product.price }}</td>
-                <td>{{ product.quantity }}</td>                
+                <td>{{ product.quantity }}</td>
             </tr>
             {% endfor %}
-        </tbody>    
+        </tbody>
 </div>
 
 

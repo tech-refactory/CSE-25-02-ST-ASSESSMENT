@@ -5,38 +5,64 @@ from e_commerceapp.models import Product
 # A view for handling the e-commerce application.
 def index(request):
 
-    # Define error
+    # Initialise teh error and the success box. 
     error = None
+    success = None
+
+
     if request.method == 'POST':
-        data = request.POST
-
-        # Manually data from the post request
-        name = data.get('name')
-        category = data.get('category')
-        price = data.get('price')
-        quantity = data.get('quantity')
-        color = data.get('color')
-        image = request.FILES.get('image')
-
-        # Validation to check weather the form meets the requirements to create a product instance.
-        if name and quantity:
-            product = Product(
-                name = name, 
-                category = category,
-                price = price,
-                quantity = quantity,
-                color = color,
-                image = image,
-            ) 
-
-            # Save the product instance to the database.
-            product.save()
-
-            # Redirect to the same page after saving the product. 
-            return redirect('index')
+        # Check if the "clear" button was clicked
+        if 'clear' in request.POST:
+            # Reset error and success messages
+            error = None
+            success = None
         else:
-            # Give an error if the requierments a not met.
-            error = 'product and quantity a required'
+
+            data = request.POST
+
+            # Manually data from the post request
+            name = data.get('name')
+            category = data.get('category')
+            price = data.get('price')
+            quantity = data.get('quantity')
+            color = data.get('color')
+            image = request.FILES.get('image')
+
+            # Validation logic
+            errors = []
+            if not name or not name.isalpha():
+                errors.append('Product name is required and must contain only letters.')
+            if not category or not category.isalpha():
+                errors.append('Category is required and must contain only letters.')
+            if not price or not price.isdigit() or int(price) <= 0:
+                errors.append('Price must be a positive number.')
+            if not quantity or not quantity.isdigit() or int(quantity) < 0:
+                errors.append('Quantity must be a non-negative number.')
+            if not color or not color.isalpha():
+                errors.append('Color is required and must contain only letters.')
+
+            # If there are errors, return them to 
+            if errors:
+                error = ' | '.join(errors)
+
+            else:
+                # Save the product to database.
+                product = Product(
+                    name = name,
+                    category = category,
+                    price = int(price),
+                    quantity = int(quantity),
+                    color = color,
+                    image = image,
+                )
+
+                # Save the product instance to the database.
+                product.save()
+
+                # Set a success message.
+                success = f"Product '{name}' has been added successfully!" 
+            
+        
     # Fetch all products from the database
     products = Product.objects.all()
 
@@ -57,6 +83,7 @@ def index(request):
     context = {
         'all_products' : products, 
         'error' : error,
+        'success' : success,
         'dashboard' : {
             'total_revenue' : total_revenue, 
             'expected_revenue' : expected_revenue,

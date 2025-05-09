@@ -17,9 +17,9 @@ class ProductForm(forms.ModelForm):
         super(ProductForm, self).__init__(*args, **kwargs)
 
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'  # Bootstrap base
+            field.widget.attrs['class'] = 'form-control'  
 
-        # Apply validation color classes after binding
+        
         if self.is_bound:
             for field_name, field in self.fields.items():
                 if self.errors.get(field_name):
@@ -27,7 +27,7 @@ class ProductForm(forms.ModelForm):
                 elif self.data.get(field_name):
                     field.widget.attrs['class'] += ' is-valid'
 
-    # Custom validation for the 'name' field
+    
     def clean_name(self):
         name = self.cleaned_data.get('name')
         if not name.isalpha():
@@ -36,21 +36,21 @@ class ProductForm(forms.ModelForm):
             raise forms.ValidationError("Name must be at least 3 characters long.")
         return name
 
-    # Custom validation for the 'price' field
+    
     def clean_price(self):
         price = self.cleaned_data.get('price')
         if price is None or price <= 0:
             raise forms.ValidationError("Price must be a positive number.")
         return price
 
-    # Custom validation for the 'quantity' field
+    
     def clean_quantity(self):
         quantity = self.cleaned_data.get('quantity')
         if quantity is None or quantity <= 0:
             raise forms.ValidationError("Quantity must be a positive number.")
         return quantity
 
-    # Custom validation for the 'color' field
+    
     def clean_color(self):
         color = self.cleaned_data.get('color')
         if not color.isalpha():

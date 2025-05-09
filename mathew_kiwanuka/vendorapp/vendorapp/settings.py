@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "vendorsapp",
     "crispy_forms",
     "crispy_bootstrap5",
+    "django.contrib.humanize",
 ]
 
 MIDDLEWARE = [

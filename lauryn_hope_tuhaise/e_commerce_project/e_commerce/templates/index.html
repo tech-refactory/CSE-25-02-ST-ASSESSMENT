@@ -7,25 +7,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>E-commerce Dashboard</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+            <button type="button" class="close-btn" onclick="this.parentElement.style.display='none'">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     <div class="container">
         <div class="dashboard-layout">
-            <!-- Left Side - Stats Cards -->
+            
             <div class="stats-section">
-                <div class="stats-row">
-                    <div class="stats-card sales">
+                <div class="stats-row" style="background-color: white; border: 1px solid #ccc ;padding: 60px; display: flex; justify-content: center; align-items: center;"" >
+                    <div class="col">
                         <div class="stats-value">UGX {{ total_sales|intcomma }}</div>
                         <div class="stats-label">Sales</div>
-                    </div>
-                    <div class="stats-card orders">
+                      </div>
+
+                      <div class="col">
                         <div class="stats-value">UGX {{ total_orders|intcomma }}</div>
                         <div class="stats-label">Orders</div>
                     </div>
+                    
                 </div>
-                <br><br><br><br><br><br>
+                <br><br><br><br><br>
                 <div class="stats-row">
                     <div class="stats-card in-stock">
                         <div class="stats-value">UGX {{ in_stock|intcomma }}</div>
@@ -38,20 +52,31 @@
                 </div>
             </div>
 
-            <!-- Right Side - Form -->
+            
             <div class="form-section">
                 <div class="product-form">
                     <h2>Add Product</h2>
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <input type="text" name="product_name" placeholder="Product Name" required>
-                        <input type="text" name="category" placeholder="Category" required>
-                        <input type="number" name="price" placeholder="Price" required>
-                        <input type="number" name="quantity" placeholder="Quantity" required>
-                        <div class="form-row">
-                            <input type="text" name="color" placeholder="Color" required>
-                            <input type="file" name="image" class="upload-btn" required>
+                        {% for field in form %}
+                        <div class="form-group {% if field.errors %}Invalid Field{% endif %}">
+                            {{ field }}
+                            {% if field.errors %}
+                            <div class="error-message">
+                                {{ field.errors.0 }}
+                            </div>
+                            {% endif %}
+                                <input type="text" name="product_name" placeholder="Product Name" required>
+                                <input type="text" name="category" placeholder="Category" required>
+                                <input type="number" name="price" placeholder="Price" required>
+                                <input type="number" name="quantity" placeholder="Quantity" required>
+                                <div class="form-row">
+                                    <input type="text" name="color" placeholder="Color" required>
+                                    <input type="file" name="image" class="upload-btn" required>
+                                </div>
+                            
                         </div>
+                        {% endfor %}
                         <div class="button-group">
                             <button type="submit" class="save-btn">SAVE</button>
                             <button type="reset" class="clear-btn">CLEAR</button>
@@ -60,17 +85,15 @@
                 </div>
             </div>
         </div>
-
-        <!-- Table Section -->
         <div class="table-container">
-            <table class="product-table">
+            <table class="product-table " style="text-align: center;">
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>NAME</th>
-                        <th>CATEGORY</th>
-                        <th>PRICE (UGX)</th>
-                        <th>QUANTITY</th>
+                    <tr >
+                        <th class="text-center">ID</th>
+                        <th class="text-center">NAME</th>
+                        <th class="text-center">CATEGORY</th>
+                        <th class="text-center">PRICE (UGX)</th>
+                        <th class="text-center">QUANTITY</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,6 +109,27 @@
                 </tbody>
             </table>
         </div>
+   
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-dismiss success messages after 5 seconds
+            const successMessages = document.querySelectorAll('.alert-success');
+            successMessages.forEach(function(message) {
+                setTimeout(function() {
+                    message.style.opacity = '0';
+                    setTimeout(function() {
+                        message.remove();
+                    }, 500);
+                }, 5000);
+            });
+        });
+    </script>
+
+
+</body>
 </body>
 </html>
+

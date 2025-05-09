@@ -21,6 +21,8 @@ def index(request):
             product = form.save()
             messages.success(request, 'Product created successfully!')
             return redirect('index')
+        else:
+            messages.error(request, 'Please correct the errors below.')
     else:
         form = ProductForm()
 

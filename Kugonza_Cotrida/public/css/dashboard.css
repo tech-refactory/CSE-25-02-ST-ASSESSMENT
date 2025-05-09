@@ -1,0 +1,134 @@
+body {
+  background-color: #f3f4f6;
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Cards */
+.sales-orders-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sales-orders-card .stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sales-orders-card .stat span.amount {
+  font-size: 2rem;
+  font-weight: normal;
+}
+
+.sales-orders-card .stat span.label {
+  color: #666;
+  font-size: 1rem;
+}
+
+.divider {
+  height: 60px;
+  width: 1px;
+  background-color: #ccc;
+  margin: 0 20px;
+}
+
+.card-row-2 {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.equal-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1;
+}
+
+.equal-card h4 {
+ 
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.equal-card p {
+  color: #666;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Product Form */
+#product-form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+#product-form input[type="text"],
+#product-form input[type="number"],
+#product-form input[type="url"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#save-btn {
+  background-color: orange;
+  border: none;
+  color: white;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+#clear-btn {
+  background-color: rgb(187, 184, 184);
+  border: none;
+  color: black;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Product Table */
+.product-table {
+  width: 100%;
+  margin: 50px auto 0 auto;
+  max-width: 1200px;
+}
+
+.product-table table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.product-table th,
+.product-table td {
+  border: 1px solid #ccc;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.product-table thead th {
+  background-color: #000;
+  color: #fff;
+}
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+}

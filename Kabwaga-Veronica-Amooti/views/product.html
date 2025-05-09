@@ -1,79 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Product Dashboard</title>
-  <link rel="stylesheet" href="/public/css/style.css">
-  <script src="/script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Dashboard</title>
+    <link rel="stylesheet" href="../public/css/style.css">
 </head>
 <body>
-  <div class="container">
-    <div class="stats">
-      <div class="stat">Sales: UGX <!-- Insert sales here dynamically --></div>
-      <div class="stat">Orders: UGX <!-- Insert orders here dynamically --></div>
-      <div class="stat">In stock: UGX <!-- Insert in stock value here dynamically --></div>
-      <div class="stat">Out of stock: <!-- Insert out of stock count dynamically --></div>
+    <div class="container">
+        <div class="top-section">
+            <div class="stats-container">
+                <div class="stat-box">
+                    <h2>UGX 50,000,000</h2>
+                    <p>Sales</p>
+                </div>
+                <div class="stat-box">
+                    <h2>UGX 15,000,000</h2>
+                    <p>Orders</p>
+                </div>
+                <div class="stat-box">
+                    <h2>UGX 42,000,000</h2>
+                    <p>In stock</p>
+                </div>
+                <div class="stat-box">
+                    <h2>Out of stock</h2>
+                </div>
+            </div>
+
+            <div class="product-form">
+                <h2>Add Product</h2>
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text">
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="text">
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="text">
+                </div>
+                <div class="form-group">
+                    <label>Color</label>
+                    <input type="text">
+                </div>
+                <div class="form-group">
+                    <label>Upload Image</label>
+                    <input type="file">
+                </div>
+                <div class="form-buttons">
+                    <button class="save-btn">SAVE</button>
+                    <button class="clear-btn">CLEAR</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>CATEGORY</th>
+                        <th>PRICE(UGX)</th>
+                        <th>QUANTITY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#645341</td>
+                        <td>Sumsang s25+ Ultra</td>
+                        <td>Smart Phones</td>
+                        <td>6,900,000</td>
+                        <td>981</td>
+                    </tr>
+                    <tr>
+                        <td>#645346</td>
+                        <td>Gucci XXL Shirt</td>
+                        <td>Fashion</td>
+                        <td>500,000</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>#645342</td>
+                        <td>XL Zara Shirt</td>
+                        <td>Fashion</td>
+                        <td>600,000</td>
+                        <td>56</td>
+                    </tr>
+                    <tr>
+                        <td>#645344</td>
+                        <td>iPhone 15</td>
+                        <td>Smart Phones</td>
+                        <td>7,900,000</td>
+                        <td>752</td>
+                    </tr>
+                    <tr>
+                        <td>#645343</td>
+                        <td>Smart home Curtain</td>
+                        <td>Interior Design</td>
+                        <td>500,000</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>#645345</td>
+                        <td>Spectrum Laptop 14.6 Inc</td>
+                        <td>Laptops</td>
+                        <td>15,800,000</td>
+                        <td>144</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-
-    <form id="productForm" action="/add" method="POST">
-      <h2>Add Product</h2>
-
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" required>
-        <span class="error-message"></span>
-      </div>
-
-      <div class="form-group">
-        <label for="category">Category</label>
-        <input type="text" name="category" id="category" required>
-        <span class="error-message"></span>
-      </div>
-
-      <div class="form-group">
-        <label for="price">Price</label>
-        <input type="number" name="price" id="price" required>
-        <span class="error-message"></span>
-      </div>
-
-      <div class="form-group">
-        <label for="quantity">Quantity</label>
-        <input type="number" name="quantity" id="quantity" required>
-        <span class="error-message"></span>
-      </div>
-
-      <div class="form-group">
-        <label for="color">Color</label>
-        <input type="text" name="color" id="color" required>
-        <span class="error-message"></span>
-      </div>
-
-      <button type="submit">Save</button>
-      <button type="reset">Clear</button>
-    </form>
-
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>NAME</th>
-          <th>CATEGORY</th>
-          <th>PRICE (UGX)</th>
-          <th>QUANTITY</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Loop over products and insert rows here -->
-        <!-- Example row:
-        <tr>
-          <td>453541</td>
-          <td>iPhone 15</td>
-          <td>Smart Phones</td>
-          <td>7,900,000</td>
-          <td>752</td>
-        </tr>
-        -->
-      </tbody>
-    </table>
-  </div>
 </body>
 </html>

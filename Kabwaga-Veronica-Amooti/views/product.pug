@@ -1,44 +1,69 @@
 doctype html
-html
+html(lang="en")
   head
-    title Vendor Dashboard
-    link(rel='stylesheet', href='/css/style.css')
-    script(src='/script.js', defer)
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Product Dashboard
+    link(rel="stylesheet", href="/css/style.css")
   body
     .container
-      .stats
-        .stat Sales: UGX #{sales.toLocaleString()}
-        .stat Orders: UGX #{orders.toLocaleString()}
-        .stat In stock: UGX #{inStockValue.toLocaleString()}
-        .stat Out of stock: #{outOfStock}
+      .top-section
+        .stats-container
+          .stat-box.sales-orders
+            h2 UGX 65,000,000
+            p Sales & Orders
+          .stat-box
+            h2 UGX 42,000,000
+            p In stock
+          .stat-box.out-of-stock
+            h2 UGX 15,000,000
+            p Out of stock
 
-      if success
-        .success-alert Product added successfully!
+        .product-form
+          h2 Add Product
+          form(action="/add", method="POST", enctype="multipart/form-data", novalidate)
+            .form-group
+              label(for="productName") Product Name
+              input(type="text", id="productName", name="name", required)
+            .form-group
+              label(for="category") Category
+              input(type="text", id="category", name="category", required)
+            .form-group
+              label(for="price") Price
+              input(type="number", id="price", name="price", required)
+            .form-group
+              label(for="quantity") Quantity
+              input(type="number", id="quantity", name="quantity", required)
+            .form-group
+              label(for="color") Color
+              input(type="text", id="color", name="color")
+            .form-group
+              label(for="image") Upload Image
+              input(type="file", id="image", name="image", accept="image/*")
+            .form-buttons
+              button.save-btn(type="submit") SAVE
+              button.clear-btn(type="reset") CLEAR
 
-      form#productForm(action='/add', method='POST')
-        h2 Add Product
-        each field in ['name', 'category', 'price', 'quantity', 'color']
-          .form-group
-            label(for=field) #{field.charAt(0).toUpperCase() + field.slice(1)}
-            input(type=(field == 'price' || field == 'quantity') ? 'number' : 'text', name=field, id=field, required)
-            span.error-message
-
-        button(type='submit') Save
-        button(type='reset') Clear
-
-      table
-        thead
-          tr
-            th ID
-            th NAME
-            th CATEGORY
-            th PRICE (UGX)
-            th QUANTITY
-        tbody
-          each product in products
+      .product-table
+        table
+          thead
             tr
-              td #{product._id.toString().slice(-6)}
-              td #{product.name}
-              td #{product.category}
-              td #{product.price.toLocaleString()}
-              td #{product.quantity}
+              th ID
+              th NAME
+              th CATEGORY
+              th PRICE(UGX)
+              th QUANTITY
+          tbody
+            if products && products.length
+              each product in products
+                tr
+                  td= product.id
+                  td= product.name
+                  td= product.category
+                  td= new Intl.NumberFormat('en-US').format(product.price)
+                  td= product.quantity
+            else
+              tr
+                td(colspan="5", style="text-align: center") No products available
+
+    script(src="/js/script.js")

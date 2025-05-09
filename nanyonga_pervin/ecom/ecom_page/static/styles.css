@@ -3,7 +3,10 @@ table {
     border-collapse: collapse;
 }
 
-
+table, th, td {
+    border: 2px solid black !important;
+    border-collapse: collapse;
+  }
 
 thead{
     background-color: black;
@@ -14,6 +17,9 @@ td, th {
     border: 1px solid #ddd;
     text-align: left;
 }
+.no-header-border th {
+    border: none;
+  }
 
 .divider {
     width: 1px;

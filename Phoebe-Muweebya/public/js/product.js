@@ -1,94 +1,61 @@
-let productForm = document.getElementById("productForm");
-
-//let tableBod = document.getElementById("procuredTable").getElementsByTagName("tbody")[0];
-
-let tableBody = document.querySelector("#productTable tbody")
-
-// element.addEventListener("event", function)
-
-productForm.addEventListener("submit", function(event){
-  event.preventDefault()
-
-  // Get form values
-  const productData = {
-    productName: document.getElementById("productName").value,
-    category: document.getElementById("category").value,
-    price: document.getElementById("price").value,
-    quantity: document.getElementById("quantity").value,
-    
-    color: document.getElementById("color").value,
-    image: document.getElementById("image").value,
-   
-
-  }
-
-    console.log("information submitted")
-    
-});
-
-
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("productForm").addEventListener("submit", function (event) {
-      event.preventDefault(); // Prevent form submission if validation fails
+  const productForm = document.getElementById("productForm");
 
-      let isValid = true;
-      
-      function showError(id, message) {
-          document.getElementById(id).innerText = message;
-      }
+  productForm.addEventListener("submit", function (event) {
+    event.preventDefault(); // Stop native form submit
 
-      function clearErrors() {
-          document.querySelectorAll(".error").forEach(el => el.innerText = "");
-      }
+    let isValid = true;
 
-      clearErrors();
+    // Clear previous error messages
+    document.querySelectorAll(".error").forEach(el => el.innerText = "");
 
-      let productName = document.getElementById("productName").value.trim();
-      if (!productName) {
-          showError("nameError", "Invalid field.");
-          isValid = false;
-      }
+    function showError(id, message) {
+      const errorEl = document.getElementById(id);
+      if (errorEl) errorEl.innerText = message;
+    }
 
-      let category = document.getElementById("category").value.trim();
-      if (!category) {
-          showError("categoryError", "Invalid field.");
-          isValid = false;
-      }
-      let price = document.getElementById("price").value.trim();
-      if (!price || isNaN(price)) {
-          showError("priceError", "Invalid field.");
-          isValid = false;
-      }
+    // Get input values
+    const productName = document.getElementById("productName").value.trim();
+    const category = document.getElementById("category").value.trim();
+    const price = document.getElementById("price").value.trim();
+    const quantity = document.getElementById("quantity").value.trim();
+    const color = document.getElementById("color").value.trim();
+    const image = document.getElementById("image").value.trim();
 
+    // Validate each field
+    if (!productName) {
+      showError("nameError", "Invalid field.");
+      isValid = false;
+    }
 
-      
+    if (!category) {
+      showError("categoryError", "Invalid field.");
+      isValid = false;
+    }
 
+    if (!price || isNaN(price)) {
+      showError("priceError", "Must be a number.");
+      isValid = false;
+    }
 
-      let quantity = document.getElementById("quantity").value.trim();
-      if (!/^[0-9]{1,}$/.test(quantity)) {
-          showError("quantityError", "Invalid field");
-          isValid = false;
-      }
+    if (!/^[0-9]+$/.test(quantity)) {
+      showError("quantityError", "Must be a valid quantity.");
+      isValid = false;
+    }
 
-      let color = document.getElementById("color").value.trim();
-      if (!color) {
-          showError("colorError", "Invalid field.");
-          isValid = false;
-      }
+    if (!color) {
+      showError("colorError", "Invalid field.");
+      isValid = false;
+    }
 
-      let image = document.getElementById("image").value.trim();
-      if (!image) {
-          showError("imageError", "Invalid field.");
-          isValid = false;
-      }
+    if (!image) {
+      showError("imageError", "Invalid field.");
+      isValid = false;
+    }
 
-      
-
-      
-
-      if (isValid) {
-          alert("Form submitted successfully!");
-          this.submit(); // Submit the form if all validations pass
-      }
+    if (isValid) {
+      alert("Product has been added successfully");
+      productForm.submit(); // Now safe to submit the form
+    }
   });
 });

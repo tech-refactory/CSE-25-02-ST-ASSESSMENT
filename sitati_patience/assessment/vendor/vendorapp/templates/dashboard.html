@@ -15,27 +15,41 @@
 <div class="flex flex-wrap md:flex-nowrap gap-6 mb-6">
     <!-- Left side: Cards -->
     <div class="flex-1 grid grid-cols-2 gap-4">
-        <div class="bg-white shadow p-2 flex justify-around col-span-2">
-            <div>
-                <p class="text-center text-lg font-bold">UGX {{ total_sales|default:"0" }}</p>
-                <p class="text-gray-500"> Sales</p>
+        <div class="bg-white shadow p-6 flex justify-between items-center col-span-2">
+    <!-- Left: Sales -->
+            <div class="flex-1 text-center">
+                <p class="text-lg font-bold">UGX {{ total_sales|default:"0" }}</p>
+                <p class="text-gray-500">Sales</p>
             </div>
-            <div class="text-center border-l border-gray-300 pl-6 ml-6">
-                <p class="text-lg font-bold">UGX {{ total_orders }} </p>
+
+            <!-- Vertical Divider -->
+            <div class="w-px h-12 bg-gray-300 mx-6"></div>
+
+            <!-- Right: Orders -->
+            <div class="flex-1 text-center">
+                <p class="text-lg font-bold">UGX {{ total_orders }}</p>
                 <p class="text-gray-500">Orders</p>
             </div>
         </div>
-        <div class="bg-white shadow p-4 text-left">
-            <p class="text-green-600 justify-centre font-bold">UGX {{ total_stock }}</p>
-            <p class="text-gray-500 justify-centre ">In stock</p>
+        <!-- In Stock Card -->
+        <div class="bg-white shadow p-4 flex-1 flex items-center justify-center text-center">
+            <div>
+                <p class="text-green-600 font-bold text-xl">UGX {{ total_stock }}</p>
+                <p class="text-gray-500">In stock</p>
+            </div>
         </div>
-        <div class="bg-white shadow p-4 text-right">
-            <p class="text-red-600 justify-centre font-bold ">{{ out_of_stock_count }}</p>
-            <p class="text-gray-500 justify-centre ">Out of stock</p>
+
+        <!-- Out of Stock Card -->
+        <div class="bg-white shadow p-4 flex-1 flex items-center justify-center text-center">
+            <div>
+                <p class="text-red-600 font-bold text-xl">{{ out_of_stock_count }}</p>
+                <p class="text-gray-500">Out of stock</p>
+            </div>
         </div>
+
     </div>
 
-    <!-- Right side: Form -->
+    <!--Form -->
     <div class="bg-white shadow p-6">
         <h2 class="text-lg font-semibold mb-2">Add Product</h2>
         {% if success %}

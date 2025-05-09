@@ -1,0 +1,242 @@
+
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>E-commerce Dashboard</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+            <button type="button" class="close-btn" onclick="this.parentElement.style.display='none'">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="container">
+        <div class="dashboard-layout">
+            
+            <div class="stats-section">
+                <div class="stats-row" style="background-color: white; border: 1px solid #ccc ;padding: 40px; display: flex; justify-content: center; align-items: center;"" >
+                    <div class="col">
+                        <div class="stats-value">UGX {{ total_sales|intcomma }}</div>
+                        <div class="stats-label">Sales</div>
+                      </div>
+
+                      <div style="width: 1px; height: 60px; background-color: #ccc; margin: 0 20px;"></div>
+
+                      <div class="col">
+                        <div class="stats-value">UGX {{ total_orders|intcomma }}</div>
+                        <div class="stats-label">Orders</div>
+                    </div>
+                    
+                </div>
+                <br><br>
+                <div class="stats-row">
+                    <div class="stats-card in-stock">
+                        <div class="stats-value">UGX {{ in_stock|intcomma }}</div>
+                        <div class="stats-label" style="display: flex; justify-content: center; align-items: center; height: 100%;">In stock</div>
+                    </div>
+                    <div class="stats-card out-of-stock">
+                        <div class="stats-value" style="display: flex; justify-content: center; align-items: center">{{ out_of_stock }}</div>
+                        <div class="stats-label" style="display: flex; justify-content: center; align-items: center">Out of stock</div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="form-section">
+                <div class="product-form">
+                    <strong><h2>Add Product</h2></strong>
+                    <form method="POST" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.product_name }}
+                            {% if form.product_name.errors %}
+                                <div class="error-message">{{ form.product_name.errors.0 }}</div>
+                                <style>
+                                    #id_product_name {
+                                        border-color: #dc3545;
+                                        background-color: #fff8f8;
+                                    }
+                                </style>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.category }}
+                            {% if form.category.errors %}
+                                <div class="error-message">{{ form.category.errors.0 }}</div>
+                                <style>
+                                    #id_category {
+                                        border-color: #dc3545;
+                                        background-color: #fff8f8;
+                                    }
+                                </style>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.price }}
+                            {% if form.price.errors %}
+                                <div class="error-message">{{ form.price.errors.0 }}</div>
+                                <style>
+                                    #id_price {
+                                        border-color: #dc3545;
+                                        background-color: #fff8f8;
+                                    }
+                                </style>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.quantity }}
+                            {% if form.quantity.errors %}
+                                <div class="error-message">{{ form.quantity.errors.0 }}</div>
+                                <style>
+                                    #id_quantity {
+                                        border-color: #dc3545;
+                                        background-color: #fff8f8;
+                                    }
+                                </style>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.color }}
+                            {% if form.color.errors %}
+                                <div class="error-message">{{ form.color.errors.0 }}</div>
+                                <style>
+                                    #id_color {
+                                        border-color: #dc3545;
+                                        background-color: #fff8f8;
+                                    }
+                                </style>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.image }}
+                            {% if form.image.errors %}
+                                <div class="error-message">{{ form.image.errors.0 }}</div>
+                                <style>
+                                    #id_image {
+                                        border-color: #dc3545;
+                                        background-color: #fff8f8;
+                                    }
+                                </style>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="submit" class="save-btn">SAVE</button>
+                            <button type="reset" class="clear-btn">CLEAR</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="table-container">
+            <table class="product-table " style="text-align: center;">
+                <thead>
+                    <tr >
+                        <th class="text-center">ID</th>
+                        <th class="text-center">NAME</th>
+                        <th class="text-center">CATEGORY</th>
+                        <th class="text-center">PRICE (UGX)</th>
+                        <th class="text-center">QUANTITY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.product_id }}</td>
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price|intcomma }}</td>
+                        <td>{{ product.quantity }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+   
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-dismiss success messages after 5 seconds
+            const successMessages = document.querySelectorAll('.alert-success');
+            successMessages.forEach(function(message) {
+                setTimeout(function() {
+                    message.style.opacity = '0';
+                    setTimeout(function() {
+                        message.remove();
+                    }, 500);
+                }, 5000);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+        // Auto-dismiss success messages after 5 seconds
+        const successMessages = document.querySelectorAll('.alert-success');
+        successMessages.forEach(function(message) {
+            setTimeout(function() {
+                message.style.opacity = '0';
+                setTimeout(function() {
+                    message.remove();
+                }, 500);
+            }, 5000);
+        });
+        
+        // Add validation classes to form fields
+        const form = document.querySelector('.product-form form');
+        const inputs = form.querySelectorAll('input');
+        
+        // Add event listener for blur event on each input
+        inputs.forEach(function(input) {
+            input.addEventListener('blur', function() {
+                // If field has value and no error message displayed for it
+                if (input.value.trim() !== '' && !input.nextElementSibling || 
+                    !input.nextElementSibling.classList.contains('error-message')) {
+                    // Add valid styling
+                    input.style.borderColor = '#28a745';
+                    input.style.backgroundColor = '#f8fff8';
+                }
+            });
+        });
+
+        // Reset validation styling on clear button click
+        const clearBtn = document.querySelector('.clear-btn');
+        clearBtn.addEventListener('click', function() {
+            inputs.forEach(function(input) {
+                input.style.borderColor = '#ccc';
+                input.style.backgroundColor = '#fff';
+                
+                // Remove any error message elements
+                const nextElem = input.nextElementSibling;
+                if (nextElem && nextElem.classList.contains('error-message')) {
+                    nextElem.remove();
+                }
+            });
+        });
+    });
+    </script>
+     
+</script>
+
+
+</body>
+</body>
+</html>
+

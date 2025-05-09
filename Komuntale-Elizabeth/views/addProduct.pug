@@ -1,0 +1,57 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  title Product Dashboard
+  link(rel='stylesheet' href='./css/addProduct.css')
+.dashboard
+  .cards
+    .card
+      h2 UGX 50,000,000
+      p Sales
+    .card
+      h2 UGX 15,000,000
+      p Orders
+    .card.green
+      h2 UGX 42,000,000
+      p In stock
+    .card.red
+      h2 5
+      p Out of stock
+  .main
+    .form-container
+      h3 Add Product
+      #successMessage.success-message
+      .form-group
+        input#productName(type='text' placeholder='Product Name')
+        #productNameError.error
+      .form-group
+        input#category(type='text' placeholder='Category')
+        #categoryError.error
+      .form-group
+        input#price(type='number' placeholder='Price')
+        #priceError.error
+      .form-group
+        input#quantity(type='number' placeholder='Quantity')
+        #quantityError.error
+      .form-group
+        input#color(type='text' placeholder='Color')
+        #colorError.error
+      .buttons
+        button(onclick='validateForm()') SAVE
+        button(onclick='clearForm()') CLEAR
+    table
+      thead
+        tr
+          th ID
+          th NAME
+          th CATEGORY
+          th PRICE (UGX)
+          th QUANTITY
+      tbody#productTableBody
+        tr
+          td #{product.ID}
+          td #{product.NAME}
+          td #{product.}
+          td #{product.}
+          td #{product.}
+script(src='/js/addProduct.js')

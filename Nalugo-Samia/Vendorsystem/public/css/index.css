@@ -1,0 +1,132 @@
+body{
+    background-color: rgb(250, 248, 248);
+}
+
+.cards{
+    width: 100%;
+    padding: 35px 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+
+}
+.cards .card{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.08);
+}
+.card-name{
+    color: #888;
+    font-weight: 600;
+}
+
+.number1{
+    color: red;
+    font-size: 45px;
+}
+.number2{
+  color  : green;
+  font-size: 45px;
+}
+.vertical{
+    border-left: 2px solid grey; 
+    height: 100px;
+}
+.card-content1{
+    color: black;
+    text-align: left;
+    font-size: 25px;
+}
+.card1{
+    margin-top: 0;
+}
+.card{
+    margin-top: 0px;
+    margin-left:40px;
+}
+.numb{
+    text-align: left;
+    margin-left: 0;
+}
+.user-input-box{
+    display: flex;
+    flex-wrap: wrap;
+    width: 150%;
+    padding-bottom: 15px;
+    height: 40px;
+}
+
+.user-input-box input{
+    height: 40px;
+    width: 200%;
+    border-radius: 7px;
+    outline: none;
+    border: 1px solid grey;
+    padding: 0 10px;
+}
+.cardform{
+    width: 80%;
+    padding-bottom: 15px;
+    height: 40px;
+}
+#uploadimage{
+    margin-top: 0%;
+}
+.save {
+    background-color: rgb(241, 168, 108);
+    width: 120px;
+    padding: 10px 15px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+.clear {
+    background-color: rgb(224, 226, 225);
+    width: 120px;
+    padding: 10px 15px;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    transition: background-color 0.3s  
+}
+.image{
+    margin-right: 0;
+}
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 4px;
+    display: block;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse; 
+    margin-left: 40px;
+  }
+  
+  th, td {
+    border: 1px solid black; 
+    padding: 8px; 
+    text-align: center;
+    font-weight: bold; 
+  }
+  
+  thead {
+    background-color: black; 
+  }
+  
+  thead th {
+    color: white; /* Sets the text color of header cells to white for contrast */
+  }
+  

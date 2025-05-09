@@ -10,46 +10,50 @@ html
     .container
       .stats
         div
-          .stat Sales: UGX 50,000,000
+          .stat  UGX 50,000,000
+             p sales
           br
           br
-          .stat In stock: UGX 42,000,000
+          .stat  UGX 42,000,000
+             p In stock
         br
         br
         div
-          .stat Orders: UGX 15,000,000
+          .stat  UGX 15,000,000
+              p Orders
           br
           br
-          .stat Out of stock: 5
+          .stat  5
+              p Out of stock
 
       form#productForm(action='/product' method='post')
         h2 Add Product
         .form-group
           label(for='name') Product Name
-          input#name(type='text' name='productName')
+          input#name.input(type='text' name='productName' placeholder='Product Name')
           span.error-message
         .form-group
           label(for='category') Category
-          input#category(type='text' name='category')
+          input#category.input(type='text' name='category' placeholder='Category')  
           span.error-message
         .form-group
           label(for='price') Price
-          input#price(type='number' name='price')
+          input#price.input(type='number' name='price' placeholder='Price')
           span.error-message
         .form-group
           label(for='quantity') Quantity
-          input#quantity(type='number' name='quantity')
+          input#quantity.input(type='number' name='quantity' placeholder='Quantity')
           span.error-message
         .form-group
           label(for='color') Color
-          input#color(type='text' name='color')
+          input#color.input(type='text' name='color' placeholder='Color')
           span.error-message
         .form-group
           label(for='image') Upload Image
-          input#image(type='file' name='image')
+          input#image.input(type='file' name='image')
           span.error-message
-        button(type='submit') Save
-        button(type='reset') Clear
+        button.save(type='submit') Save
+        button.clear(type='reset') Clear
 
      
       table

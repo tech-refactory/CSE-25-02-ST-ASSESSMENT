@@ -12,14 +12,14 @@ const expressSession = require("express-session")({
 require('dotenv').config();
 
 //import user's mode
-const Form =require('./models/Form')
+const AddProduct =require('./models/AddProduct')
 
 // 2.Instantations
 const app =express();
 const PORT =3004;
 
 //import routes
-  const formRoutes =require("./routes/formRoutes");
+  const addProductRoutes =require("./routes/addProductRoutes");
 
 
 
@@ -63,7 +63,7 @@ app.use(passport.session());
 
 //5.Routes
 //using imported routes
- app.use("/", formRoutes);
+ app.use("/", addProductRoutes);
 
 
 

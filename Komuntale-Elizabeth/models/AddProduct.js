@@ -7,9 +7,21 @@ const AddProductSchema = new mongoose.Schema({
     },
     Category:{
         type: String,
-        trim: true,
+        trim: true
+    },
+    Price:{
+        type: Number,
+        trim: true
+    },
+    Quantity:{
+        type: Number,
+        trim: true
+    },
+    Color:{
+        type: String,
+        trim: true
     }
 
-})
+});
 
 module.exports = mongoose.model('AddProduct', AddProductSchema);

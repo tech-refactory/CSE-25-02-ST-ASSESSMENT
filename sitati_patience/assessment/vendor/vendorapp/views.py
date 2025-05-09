@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import ProductForm
+from .forms import *
 from .models import *
 from django.db.models import Sum
 
@@ -7,10 +7,10 @@ from django.db.models import Sum
 
 
 def dashboard(request):
-    form = ProductForm()
+    form = VendorForm()
     success = False
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
+        form = VendorForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/?success=true')

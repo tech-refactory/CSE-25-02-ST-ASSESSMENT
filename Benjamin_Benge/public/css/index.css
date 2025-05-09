@@ -1,0 +1,175 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-size: small;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 40px;
+  width: 100%;
+  min-height: 100vh;
+}
+
+[class^="box-"] {
+  background-color: skyblue;
+
+  /* To place the letter at the center */
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  display: grid;
+  gap: 20px;
+  height: 100vh;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  /* grid-template-areas: "AAAA AABB  BBBB"
+                       "AAAA AABB  BBBB"
+                       "CCCC CCCC  CCCC"                  ; */
+  margin: 50px;
+}
+
+.box-1 {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: 6;
+
+}
+.box-2 {
+  grid-column-start: 6;
+  grid-column-end: 12;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  background-color: white;
+}
+.box-3 {
+  grid-column-start: 1;
+  grid-column-end: 12;
+  grid-row-start: 7;
+  grid-row-end: 12;
+   background-color:white;
+
+   margin-top: 100px;
+}
+
+input[type=text], input[type=password], input[type=number] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+} */
+
+.save-button {
+  background-color: #c29415;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+}
+
+.clear-button {
+  background-color: #e6e5e2;
+  color: rgb(26, 25, 25);
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+
+
+
+
+.myform {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+
+
+.colorAndImage{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.submit-buttons{
+       display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+table {
+
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th{
+background-color:black;
+color: white
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+/* .price-cards{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  gap: 5px;
+  height: 100vh;
+
+} */
+
+.boxA{
+  background-color: white;
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+}
+
+
+
+

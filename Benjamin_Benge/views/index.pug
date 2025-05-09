@@ -1,0 +1,133 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='/css/index.css')
+    title
+    style.
+      .error {
+        color: red;
+        font-size: 0.9em;
+      }
+  body
+    .container
+      .box-1
+        h1 A
+
+      .box-2
+        form#productForm(action='/addProduct', method='post')
+          h3 Add Product
+          .myform
+            label(for='addProduct') 
+            input#addProduct(type='text', placeholder='Add Product', name='addProduct', required)
+            span#addProduct-error.error
+
+            label(for='category') 
+            input#category(type='text', placeholder='Category', name='category', required)
+            span#category-error.error
+
+            label(for='price')
+            input#price(type='number', placeholder='Price', name='price', required)
+            span#price-error.error
+
+            label(for='quantity') 
+            input#quantity(type='number', placeholder='Quantity', name='quantity', required)
+            span#quantity-error.error
+
+            .colorAndImage
+              label(for='color') 
+              input#color(type='text', placeholder='Color', name='color', required)
+              span#color-error.error
+
+              label(for='image') 
+              input#image(type='text', placeholder='Image', name='image', required)
+              span#image-error.error
+
+            .submit-buttons
+              button.save-button(type='submit') Save
+              button.clear-button(type='button', onclick='clearForm()') Clear
+
+      .box-3
+        h3 
+        table
+          thead
+            tr
+              th ID
+              th Product
+              th Category
+              th Price
+              th Quantity
+          tbody
+            if products && products.length
+              each product in products
+                tr
+                  td= product._id
+                  td= product.addProduct
+                  td= product.category
+                  td= product.price
+                  td= product.quantity
+            else
+              tr
+                td(colspan='5') No products found.
+
+    script.
+      document.getElementById("productForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const addProduct = document.getElementById("addProduct").value.trim();
+        const category = document.getElementById("category").value.trim();
+        const price = document.getElementById("price").value;
+        const quantity = document.getElementById("quantity").value;
+        const color = document.getElementById("color").value.trim();
+        const image = document.getElementById("image").value.trim();
+
+        let isValid = true;
+
+        document.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+        const textRegex = /^[a-zA-Z0-9\s]{2,50}$/;
+        const colorRegex = /^[a-zA-Z]{3,20}$/;
+        const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/;
+        const numberRegex = /^\d+(\.\d{1,2})?$/;
+
+        if (!textRegex.test(addProduct)) {
+          document.getElementById("addProduct-error").textContent = "Product name must be 2–50 alphanumeric characters.";
+          isValid = false;
+        }
+
+        if (!textRegex.test(category)) {
+          document.getElementById("category-error").textContent = "Category must be 2–50 alphanumeric characters.";
+          isValid = false;
+        }
+
+        if (!numberRegex.test(price) || parseFloat(price) <= 0) {
+          document.getElementById("price-error").textContent = "Enter a valid positive price.";
+          isValid = false;
+        }
+
+        if (!/^\d+$/.test(quantity) || parseInt(quantity) <= 0) {
+          document.getElementById("quantity-error").textContent = "Enter a valid quantity (positive integer).";
+          isValid = false;
+        }
+
+        if (!colorRegex.test(color)) {
+          document.getElementById("color-error").textContent = "Color should be 3–20 letters.";
+          isValid = false;
+        }
+
+        if (!urlRegex.test(image)) {
+          document.getElementById("image-error").textContent = "Enter a valid image URL.";
+          isValid = false;
+        }
+
+        if (isValid) {
+          alert("Product added successfully!");
+          e.target.submit();
+        }
+      });
+
+      function clearForm() {
+        document.getElementById("productForm").reset();
+        document.querySelectorAll(".error").forEach(el => el.textContent = "");
+      }

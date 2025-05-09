@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce App</title>
+    <link rel="stylesheet" href="../public/css/vendorPage.css">
+</head>
+
+<body>
+    <div class="dashboard-columns">
+        <div class="left-column">
+            <div class="dashboard-summary">
+                <div class="summary-card">
+                    <div class="summary-title">UGX 50,000,000</div>
+                    <div class="summary-subtitle">Sales</div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-title">UGX 15,000,000</div>
+                    <div class="summary-subtitle">Orders</div>
+                </div>
+
+                <div class="summary-card green-card">
+                    <div class="summary-title">UGX 42,000,000</div>
+                    <div class="summary-subtitle">In stock</div>
+                </div>
+
+                <div class="summary-card red-card">
+                    <div class="summary-title">5</div>
+                    <div class="summary-subtitle">Out of stock</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <h1>Add Product</h1>
+
+            <!-- Success Alert -->
+            <div id="successAlert" class="success-alert" style="display: none;">
+                <span>Product has been added successfully!</span>
+                <button class="close-btn" onclick="document.getElementById('successAlert').style.display='none'">×</button>
+            </div>
+
+            <form id="productForm" action="/addProduct" method="post" enctype="multipart/form-data">
+                <input type="text" id="productName" name="productName" placeholder="Product Name" />
+                <span class="error-message">Invalid field</span>
+
+                <input type="text" id="category" name="category" placeholder="Category" />
+                <span class="error-message">Invalid field</span>
+
+                <input type="number" id="price" name="price" placeholder="Price" />
+                <span class="error-message">Please enter a valid price.</span>
+
+                <input type="number" id="quantity" name="quantity" placeholder="Quantity" />
+                <span class="error-message">Invalid field</span>
+
+                <input type="text" id="color" name="color" placeholder="Color" />
+                <span class="error-message">Invalid field</span>
+
+                <input type="file" id="image" name="image" accept="image/*" />
+                <span class="error-message">Invalid field</span>
+
+                <div class="form-buttons">
+                    <button type="submit" class="save-btn">SAVE</button>
+                    <button type="reset" class="clear-btn">CLEAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>CATEGORY</th>
+                    <th>PRICE(UGX)</th>
+                    <th>QUANTITY</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../public/js/vendorPage.js"></script>
+</body>
+
+</html>

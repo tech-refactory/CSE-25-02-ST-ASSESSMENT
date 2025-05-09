@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} E-commerce system {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form method="POST" action="">
+                <div class="mb-3">
+                    <label for="name" class="form-lable"> Enter the product name </label>
+                    <input name="name" required type="text" class="form-control" placeholder="Enter the product name">
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-lable"> Enter the category</label>
+                    <input name="category" required type="text" class="form-control" placeholder="Enter the catergory">
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-lable"> Enter product price </label>
+                    <input type="number" required class="form-control" placeholder="Enter the product price">
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="form-lable"> Enter the quantity </label>
+                    <input type="number" required class="form-control" placeholder="Enter the quantity">
+                </div>
+                <div class="mb-3">
+                    <label for="color" class="form-lable"> Enter the product color </label>
+                    <input type="text" class="form-control" placeholder="Enter the prudcut color">
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-lable"> Enter the product image </label>
+                    <input type="file" class="form-control">
+                </div> 
+                <input type="submit" class="btn" value="SAVE">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,315 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container-fluid {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .top-cards-row,
+        .bottom-cards-row {
+            margin-bottom: 20px;
+        }
+
+        .stats-card,
+        .small-card {
+            border-radius: 8px;
+            padding: 20px;
+            height: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border: none;
+        }
+
+        .big-number,
+        .in-stock,
+        .out-of-stock-number {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .in-stock {
+            color: #28a745;
+        }
+
+        .out-of-stock-number {
+            color: #dc3545;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .form-container {
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border: none;
+        }
+
+        .form-container h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-control.is-invalid {
+            border-color: #dc3545;
+            box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+        }
+
+        .form-control.is-valid {
+            border-color: #28a745;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+        }
+
+        .invalid-feedback {
+            color: #dc3545;
+            font-size: 0.875em;
+        }
+
+        .upload-image-button {
+            padding: 8px 12px;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn-save,
+        .btn-clear {
+            padding: 10px 0;
+            border-radius: 4px;
+            border: none;
+            font-weight: bold;
+            width: 48%;
+            cursor: pointer;
+        }
+
+        .btn-save {
+            background-color: #f7923d;
+            color: white;
+        }
+
+        .btn-clear {
+            background-color: #e2e2e2;
+            color: #333;
+        }
+
+        .table {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            table, th, td {
+            border: 5px solid #000;
+            border-collapse: collapse;
+}
+        }
+
+        .table thead th {
+            background-color: #000;
+            color: white;
+            font-weight: bold;
+            border: none;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .table td,
+        .table th {
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row top-cards-row">
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="big-number">UGX 90,000,000</div>
+                    <div class="stat-label">Sales</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="big-number">UGX 35,000,000</div>
+                    <div class="stat-label">Orders</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card form-container">
+                    <h3>Add Product</h3>
+                    {% if success %}
+                        <div class="alert alert-success" role="alert">
+                            Product has been added successfully!
+                        </div>
+                    {% endif %}
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.name.label_tag }}
+                            {{ form.name|add_class:"form-control" }}
+                            {% if form.name.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.name.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.category.label_tag }}
+                            {{ form.category|add_class:"form-control" }}
+                            {% if form.category.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.category.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.price.label_tag }}
+                            {{ form.price|add_class:"form-control" }}
+                            {% if form.price.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.price.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.quantity.label_tag }}
+                            {{ form.quantity|add_class:"form-control" }}
+                            {% if form.quantity.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.quantity.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.color.label_tag }}
+                            {{ form.color|add_class:"form-control" }}
+                            {% if form.color.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.color.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.image.id_for_label }}" class="upload-image-button">Upload Image</label>
+                            {{ form.image }}
+                            {% if form.image.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.image.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-save">SAVE</button>
+                           <button type="reset" class="btn-clear">CLEAR</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row bottom-cards-row">
+            <div class="col-md-3">
+                <div class="card small-card">
+                    <div class="in-stock">UGX 42,000,000</div>
+                    <div class="stat-label">In stock</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card small-card">
+                    <div class="out-of-stock-number">5</div>
+                    <div class="stat-label">Out of stock</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th> NAME</th>
+                            <th>CATEGORY</th>
+                            <th>PRICE (UGX)</th>
+                            <th>QUANTITY</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>#{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.quantity }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+  <script>
+    function clearForm() {
+        const form = document.querySelector('form');
+        form.reset(); 
+
+    
+        const inputs = form.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.value = ''; 
+            input.classList.remove('is-invalid', 'is-valid'); 
+        });
+    }
+</script>
+</body>
+</html>
+            
+
+

@@ -1,5 +1,6 @@
 body {
   font-family: Arial, sans-serif;
+  background: #f5f5f5;
   padding: 20px;
 }
 .container {
@@ -12,21 +13,30 @@ body {
   margin-bottom: 20px;
 }
 .stat {
-  background: #f0f0f0;
-  padding: 10px 20px;
-  border-radius: 8px;
+  background: #e3e3e3;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.success-alert {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
 }
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
   margin-bottom: 30px;
 }
 .form-group {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 15px;
 }
 input {
+  width: 100%;
   padding: 8px;
   border: 2px solid #ccc;
   border-radius: 4px;
@@ -41,14 +51,20 @@ input.valid {
   color: red;
   font-size: 12px;
 }
+button {
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 10px 15px;
+}
 table {
   width: 100%;
   border-collapse: collapse;
 }
-thead {
-  background: #ddd;
-}
-td, th {
+th, td {
+  border: 1px solid #999;
   padding: 10px;
-  border: 1px solid #ccc;
+  text-align: left;
+}
+thead {
+  background-color: #f0f0f0;
 }

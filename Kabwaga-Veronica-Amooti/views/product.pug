@@ -1,8 +1,9 @@
 doctype html
 html
   head
-    title Product Dashboard
-    link(rel='stylesheet', href='css/style.css')
+    title Vendor Dashboard
+    link(rel='stylesheet', href='/style.css')
+    script(src='/script.js', defer)
   body
     .container
       .stats
@@ -11,10 +12,13 @@ html
         .stat In stock: UGX #{inStockValue.toLocaleString()}
         .stat Out of stock: #{outOfStock}
 
+      if success
+        .success-alert Product added successfully!
+
       form#productForm(action='/add', method='POST')
         h2 Add Product
         each field in ['name', 'category', 'price', 'quantity', 'color']
-          div.form-group
+          .form-group
             label(for=field) #{field.charAt(0).toUpperCase() + field.slice(1)}
             input(type=(field == 'price' || field == 'quantity') ? 'number' : 'text', name=field, id=field, required)
             span.error-message
@@ -38,4 +42,3 @@ html
               td #{product.category}
               td #{product.price.toLocaleString()}
               td #{product.quantity}
-    script(src='js/script.js')

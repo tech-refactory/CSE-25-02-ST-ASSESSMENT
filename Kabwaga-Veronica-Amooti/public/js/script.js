@@ -21,4 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!valid) e.preventDefault();
   });
+
+  form.addEventListener('reset', () => {
+    inputs.forEach(input => {
+      input.classList.remove('valid', 'invalid');
+      input.nextElementSibling.textContent = '';
+    });
+    setTimeout(() => window.location.reload(), 300); // Refresh to update table
+  });
 });

@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Sale</title>
+    <link rel="stylesheet" href="{% static 'sales/style.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Submit Sale</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+        {% if form.errors %}
+            <div class="error-message">Please correct the errors in the form.</div>
+        {% endif %}
+    </div>
+</body>
+</html>
+

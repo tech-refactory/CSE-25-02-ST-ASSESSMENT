@@ -12,7 +12,7 @@ def vendor_dashboard(request):
     products = Product.objects.order_by('-created_at')
     form = ProductForm()
 
-    # Handle form submission
+    
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
@@ -20,7 +20,6 @@ def vendor_dashboard(request):
             messages.success(request, 'Product added successfully!')
             return redirect('vendor-dashboard')
 
-    # Summary calculations
     total_sales = 50000000  
     expected_orders = 15000000  
     capital_in_stock = Product.objects.aggregate(total=Sum('price'))['total'] or 0

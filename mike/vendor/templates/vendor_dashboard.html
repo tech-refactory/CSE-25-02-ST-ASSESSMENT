@@ -28,36 +28,34 @@
 </head>
 <body>
     <div class="container mt-4">
-        <!-- SINGLE BORDER CARD FOR EVERYTHING -->
         <div class="card mb-4">
             <div class="card-header">Vendor Dashboard</div>
             <div class="card-body">
                 <div class="row">
-                    <!-- Insights Cards -->
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <div class="card">
                                     <div class="card-header">Sales & Orders</div>
                                     <div class="card-body">
-                                        <p>Total Revenue: <strong>{{ total_revenue }}</strong></p>
-                                        <p>Expected Revenue: <strong>{{ expected_revenue }}</strong></p>
+                                        <p>Total Revenue: <strong>UGX{{ total_revenue }}</strong></p>
+                                        <p>Expected Revenue: <strong>UGX{{ expected_revenue }}</strong></p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <div class="card">
-                                    <div class="card-header">In-stock</div>
+                                <div class="card" style="color: green;">
+                                    <div class="card-header" style="color: black;">In-stock</div>
                                     <div class="card-body">
-                                        <p>Capital in Stock: <strong>{{ capital_in_stock }}</strong></p>
+                                        <p><strong>UGX{{ capital_in_stock }}</strong></p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <div class="card">
-                                    <div class="card-header">Out-of-stock</div>
+                                <div class="card" style="color: red;">
+                                    <div class="card-header" style="color: black;">Out-of-stock</div>
                                     <div class="card-body">
-                                        <p>Products Out of Stock: <strong>{{ products_out_of_stock }}</strong></p>
+                                        <p> <strong>{{ products_out_of_stock }}</strong></p>
                                     </div>
                                 </div>
                             </div>
@@ -95,13 +93,12 @@
                     </div>
                 </div>
 
-                <!-- Product List Table -->
                 <div class="mt-4">
                     <h5>Products List</h5>
                     <table class="table table-bordered table-hover">
                         <thead class="table-dark text-white">
                             <tr>
-                                <th>#ID</th>
+                                <th>ID</th>
                                 <th>Name</th>
                                 <th>Category</th>
                                 <th>Price (UGX)</th>
@@ -121,7 +118,6 @@
                         </tbody>
                     </table>
 
-                    <!-- Pagination -->
                     <div class="pagination mt-3">
                         {% for page_num in products.paginator.page_range %}
                             <a href="?page={{ page_num }}" class="btn btn-outline-primary btn-sm {% if products.number == page_num %}active{% endif %}">

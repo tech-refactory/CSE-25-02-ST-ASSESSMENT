@@ -4,13 +4,12 @@ from .forms import ProductForm
 from .models import Product
 
 def vendor_dashboard(request):
-    # Assuming these values come from your models or are computed based on current sales data
-    total_revenue = 100000  # Example value, replace with actual calculation
-    expected_revenue = 50000  # Example value, replace with actual calculation
-    capital_in_stock = 150000  # Example value
+    total_revenue = 100000  
+    expected_revenue = 50000
+    capital_in_stock = 150000
     products_out_of_stock = Product.objects.filter(quantity=0).count()
 
-    products = Product.objects.all()  # Fetch all products
+    products = Product.objects.all()
     form = ProductForm()
 
     if request.method == 'POST':
@@ -18,7 +17,7 @@ def vendor_dashboard(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Product added successfully!")
-            return redirect('vendor_dashboard')  # Redirect to reload the page and clear the form
+            return redirect('vendor_dashboard')
 
     return render(request, 'vendor_dashboard.html', {
         'total_revenue': total_revenue,

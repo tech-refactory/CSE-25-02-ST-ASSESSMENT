@@ -9,20 +9,27 @@ def indexpage(request):
     """
     Main dashboard view that handles:
     1. Displaying product list and statistics
-    2. Processing new product submissions
-    3. Calculating dashboard metrics
+    2. Processing new product submissions with validation
+    3. Calculating dashboard metrics and inventory status
     """
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Product added successfully!")
-            return redirect('indexpage')
+            try:
+                product = form.save()
+                messages.success(request, f"Product '{product.name}' has been successfully added to your inventory!")
+                return redirect('indexpage')
+            except Exception as e:
+                messages.error(request, f"Error saving product: {str(e)}")
+        else:
+            messages.error(request, "Please correct the errors below.")
     else:
         form = ProductForm()
     
-    products = Product.objects.all().order_by('-id')  # Get all products, newest first
-      # Calculate current stock value and out of stock items
+    # Get all products, ordered by newest first
+    products = Product.objects.all().order_by('-id')
+    
+    # Calculate current stock value and out of stock items
     in_stock_value = sum(product.price * product.quantity for product in products)
     out_of_stock_count = products.filter(quantity=0).count()
     

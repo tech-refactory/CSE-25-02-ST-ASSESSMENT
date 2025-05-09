@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- Vendor Dashboard Template -->
-<!-- Features:
-     - Real-time statistics display
-     - Product management form
-     - Dynamic product inventory table
-     - Responsive design for all screen sizes -->
+<!-- Vendor Dashboard Template 
+Features:
+- Server-side validation using Django Forms
+- Form error handling and display
+- Flash messages for operation status
+- Responsive design for all devices -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,26 +22,34 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 0 15px;
-        }
-        .card {
+        }        .card {
             background: white;
             border-radius: 12px;
-            padding: 20px;
+            padding: 12px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.03);
             border: none;
-            margin-bottom: 20px;
-        }        /* Stats Card Styles */
-        .stats-value {
-            font-size: 22px;
+            margin-bottom: 12px;
+        }
+        .main-stats.card {
+            padding: 6px 12px;
+        }
+        .small-stats .card {
+            padding: 18px 15px;
+            min-height: 10px;
+        }
+        /* Stats Card Styles */.stats-value {
+            font-size: 18px;
             font-weight: 700;
-            margin: 8px 0 3px 0;
+            margin: 0;
             color: #2d3748;
+            line-height: 1.2;
         }
         .stats-label {
             color: #718096;
-            font-size: 13px;
+            font-size: 16px;
             letter-spacing: 0.3px;
-        }        /* Form Styles */
+            margin-top: 1px;
+        }/* Form Styles */
         .form-title {
             font-size: 17px;
             font-weight: 600;
@@ -132,7 +140,7 @@
             border-bottom: none;
         }
         .section-title {
-            font-size: 16px;
+            font-size: 20px;
             font-weight: 600;
             margin: 0 0 16px 0;
             color: #2d3748;
@@ -144,7 +152,7 @@
         }
         .main-stats {
             grid-column: span 2;
-        }
+        }        /* Responsive Layout */
         @media (min-width: 768px) {
             .top-section {
                 display: grid;
@@ -154,7 +162,6 @@
             .stats-grid {
                 display: flex;
                 flex-direction: column;
-                gap: 15px;
             }
             .main-stats {
                 flex: 2;
@@ -162,24 +169,34 @@
             .small-stats {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: 15px;
             }
         }
     </style>
 </head>
 <body>    <!-- Main Dashboard Container -->
     <div class="dashboard-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} alert-dismissible fade show mb-4" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
         <!-- Top Section: Stats Cards and Product Form -->
         <div class="top-section">
             <!-- Left Column: Dashboard Statistics -->
             <div class="stats-grid">
-                <!-- Main Stats Card: Sales and Orders -->
-                <div class="card main-stats">
-                    <div class="stats-value">UGX {{ total_sales|floatformat:2 }}</div>
-                    <div class="stats-label">Sales</div>
-                    <div style="margin-top: 20px;">
-                        <div class="stats-value">UGX {{ total_orders|floatformat:2 }}</div>
-                        <div class="stats-label">Orders</div>
+                <!-- Main Stats Card: Sales and Orders -->                <div class="card main-stats">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <div class="stats-value">UGX {{ total_sales|floatformat:2 }}</div>
+                            <div class="stats-label">Sales</div>
+                        </div>
+                        <div>
+                            <div class="stats-value">UGX {{ total_orders|floatformat:2 }}</div>
+                            <div class="stats-label">Orders</div>
+                        </div>
                     </div>
                 </div>
                 <div class="small-stats">
@@ -196,39 +213,24 @@
               <!-- Right Column: Product Entry Form -->
             <div class="card">
                 <!-- Product Form with validation and image upload -->
-                <div class="form-title">Add Product</div>
-                <form method="POST" action="" enctype="multipart/form-data">
+                <div class="form-title">Add Product</div>                <form method="POST" action="" enctype="multipart/form-data">
                     {% csrf_token %}
+                    {% for field in form %}
                     <div class="form-group">
-                        <label class="form-label">Product Name</label>
-                        <input type="text" class="form-input" name="name" required>
+                        <label class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Category</label>
-                        <input type="text" class="form-input" name="category" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Price</label>
-                        <input type="number" class="form-input" name="price" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Quantity</label>
-                        <input type="number" class="form-input" name="quantity" required>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Color</label>
-                                <input type="text" class="form-input" name="color">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Upload Image</label>
-                                <input type="file" class="form-input" name="image" accept="image/*">
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
                     <div class="button-group">
                         <button type="submit" class="btn-save">SAVE</button>
                         <button type="reset" class="btn-clear">CLEAR</button>
@@ -239,7 +241,7 @@
         
         <!-- Products Table -->
         <div class="table-container">
-            <div class="section-title">PRODUCT INVENTORY</div>
+            <div class="section-title">PRODUCT LIST</div>
             <table class="products-table">
                 <thead>
                     <tr>

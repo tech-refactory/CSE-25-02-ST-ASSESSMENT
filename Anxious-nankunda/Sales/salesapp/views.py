@@ -9,7 +9,7 @@ from django.contrib import messages
 def chart(request):
     
     sale_form = SaleForm()
-    products = Product.objects.all()
+    products = Product.objects.filter(sold_at__isnull=False).order_by('-sold_at')
 
     if request.method == 'POST':
         sale_form = SaleForm(request.POST, request.FILES)

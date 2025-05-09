@@ -5,10 +5,10 @@ from . models import*
 from .models import Sale
 
 from django import forms
-from .models import Sale, Product  # Assuming you have these models
+from .models import Sale, Product  
 
 class SaleForm(forms.ModelForm):
-    # Add extra fields that are in your template but not in your original fields list
+    
     class Meta:
         model = Product
         fields = ['name', 'category', 'price', 'quantity', 'color', 'image']

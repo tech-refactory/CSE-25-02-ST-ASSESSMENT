@@ -9,7 +9,7 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField()
     color = models.CharField(max_length=50, blank=True, null=True)
     image = models.ImageField(upload_to='product_images/', blank=True, null=True)
-
+    sold_at = models.DateField(auto_now=True)
 class Sale(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity_sold = models.PositiveIntegerField()

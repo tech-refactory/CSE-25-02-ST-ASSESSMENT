@@ -21,10 +21,10 @@ html(lang="en")
 
         .product-form
           h2 Add Product
-          form(action="/add", method="POST", enctype="multipart/form-data", novalidate)
+          form(action="/add", method="POST", enctype="multipart/form-data", novalidate, id="productForm")
             .form-group
               label(for="productName") Product Name
-              input(type="text", id="productName", name="name", required)
+              input(type="text", id="productName", name="productName", required)
             .form-group
               label(for="category") Category
               input(type="text", id="category", name="category", required)
@@ -42,7 +42,7 @@ html(lang="en")
               input(type="file", id="image", name="image", accept="image/*")
             .form-buttons
               button.save-btn(type="submit") SAVE
-              button.clear-btn(type="reset") CLEAR
+              button.clear-btn(type="button", id="clearForm") CLEAR
 
       .product-table
         table
@@ -57,8 +57,8 @@ html(lang="en")
             if products && products.length
               each product in products
                 tr
-                  td= product.id
-                  td= product.name
+                  td= product._id
+                  td= product.productName
                   td= product.category
                   td= new Intl.NumberFormat('en-US').format(product.price)
                   td= product.quantity

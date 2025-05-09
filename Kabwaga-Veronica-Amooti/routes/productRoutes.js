@@ -2,26 +2,50 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 
+// GET main product dashboard page
 router.get('/', async (req, res) => {
-  const products = await Product.find();
-
-  const sales = products.reduce((acc, p) => acc + (p.price * (1000 - p.quantity)), 0);
-  const orders = products.reduce((acc, p) => acc + p.price * (Math.floor(Math.random() * 10)), 0);
-  const inStockValue = products.reduce((acc, p) => acc + (p.price * p.quantity), 0);
-  const outOfStock = products.filter(p => p.quantity === 0).length;
-
-  res.render('product', { products, sales, orders, inStockValue, outOfStock, success: req.query.success });
+  try {
+    const products = await Product.find().sort({ _id: -1 }); // newest first
+    res.render('product', { products, success: req.query.success });
+  } catch (err) {
+    console.error('Error loading dashboard:', err);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
+// POST route to add new product
 router.post('/add', async (req, res) => {
-  const { name, category, price, quantity, color } = req.body;
+  const { productName, category, price, quantity, color } = req.body;
 
-  if (!name || !category || !price || !quantity || !color) {
+  if (!productName || !category || !price || !quantity) {
     return res.redirect('/');
   }
 
-  await Product.create({ name, category, price, quantity, color });
-  res.redirect('/?success=true');
+  try {
+    await Product.create({
+      productNameame,
+      category,
+      price: Number(price),
+      quantity: Number(quantity),
+      color
+    });
+
+    res.redirect('/?success=true');
+  } catch (err) {
+    console.error('Error saving product:', err);
+    res.redirect('/');
+  }
+});
+
+// GET route for fetching products for the frontend table
+router.get('/get-products', async (req, res) => {
+  try {
+    const products = await Product.find().sort({ _id: -1 }); // newest at top
+    res.json(products);
+  } catch (err) {
+    console.error('Error fetching products:', err);
+    res.status(500).json({ error: 'Failed to fetch products' });
+  }
 });
 
 module.exports = router;

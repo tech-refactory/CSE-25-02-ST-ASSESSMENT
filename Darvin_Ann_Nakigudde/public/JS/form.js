@@ -1,74 +1,195 @@
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const saveButton = document.getElementById('save-button');
-            const productNameInput = document.getElementById('product-name');
-            const categoryInput = document.getElementById('category');
-            const priceInput = document.getElementById('price');
-            const quantityInput = document.getElementById('quantity');
-            const colorInput = document.getElementById('color');
-            const sizeInput = document.getElementById('size');
-
-            const inputFields = [
-                { input: productNameInput, error: document.getElementById('product-name-error') },
-                { input: categoryInput, error: document.getElementById('category-error') },
-                { input: priceInput, error: document.getElementById('price-error') },
-                { input: quantityInput, error: document.getElementById('quantity-error') },
-                { input: colorInput, error: document.getElementById('color-error') },
-                { input: sizeInput, error: document.getElementById('size-error') },
-            ];
-
-            // Function to clear error/valid states
-            function clearInputState(inputElement, errorElement) {
-                inputElement.classList.remove('error-input', 'valid-input');
-                errorElement.classList.remove('active');
-                errorElement.textContent = '';
-            }
-
-            // Add event listeners to each input field for real-time validation
-            inputFields.forEach(({ input, error }) => {
-                input.addEventListener('input', () => {
-                    if (input.value.trim() !== '') {
-                        input.classList.remove('error-input');
-                        input.classList.add('valid-input');
-                        error.classList.remove('active');
-                        error.textContent = '';
-                    } else if (input.classList.contains('valid-input')) {
-                        input.classList.remove('valid-input');
-                    }
-                });
-            });
-
-            saveButton.addEventListener('click', function() {
-                let isValid = true;
-
-                // Reset all input states
-                inputFields.forEach(({ input, error }) => clearInputState(input, error));
-
-                // Validate required fields
-                inputFields.forEach(({ input, error }) => {
-                    if (input.value.trim() === '') {
-                        input.classList.add('error-input');
-                        error.textContent = 'Invalid Field';
-                        error.classList.add('active');
-                        isValid = false;
-                    } else {
-                        input.classList.add('valid-input'); // Mark as valid on save if not empty
-                    }
-                });
-
-                if (!isValid) {
-                    console.log('Form has errors. Please correct the invalid fields.');
-                } else {
-                    console.log('Form is valid. Ready to save data.');
-                    // Proceed with form submission or data saving
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const productForm = document.getElementById('product-form');
+    const clearButton = document.getElementById('clear-button');
+    const alertContainer = document.getElementById('alert-container');
+    const productTableBody = document.getElementById('product-table-body');
+    
+    // Form fields
+    const formFields = {
+      name: document.getElementById('product-name'),
+      category: document.getElementById('category'),
+      price: document.getElementById('price'),
+      quantity: document.getElementById('quantity'),
+      color: document.getElementById('color'),
+      imageUrl: document.getElementById('image-url')
+    };
+    
+    // Error message elements
+    const errorMessages = {
+      name: document.getElementById('product-name-error'),
+      category: document.getElementById('category-error'),
+      price: document.getElementById('price-error'),
+      quantity: document.getElementById('quantity-error'),
+      color: document.getElementById('color-error'),
+      imageUrl: document.getElementById('image-url-error')
+    };
+    
+    // Form validation
+    function validateForm() {
+      let isValid = true;
+      
+      // Clear all error messages first
+      Object.values(errorMessages).forEach(el => el.textContent = '');
+      
+      // Required fields validation
+      if (!formFields.name.value.trim()) {
+        errorMessages.name.textContent = 'Product name is required';
+        isValid = false;
+      }
+      
+      if (!formFields.category.value.trim()) {
+        errorMessages.category.textContent = 'Category is required';
+        isValid = false;
+      }
+      
+      // Price validation
+      if (!formFields.price.value.trim()) {
+        errorMessages.price.textContent = 'Price is required';
+        isValid = false;
+      } else if (isNaN(formFields.price.value) || parseFloat(formFields.price.value) < 0) {
+        errorMessages.price.textContent = 'Please enter a valid price';
+        isValid = false;
+      }
+      
+      // Quantity validation
+      if (!formFields.quantity.value.trim()) {
+        errorMessages.quantity.textContent = 'Quantity is required';
+        isValid = false;
+      } else if (isNaN(formFields.quantity.value) || parseInt(formFields.quantity.value) < 0) {
+        errorMessages.quantity.textContent = 'Please enter a valid quantity';
+        isValid = false;
+      }
+      
+      return isValid;
+    }
+    
+    // Reset form
+    function resetForm() {
+      productForm.reset();
+      Object.values(errorMessages).forEach(el => el.textContent = '');
+      
+      // Show success message
+      showAlert('Form has been cleared', 'success');
+      
+      // Add animation to form
+      productForm.classList.add('form-reset');
+      setTimeout(() => {
+        productForm.classList.remove('form-reset');
+      }, 300);
+    }
+    
+    // Show alert message
+    function showAlert(message, type) {
+      const alertEl = document.createElement('div');
+      alertEl.className = `alert alert-${type}`;
+      alertEl.textContent = message;
+      
+      // Clear existing alerts
+      alertContainer.innerHTML = '';
+      alertContainer.appendChild(alertEl);
+      
+      // Auto-close alert after 3 seconds
+      setTimeout(() => {
+        alertEl.style.opacity = '0';
+        setTimeout(() => {
+          alertContainer.removeChild(alertEl);
+        }, 300);
+      }, 3000);
+    }
+    
+    // Update product table
+    function updateProductTable(products) {
+      productTableBody.innerHTML = '';
+      
+      products.forEach(product => {
+        const row = document.createElement('tr');
+        
+        // Format price with commas
+        const formattedPrice = new Intl.NumberFormat().format(product.price);
+        
+        row.innerHTML = `
+          <td>${product.productId}</td>
+          <td>${product.name}</td>
+          <td>${product.category}</td>
+          <td>${formattedPrice}</td>
+          <td>${product.quantity}</td>
+        `;
+        
+        productTableBody.appendChild(row);
+      });
+    }
+    
+    // Update statistics
+    function updateStats(stats) {
+      if (stats.inStock !== undefined) {
+        const inStockElement = document.querySelector('.in-stock');
+        inStockElement.textContent = `UGX ${new Intl.NumberFormat().format(stats.inStock)}`;
+      }
+      
+      if (stats.outOfStock !== undefined) {
+        const outOfStockElement = document.querySelector('.out-of-stock-count');
+        outOfStockElement.textContent = stats.outOfStock;
+      }
+    }
+    
+    // Form submission handler
+    productForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if (validateForm()) {
+        // Get form data
+        const formData = {
+          name: formFields.name.value.trim(),
+          category: formFields.category.value.trim(),
+          price: formFields.price.value.trim(),
+          quantity: formFields.quantity.value.trim(),
+          color: formFields.color.value.trim(),
+          imageUrl: formFields.imageUrl.value.trim()
+        };
+        
+        // Send form data to server
+        fetch('/products', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Reset form
+            resetForm();
+            
+            // Show success message
+            showAlert('Product added successfully!', 'success');
+            
+            // Update product table
+            updateProductTable(data.products);
+            
+            // Update stats
+            updateStats(data.stats);
+          } else {
+            // Show validation errors
+            if (data.errors) {
+              Object.keys(data.errors).forEach(field => {
+                if (errorMessages[field]) {
+                  errorMessages[field].textContent = data.errors[field];
                 }
-            });
-
-            const clearButton = document.getElementById('clear-button');
-            clearButton.addEventListener('click', function() {
-                inputFields.forEach(({ input, error }) => {
-                    input.value = '';
-                    clearInputState(input, error);
-                });
-            });
+              });
+            } else {
+              showAlert('Error adding product', 'danger');
+            }
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          showAlert('An error occurred. Please try again.', 'danger');
         });
+      }
+    });
+    
+    // Clear button event listener
+    clearButton.addEventListener('click', resetForm);
+  });

@@ -18,8 +18,8 @@ def indexpage(request):
 
     in_stock_value = sum(product.price * product.quantity for product in products)
     out_of_stock_count = Product.objects.filter(quantity=0).count()
-    total_sales = sum(product.price * Decimal('0.8') for product in products)
-    total_orders = sum(product.price * Decimal('0.2') for product in products)
+    total_sales = sum(product.price for product in products)
+    total_orders = sum(product.price  for product in products)
     products = products.order_by('-id') 
 
     context = {

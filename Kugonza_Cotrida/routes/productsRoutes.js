@@ -16,11 +16,11 @@ const Product = require('../models/Products');
 // });
 // const upload = multer({ storage: storage });
 
-router.get('/addProduct', (req, res) => {
-  res.render("products");
+router.get('/dashboard', (req, res) => {
+  res.render("dashboard");
 });
 
-router.post('/addProduct', async (req, res) => {
+router.post('/dashboard', async (req, res) => {
   try {
     const addProduct = new Product(req.body);
     console.log(addProduct);

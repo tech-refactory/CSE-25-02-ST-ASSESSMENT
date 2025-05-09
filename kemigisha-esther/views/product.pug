@@ -18,11 +18,11 @@ head
       br
       br
       .stat Out of stock: 5
-    form#productForm(action='/add' method='POST')
+    form#productForm(action='/product' method='post')
       h2 Add Product
       .form-group
         label(for='name')  Product Name
-        input#name(type='text' name='name')
+        input#name(type='text' name='productName')
         span.error-message
       .form-group
         label(for='category') Category

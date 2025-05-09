@@ -39,4 +39,4 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use('/', productRoutes);
 
-app.listen(3010, () => console.log('Server running on http://localhost:3010'));
+app.listen(3012, () => console.log('Server running on http://localhost:3012'));

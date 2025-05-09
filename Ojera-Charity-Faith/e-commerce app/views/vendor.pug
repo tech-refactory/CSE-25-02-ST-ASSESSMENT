@@ -1,0 +1,57 @@
+extends layout
+
+block head
+  title Vendor Dashboard
+  link(rel="stylesheet", href="/css/style.css")
+
+block content
+  .dashboard-container
+    // Insights Section
+    .insights
+      .card
+        h2 UGX #{sales.toLocaleString()}
+        span Sales
+        hr
+        h2 UGX #{orders.toLocaleString()}
+        span Orders
+      .card.green
+        h2 UGX #{inStock.toLocaleString()}
+        span In stock
+      .card.red
+        h2 #{outOfStock}
+        span Out of stock
+
+    // Form Section
+    .form-container
+      h3 Add Product
+      form#addProductForm(action="/dashboard", method="POST")
+        input(type="text", name="name", placeholder="Product Name")
+        input(type="text", name="category", placeholder="Category")
+        input(type="number", name="price", placeholder="Price")
+        input(type="number", name="quantity", placeholder="Quantity")
+        input(type="text", name="color", placeholder="Color")
+        input(type="file", name="image")
+        button(type="submit", class="btn save") SAVE
+        button(type="button", id="clearBtn", class="btn clear") CLEAR
+
+    // Products Table
+    .table-container
+      table
+        thead
+          tr
+            th ID
+            th NAME
+            th CATEGORY
+            th PRICE (UGX)
+            th QUANTITY
+        tbody
+          each product in products
+            tr
+              td= product.id
+              td= product.name
+              td= product.category
+              td= product.price.toLocaleString()
+              td= product.quantity
+          
+block scripts
+  script(src="/js/main.js", defer)

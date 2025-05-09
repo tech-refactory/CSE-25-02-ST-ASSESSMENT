@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vendor Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/main.js" defer></script>
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <div class="insights">
+        <div class="card">
+          <h2>UGX 0</h2>
+          <span>Sales</span>
+          <hr />
+          <h2>UGX 0</h2>
+          <span>Orders</span>
+        </div>
+        <div class="card green">
+          <h2>UGX 0</h2>
+          <span>In stock</span>
+        </div>
+        <div class="card red">
+          <h2>0</h2>
+          <span>Out of stock</span>
+        </div>
+      </div>
+
+      <div class="form-container">
+        <form id="addProductForm">
+          <h3>Add Product</h3>
+          <input type="text" name="name" placeholder="Product Name" />
+          <input type="text" name="category" placeholder="Category" />
+          <input type="number" name="price" placeholder="Price" />
+          <input type="number" name="quantity" placeholder="Quantity" />
+          <input type="text" name="color" placeholder="Color" />
+          <input type="file" name="image" disabled />
+          <button type="submit" class="btn save">SAVE</button>
+          <button type="button" id="clearBtn" class="btn clear">CLEAR</button>
+        </form>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>NAME</th>
+              <th>CATEGORY</th>
+              <th>PRICE (UGX)</th>
+              <th>QUANTITY</th>
+            </tr>
+          </thead>
+          <tbody id="productsTable">
+            <!-- Product rows go here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-COMMERCE</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .save-btn {
+            background: #f4811e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .clear-btn {
+            background: #ccc;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="stats-container">
+            <div class="stat-box">
+                <h2>UGX 50,000,000</h2>
+                <p>Sales</p>
+            </div>
+            <div class="stat-box">
+                <h2>UGX 15,000,000</h2>
+                <p>Orders</p>
+            </div>
+            <div class="stat-box">
+                <h2>UGX 42,000,000</h2>
+                <p>In stock</p>
+            </div>
+            <div class="stat-box">
+                <h2>5</h2>
+                <p>Out of stock</p>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <h2>Add Product</h2>
+            <form id="productForm">
+                <input type="text" class="form-input" placeholder="Product Name">
+                <input type="text" class="form-input" placeholder="Category">
+                <input type="number" class="form-input" placeholder="Price">
+                <input type="number" class="form-input" placeholder="Quantity">
+                <input type="text" class="form-input" placeholder="Color">
+                <input type="file" class="form-input" accept="image/*">
+                
+                <div class="button-group">
+                    <button type="submit" class="save-btn">SAVE</button>
+                    <button type="reset" class="clear-btn">CLEAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>CATEGORY</th>
+                <th>PRICE (UGX)</th>
+                <th>QUANTITY</th>
+            </tr>
+        </thead>
+        <tbody id="productTable">
+            <!-- Table data will be populated dynamically -->
+        </tbody>
+    </table>
+</body>
+</html>

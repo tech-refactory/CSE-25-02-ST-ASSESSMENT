@@ -17,14 +17,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         trim: true,
     },
-    color: {
-        type: String,
-        trim: true,
-    },
-    image: {
-        type: String,
-        trim: true,
-    },
+   
 });
 
 module.exports = mongoose.model('Product', productSchema);

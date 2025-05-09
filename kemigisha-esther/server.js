@@ -2,11 +2,30 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 require('dotenv').config();
-
-const Product = require("./models/Product");
+const session = require('express-session');
+const flash = require('connect-flash');
 
 //instantions
 const app = express();
+
+app.use(session({
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: true,
+}));
+
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  next();
+});
+
+
+const Product = require("./models/Product");
+
+
+
 
 
 //import routes

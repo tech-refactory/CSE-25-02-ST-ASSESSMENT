@@ -22,3 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!valid) e.preventDefault();
     });
   });
+
+
+  //success message
+  window.onload = () => {
+    const alert = document.querySelector('.alert');
+    if (alert) {
+      setTimeout(() => {
+        alert.style.display = 'none';
+      }, 3000); // 3 seconds
+    }
+  };
+

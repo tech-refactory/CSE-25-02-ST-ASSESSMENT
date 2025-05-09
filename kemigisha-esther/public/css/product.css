@@ -21,7 +21,8 @@ body {
     background: white;
     padding: 10px 20px;
     box-shadow: 40px rgba(red, green, blue, alpha);
-    height: 80px;
+    height: 130px;
+    width: 170px;
   }
   form {
     display: flex;
@@ -52,7 +53,8 @@ body {
     border-collapse: collapse;
   }
   thead {
-    background: #ddd;
+    background: black;
+    color: white;
   }
   td, th {
     padding: 10px;

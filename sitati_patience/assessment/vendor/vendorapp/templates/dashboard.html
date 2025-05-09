@@ -17,7 +17,7 @@
             <div class="bg-white shadow p-6 flex justify-between items-center col-span-2">
         <!-- Left: Sales -->
                 <div class="flex-1 text-center">
-                    <p class="text-lg font-bold">UGX {{ total_sales|default:"0" }}</p>
+                    <p class="text-lg font-bold">UGX {{ total_sales|default:"0"|floatformat:2|intcomma }}</p>
                     <p class="text-gray-500">Sales</p>
                 </div>
 
@@ -26,7 +26,7 @@
 
                 <!-- Right: Orders -->
                 <div class="flex-1 text-center">
-                    <p class="text-lg font-bold">UGX {{ total_orders }}</p>
+                    <p class="text-lg font-bold">UGX {{ total_orders|floatformat:2|intcomma }}</p>
                     <p class="text-gray-500">Orders</p>
                 </div>
             </div>
@@ -161,7 +161,7 @@
                     <td class="px-2 py-1">#64534{{ product.id }}</td>
                     <td class="px-2 py-1">{{ product.product_name }}</td>
                     <td class="px-2 py-1">{{ product.category }}</td>
-                    <td class="px-2 py-1">{{ product.price }}</td>
+                    <td class="px-2 py-1">{{ product.price|floatformat:2|intcomma }}</td>
                     <td class="px-2 py-1">{{ product.quantity }}</td>
                 </tr>
             {% endfor %}

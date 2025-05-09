@@ -1,0 +1,85 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title Product Dashboard
+    link(rel='stylesheet', href='./css/addProduct.css')
+  body
+    .dashboard
+      // Cards Section
+      .cards
+        .card
+          h2 UGX 50000
+          p Sales
+        .card
+          h2 UGX 150000
+          p Orders
+        .card.green
+          h2 UGX 10000
+          p In stock
+        .card.red
+          h2 5
+          p Out of stock
+
+      // Main Content Section
+      // Main Content Section
+.main
+  .form-container
+    h3 Add Product
+
+    // Success Message Placeholder
+    #successMessage.success-message
+
+    form(action='/addproduct', method='POST', onsubmit=' validateForm(event)')
+      // Product Form Fields
+      .form-group
+        input#productName(type='text', name='productName', placeholder='Product Name')
+        #productNameError.error
+
+      .form-group
+        input#category(type='text', name='category', placeholder='Category')
+        #categoryError.error
+
+      .form-group
+        input#price(type='number', name='price', placeholder='Price')
+        #priceError.error
+
+      .form-group
+        input#quantity(type='number', name='quantity', placeholder='Quantity')
+        #quantityError.error
+
+      .form-group
+        input#color(type='text', name='color', placeholder='Color')
+        #colorError.error
+
+      // Buttons
+      .buttons
+        button(type='submit') SAVE
+        button(type='reset') CLEAR
+
+  // Product Table
+  table
+    thead
+      tr
+        th ID
+        th NAME
+        th CATEGORY
+        th PRICE (UGX)
+        th QUANTITY
+    tbody#productTableBody
+      if products && products.length
+        each product in products
+          tr
+            td #{product.Id}
+            td #{product.Name}
+            td #{product.Category}
+            td #{product.price}
+            td #{product.Quantity}
+      else
+        tr
+          td(colspan='12') No products data available
+
+script(src='/js/addProduct.js')
+
+
+

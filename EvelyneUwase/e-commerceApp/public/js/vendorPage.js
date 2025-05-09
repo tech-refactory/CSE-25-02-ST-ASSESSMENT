@@ -1,73 +1,92 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
   const form = document.getElementById("productForm");
   const successAlert = document.getElementById("successAlert");
 
+  // Field configurations
   const fields = [
     {
       input: document.getElementById("productName"),
-      validate: (value) => value.trim().length > 2,
+      validate: value => value.trim().length > 2
     },
     {
       input: document.getElementById("category"),
-      validate: (value) => value.trim().length > 2,
+      validate: value => value.trim().length > 2
     },
     {
       input: document.getElementById("price"),
-      validate: (value) => parseFloat(value) > 0,
+      validate: value => parseFloat(value) > 0
     },
     {
       input: document.getElementById("quantity"),
-      validate: (value) => parseInt(value) > 0,
+      validate: value => parseInt(value) > 0
     },
     {
       input: document.getElementById("color"),
-      validate: (value) => value.trim().length > 2,
+      validate: value => value.trim().length > 2
     },
     {
       input: document.getElementById("image"),
-      validate: (value) => value.trim() !== "",
-    },
+      validate: value => value !== ""
+    }
   ];
 
+  // Real-time validation
   fields.forEach(({ input, validate }) => {
-    input.addEventListener("input", () => {
+    const eventType = input.type === 'file' ? 'change' : 'input';
+    input.addEventListener(eventType, () => {
       const errorMsg = input.nextElementSibling;
-      if (validate(input.value)) {
-        input.classList.remove("invalid");
-        input.classList.add("valid");
-        errorMsg.style.display = "none";
-      } else {
-        input.classList.remove("valid");
-        input.classList.add("invalid");
-        errorMsg.style.display = "block";
-      }
+      updateFieldState(input, validate, errorMsg);
     });
   });
 
-  form.addEventListener("submit", function (e) {
+  // Form submission
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    let isFormValid = true;
+    let isValid = true;
 
+    // Validate all fields
     fields.forEach(({ input, validate }) => {
       const errorMsg = input.nextElementSibling;
-      if (!validate(input.value)) {
-        input.classList.add("invalid");
-        input.classList.remove("valid");
-        errorMsg.style.display = "block";
-        isFormValid = false;
-      } else {
-        input.classList.remove("invalid");
-        input.classList.add("valid");
-        errorMsg.style.display = "none";
+      if (!updateFieldState(input, validate, errorMsg)) {
+        isValid = false;
       }
     });
 
-    if (isFormValid) {
-      successAlert.style.display = "flex";
-      form.reset();
+    if (isValid) {
+      try {
+        const formData = new FormData(form);
+        const response = await fetch('/addProduct', {
+          method: 'POST',
+          body: formData
+        });
 
-      // Remove valid styles after submission
-      fields.forEach(({ input }) => input.classList.remove("valid"));
+        if (response.ok) {
+          showSuccess();
+          form.reset();
+          fields.forEach(field => field.input.classList.remove("valid"));
+        } else {
+          throw new Error('Server error');
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+        alert("Error submitting form. Please try again.");
+      }
     }
   });
+
+  // Helper functions
+  function updateFieldState(input, validate, errorMsg) {
+    const isValid = validate(input.value);
+    input.classList.toggle("valid", isValid);
+    input.classList.toggle("invalid", !isValid);
+    errorMsg.style.display = isValid ? "none" : "block";
+    return isValid;
+  }
+
+  function showSuccess() {
+    successAlert.style.display = "flex";
+    setTimeout(() => {
+      successAlert.style.display = "none";
+    }, 5000);
+  }
 });

@@ -1,28 +1,53 @@
 from django.db import models
-
+from django.core.validators import RegexValidator, MinValueValidator
 import random
-# Create your models here.
 
+# ✅ ID generator must come before model
 def generate_product_id():
     return str(random.randint(100000, 999999))
 
 class Product(models.Model):
-    product_id = models.CharField(max_length=6, unique=True, editable=False, default=generate_product_id)
-    name = models.CharField(max_length=100)
-    category = models.CharField(max_length=50)
-    price = models.PositiveIntegerField(help_text="Price in UGX")
-    quantity = models.PositiveIntegerField()
-    color = models.CharField(max_length=30, blank=True, null=True)
-    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
+    # Validators
+    name_validator = RegexValidator(
+        
+        regex=r'^[\w\s+-]+$',
+        message='Only letters, numbers, spaces, "+" and "-" are allowed.'
+
+
+
+
+    )
+
+    category_validator = RegexValidator(
+        regex=r'^[A-Za-z\s]+$',
+        message='Category must contain only letters and spaces.'
+    )
+
+    color_validator = RegexValidator(
+        regex=r'^[A-Za-z\s]+$',
+        message='Color must contain only letters and spaces.'
+    )
+
+    product_id = models.CharField(
+        max_length=6,
+        unique=True,
+        editable=False,
+        default=generate_product_id
+    )
+    name = models.CharField(max_length=255, validators=[name_validator])
+    category = models.CharField(max_length=100, validators=[category_validator])
+    price = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        validators=[MinValueValidator(0.01)],
+        help_text='Must be a positive number greater than 0.'
+    )
+    quantity = models.PositiveIntegerField(
+        validators=[MinValueValidator(1)],
+        help_text='Must be a whole number greater than 0.'
+    )
+    color = models.CharField(max_length=50, validators=[color_validator])
+    
 
     def __str__(self):
         return f"#{self.product_id} - {self.name}"
-
-    def save(self, *args, **kwargs):
-        if not self.product_id:
-            while True:
-                new_id = generate_product_id()
-                if not Product.objects.filter(product_id=new_id).exists():
-                    self.product_id = new_id
-                    break
-        super().save(*args, **kwargs)

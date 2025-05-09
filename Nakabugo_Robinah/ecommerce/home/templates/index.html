@@ -5,107 +5,115 @@
     <title>Product Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-<style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .stats-card {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .big-number {
-            font-size: 2em;
-            color: #007bff;
-        }
-        .stat-label {
-            font-size: 1.2em;
-            color: #6c757d;
-        }
-        .form-container {
-            margin-top: 20px;
-        }
-    </style>
+    <styl>
+        
+</head>
 
-
-
-
-
-
-
+    
 </head>
 
 <body>
     <div class="container-fluid">
-        <div class="row mb-4">
-            <!-- Sales Stats -->
-            <div class="col-md-4">
+        <div class="row top-cards-row">
+            <div class="col-md-3">
                 <div class="card stats-card">
                     <div class="big-number">UGX 50,000,000</div>
                     <div class="stat-label">Sales</div>
                 </div>
             </div>
-            <!-- Orders Stats -->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card stats-card">
                     <div class="big-number">UGX 15,000,000</div>
                     <div class="stat-label">Orders</div>
                 </div>
             </div>
-            <!-- Add Product Form -->
-
-            <div class="col-md-4">
-                <div class="card stats-card">
-                    <div class="big-number">UGX 50,000,000</div>
-                    <div class="stat-label">In Stock</div>
-                </div>
-            </div>
-            <!-- Orders Stats -->
-            <div class="col-md-4">
-                <div class="card stats-card">
-                    <div class="big-number">UGX 15,000,000</div>
-                    <div class="stat-label">order stock</div>
-                </div>
-            </div>
-
-
-
-            <div class="container">
-                <div class="form-container">
+            <div class="col-md-6">
+                <div class="card form-container">
                     <h3>Add Product</h3>
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit">Save</button>
+                        <div class="form-group">
+                            <p><label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label></p>
+                            {{ form.name }}
+                        </div>
+                        <div class="form-group">
+                            <p><label for="{{ form.category.id_for_label }}">{{ form.category.label }}</label></p>
+                            {{ form.category }}
+                        </div>
+                        <div class="form-group">
+                            <p><label for="{{ form.price.id_for_label }}">{{ form.price.label }}</label></p>
+                            {{ form.price }}
+                        </div>
+                        <div class="form-group">
+                            <p><label for="{{ form.quantity.id_for_label }}">{{ form.quantity.label }}</label></p>
+                            {{ form.quantity }}
+                        </div>
+                        <div class="form-group">
+                            <p><label for="{{ form.color.id_for_label }}">{{ form.color.label }}</label></p>
+                            {{ form.color }}
+                        </div>
+                        <div class="form-group">
+                            <p><label for="{{ form.image.id_for_label }}">{{ form.image.label }}</label></p>
+                            <label for="{{ form.image.id_for_label }}" class="upload-image-button">Upload Image</label>
+                            {{ form.image }}
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-save">SAVE</button>
+                            <button type="button" class="btn-clear">CLEAR</button>
+                        </div>
                     </form>
                 </div>
             </div>
+        </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>NAME</th>
-                        <th>CATEGORY</th>
-                        <th>PRICE (UGX)</th>
-                        <th>QUANTITY</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for product in products %}
-                    <tr>
-                        <td>#{{ product.id }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.category }}</td>
-                        <td>{{ product.price }}</td>
-                        <td>{{ product.quantity }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="row bottom-cards-row">
+            <div class="col-md-3">
+                <div class="card small-card">
+                    <div class="in-stock">UGX 42,000,000</div>
+                    <div class="stat-label">In Stock</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card small-card">
+                    <div class="out-of-stock-number">5</div>
+                    <div class="stat-label">Out of Stock</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                </div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>CATEGORY</th>
+                            <th>PRICE (UGX)</th>
+                            <th>QUANTITY</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>#{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.quantity }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

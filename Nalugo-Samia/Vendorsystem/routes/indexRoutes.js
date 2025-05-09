@@ -5,7 +5,7 @@ const Product = require("../models/Product")
 
 router.get("/addproduct", async (req, res)=>{
     try {
-        const products = await Product.find().sort({ date: -1});
+        const products = await Product.find().lean().sort({ date: -1});
         res.render("index", {
            Products: products,
         });
@@ -20,11 +20,11 @@ router.post('/addproduct',async(req, res)=>{
         const product = new Product(req.body);
         await product.save();
         console.log(product)
-        res.redirect("/addproduct")
+        
 
 
     }catch (error){
-        res.status(400).render("/addproduct")
+        res.status(400).render("index")
         console.log(error);
     }
 });

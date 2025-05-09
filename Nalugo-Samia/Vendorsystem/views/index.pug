@@ -1,68 +1,70 @@
 doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  link(rel='stylesheet' href='https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css')
-  link(rel='stylesheet' href='../css/bootstrap-5.3.3-dist/css/bootstrap.css')
-  link(rel='stylesheet' href='../css/index.css')
-  title Vendorsystem
-.main
-  .cards
-    .card
-      .card-content1
-        .numb
-          .number 1217
-          .card-name Sales
-          br
-        .vertical
-          .number4 1217
-          .card-name4 Orders
-    .card
-      .card-content
-        .number2 UGX 1217
-        .card-name In stock
-    .card
-      .card-content1
-        .number1 5
-        .card-name Out of stock
-    .card
-      .form-content1
-      form(action='/addproduct' method='post' id='form')
-  h2 Add Product
-  .user-input-box
-    input(type='text' id='pname' name='pname' placeholder='Product Name')
-    br
-    input(type='text' id='category' name='category' placeholder='Category')
-    br
-    input(type='number' id='price' name='price' placeholder='Price')
-    br
-    input(type='number' id='quantity' name='quantity' placeholder='Quantity')
-    br
-    input(type='text' id='color' name='color' placeholder='Color')
-    br
-    input(type='file' id='uploadimage' name='uploadimage' placeholder="Upload Image" accept='image/*')
-    br
-    button.save(type='submit') SAVE
-    button.clear(type='reset') CLEAR
-.cards
-      .table-content
-        table
-          tr
-            th ID
-            th NAME
-            th CATEGORY
-            th PRICE(UGX)
-            th QUANTITY
-
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css')
+    link(rel='stylesheet', href='../css/bootstrap-5.3.3-dist/css/bootstrap.css')
+    link(rel='stylesheet', href='../css/index.css')
+    title Vendorsystem
+  body
+    .main
+      .cards
+        .card
+          .card-content1
+            .numb
+              .number 1217
+              .card-name Sales
+              br
+            .vertical
+              .number4 1217
+              .card-name4 Orders
+        .card
+          .card-content
+            .number2 UGX 1217
+            .card-name In stock
+        .card
+          .card-content1
+            .number1 5
+            .card-name Out of stock
+        .card
+          .form-content1
+            form(action='/addproduct', method='post', id='form')
+              h2 Add Product
+              .user-input-box
+                input(type='text', id='pname', name='pname', placeholder='Product Name')
+                <span class="error-message" id="pnameError"></span>
+                br
+                input(type='text', id='category', name='category', placeholder='Category')
+                br
+                input(type='number', id='price', name='price', placeholder='Price')
+                br
+                input(type='number', id='quantity', name='quantity', placeholder='Quantity')
+                br
+                input(type='text', id='color', name='color', placeholder='Color')
+                br
+                input(type='file', id='uploadimage', name='uploadimage', placeholder='Upload Image', accept='image/*')
+                br
+                button.save(type='submit') SAVE
+                button.clear(type='reset') CLEAR
+      .cards
+        .table-content
+          table
+            thead
+              tr
+                th ID
+                th NAME
+                th CATEGORY
+                th PRICE(UGX)
+                th QUANTITY
             tbody
-            if Products.length 
-             each products in Products
-          tr
-                td #{products.id}
-                td #{products.pname}
-                td #{products.category}
-                td #{products.price}
-                td #{products.quantity}
-                td 
-
-script(src='../css/index.js')
+              if Products.length
+                each product in Products
+                  tr
+                    td #{product.id}
+                    td #{product.pname}
+                    td #{product.category}
+                    td #{product.price}
+                    td #{product.quantity}
+                    td
+    script(src='../css/index.js')

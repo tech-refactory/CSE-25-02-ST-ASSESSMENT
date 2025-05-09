@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('form');
-  
+    document.querySelectorAll('.error-message').forEach(function(el) {
+        el.textContent = '';
+      });
+    
     form.addEventListener('submit', function (event) {
       // Retrieve form values
       const pname = document.getElementById('pname');
@@ -22,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Validate Product Name
       if (!nameRegex.test(pname.value.trim())) {
         pname.style.border = "1px solid red";
+        document.getElementById('pnameError').textContent = 'Invalid field';
         isValid = false;
       } else {
         pname.style.border = "1px solid green";
@@ -69,7 +73,9 @@ document.addEventListener('DOMContentLoaded', function () {
   
       if (!isValid) {
         event.preventDefault(); // Prevent form submission
-        alert("Invalid field.");
+        document.getElementById("formError").style.color = "red";
+        document.getElementById("formError").textContent = "Invalid field";
+       // alert("Invalid field.");
       }
     });
   });

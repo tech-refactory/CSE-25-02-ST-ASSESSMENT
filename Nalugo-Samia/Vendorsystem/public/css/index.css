@@ -94,3 +94,10 @@ body{
 .image{
     margin-right: 0;
 }
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 4px;
+    display: block;
+  }
+  

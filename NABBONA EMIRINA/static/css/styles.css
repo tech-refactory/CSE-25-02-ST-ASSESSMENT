@@ -1,0 +1,15 @@
+.container { width: 90%; margin: auto; }
+.row { display: flex; justify-content: space-between; margin-bottom: 20px; }
+.col { width: 22%; padding: 20px; background: #f8f8f8; border: 1px solid #ccc; border-radius: 5px; text-align: center; }
+form .form p { margin: 10px 0; }
+form input { width: 100%; padding: 8px; margin: 5px 0; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+.success { display: flex;} .container { width: 90%; margin: auto; }
+.row { display: flex; justify-content: space-between; margin-bottom: 20px; }
+.col { width: 22%; padding: 20px; background: #f8f8f8; border: 1px solid #ccc; border-radius: 5px; text-align: center; }
+form .form p { margin: 10px 0; }
+form input { width: 100%; padding: 8px; margin: 5px 0; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+.success { display: none; }

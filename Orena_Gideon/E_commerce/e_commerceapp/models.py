@@ -9,7 +9,7 @@ class Product(models.Model):
     price = models.IntegerField(null=True, blank=True)
     quantity = models.IntegerField(null=True, blank=True)
     color = models.CharField(max_length=255, null=True, blank=True)
-    image = models.ImageField(upload_to='images/', null=True, blank=True)
+    image = models.ImageField(upload_to='static/media/', null=True, blank=True)
 
 
     # Calling the model by its name.

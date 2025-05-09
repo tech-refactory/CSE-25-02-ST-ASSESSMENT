@@ -20,5 +20,5 @@ from electronicsapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.landing_page, name='landing_page'),
+    path('', views.index, name='landing_page'),
 ]

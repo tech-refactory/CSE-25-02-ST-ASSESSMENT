@@ -1,0 +1,12 @@
+{
+  "name": "e-commerceapp",
+  "version": "1.0.0",
+  "description": "vendors e-commerce application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Evelyne Uwase",
+  "license": "ISC"
+}

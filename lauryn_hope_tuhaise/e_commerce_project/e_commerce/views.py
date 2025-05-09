@@ -6,18 +6,21 @@ from .forms import *
 
 # Create your views here.
 def index(request):
-    total_sales = 50000000
-    total_orders = 15000000
     products = Product.objects.all().order_by('-created_at')
-    in_stock = sum(product.price * product.quantity for product in products)
-    out_of_stock = products.filter(quantity=0).count()
+    average_order_value = 500000 
+    orders_count = 30  
+    total_sales = sum(product.price * (product.quantity + 5) for product in products) or 50000000 
+    total_orders = orders_count * average_order_value or 15000000
+    
+    in_stock = sum(product.price * product.quantity for product in products) or 42000000
+    out_of_stock = products.filter(quantity=0).count() or 5
 
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             product = form.save()
             messages.success(request, 'Product created successfully!')
-            return redirect('product-detail', pk=product.pk)
+            return redirect('index')
     else:
         form = ProductForm()
 

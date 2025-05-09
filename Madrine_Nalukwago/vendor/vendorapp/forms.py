@@ -8,32 +8,28 @@ class ProductForm(forms.ModelForm):
         fields = '__all__'
 
     import re
+    def clean_product_name(self):
+        product_name = self.cleaned_data.get('product_name').strip()
+        if not product_name:
+            raise forms.ValidationError("Product name cannot be empty.")
 
-def clean_product_name(self):
-    product_name = self.cleaned_data.get('product_name').strip()
+        if len(product_name) < 3:
+            raise forms.ValidationError("Product name must be at least 3 characters long.")
 
-    if not product_name:
-        raise forms.ValidationError("Product name cannot be empty.")
-
-    if len(product_name) < 3:
-        raise forms.ValidationError("Product name must be at least 3 characters long.")
-
-    if not re.match(r'^[A-Za-z0-9 ]+$', product_name):
-        raise forms.ValidationError("Product name can only contain letters, numbers, and spaces.")
-
-    return product_name
+        if not re.match(r'^[A-Za-z0-9 ]+$', product_name):
+            raise forms.ValidationError("Product name can only contain letters, numbers, and spaces.")
+            return product_name
 
     def clean_category(self):
-    category = self.cleaned_data.get('category').strip().title()
+        category = self.cleaned_data.get('category').strip().title()
     
-    if not category:
-        raise forms.ValidationError("Category cannot be empty.")
+        if not category:
+            raise forms.ValidationError("Category cannot be empty.")
+            allowed_categories = ['Electronics', 'Clothing', 'Furniture', 'Groceries']
+        if category not in allowed_categories:
+            raise forms.ValidationError(f"Category must be one of: {', '.join(allowed_categories)}")
     
-    allowed_categories = ['Electronics', 'Clothing', 'Furniture', 'Groceries']
-    if category not in allowed_categories:
-        raise forms.ValidationError(f"Category must be one of: {', '.join(allowed_categories)}")
-    
-    return category
+        return category
 
     def clean_price(self):
         price = self.cleaned_data.get('price')
@@ -49,16 +45,16 @@ def clean_product_name(self):
 
     
     def clean_color(self):
-    color = self.cleaned_data.get('color').strip().title()
+        color = self.cleaned_data.get('color').strip().title()
 
-    if not color:
-        raise forms.ValidationError("Color cannot be empty.")
+        if not color:
+            raise forms.ValidationError("Color cannot be empty.")
 
-    allowed_colors = ['Red', 'Blue', 'Green', 'Black', 'White']
-    if color not in allowed_colors:
-        raise forms.ValidationError(f"Color must be one of: {', '.join(allowed_colors)}")
+        allowed_colors = ['Red', 'Blue', 'Green', 'Black', 'White']
+        if color not in allowed_colors:
+            raise forms.ValidationError(f"Color must be one of: {', '.join(allowed_colors)}")
 
-    return color
+        return color
 
     def clean_image(self):
         image = self.cleaned_data.get('image')
@@ -73,3 +69,6 @@ def clean_product_name(self):
             raise forms.ValidationError("Image file too large ( > 2MB ).")
 
         return image
+
+
+ 

@@ -1,0 +1,162 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Inventory Management System
+    link(
+      rel="stylesheet",
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH",
+      crossorigin="anonymous"
+    )
+    style.
+      body {
+        background-color: #f5f5f5;
+        padding: 20px 0;
+      }
+      .stats-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .stats-card {
+        flex: 1;
+        min-width: 200px;
+        background: white;
+        padding: 20px 15px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      .stats-card h2 {
+        font-size: 24px;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .stats-card p {
+        margin: 0;
+        color: #666;
+      }
+      .form-container {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+      }
+      .form-container h2 {
+        margin-bottom: 20px;
+      }
+      .table-container {
+        background: white;
+        padding: 0;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      .table thead {
+        background-color: #000;
+        color: white;
+      }
+      .btn-save {
+        background-color: #e67e22;
+        border: none;
+        color: white;
+      }
+      .btn-clear {
+        background-color: #ccc;
+        border: none;
+        color: #333;
+      }
+      .green-text {
+        color: #27ae60;
+      }
+      .red-text {
+        color: #e74c3c;
+      }
+      .error {
+        font-size: 0.875em;
+        color: red;
+        margin-top: 5px;
+      }
+
+  body
+    .container
+      .row
+        .col-12
+          .stats-container
+            .stats-card
+              h2 UGX 50,000,000
+              p Sales
+            .stats-card
+              h2 UGX 15,000,000
+              p Orders
+
+      .row.mt-3
+        .col-md-6
+          .stats-container
+            .stats-card
+              h2.green-text UGX 42,000,000
+              p In stock
+            .stats-card
+              h2.red-text 5
+              p Out of stock
+        
+        .col-md-6
+          .form-container
+            h2.text-center Add Product
+            form#productForm(action="/addProduct", method="POST")
+              .mb-3
+                input#productName.form-control(type="text", name="productname", placeholder="Product Name")
+                div#error.nameError.text-danger.error
+              .mb-3
+                input#category.form-control(type="text", name="category", placeholder="Category")
+                div#error.categoryError.text-danger.error
+              .mb-3
+                input#price.form-control(type="number", name="price", placeholder="Price")
+                div#error.priceError.text-danger.error
+              .mb-3
+                input#quantity.form-control(type="number", name="quantity", placeholder="Quantity")
+                div#error.quantityError.text-danger.error
+              .row.mb-3
+                .col-md-6
+                  input#color.form-control(type="text", name="color", placeholder="Color")
+                  div#error.colorError.text-danger.error
+                .col-md-6
+                  input#image.form-control(type="file", name="image")
+                  div#error.imageError.text-danger.error
+              .row
+                .col-md-6
+                  button.btn.btn-save.form-control(type="submit") SAVE
+                .col-md-6
+                  button.btn.btn-clear.form-control(type="reset") CLEAR
+      
+      .row.mt-4
+        .col-12
+          .table-container
+            table#productTable.table.table-striped.mb-0
+              thead.bg-dark.text-white
+                tr
+                  th ID
+                  th NAME
+                  th CATEGORY
+                  th PRICE (UGX)
+                  th QUANTITY
+              tbody
+                if products && products.length
+                  each product in products
+                    tr
+                      td #{product._id}
+                      td #{product.productname}
+                      td #{product.category}
+                      td #{product.price}
+                      td #{product.quantity}
+                else
+                  tr
+                    td(colspan="5") No products available.
+
+    script(src="/js/product.js")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js")
+
+

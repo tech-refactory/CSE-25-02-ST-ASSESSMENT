@@ -1,0 +1,239 @@
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Dashboard</title>
+    <style>
+        css
+body {
+    background-color: #f4f4f452;
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Stats Section */
+.stats-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.stats-card {
+    background: rgba(255, 255, 255, 0.507);
+    padding: 20px;
+    
+    border: 1px solid #dcd9d9;
+    border-radius: 5px;
+}
+
+.stats-value {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stats-label {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Form Section */
+.form-section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.product-form h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.product-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.button-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.save-btn {
+    background: #e67e22;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.clear-btn {
+    background: #ccc;
+    color: black;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Table Styles */
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow-x: auto;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-table th {
+    background: #000;
+    color: white;
+    text-align: left;
+    padding: 12px;
+}
+
+.product-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Stats Colors */
+.in-stock .stats-value {
+    color: #27ae60;
+}
+
+.out-of-stock .stats-value {
+    color: #e74c3c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-layout">
+            <!-- Left Side - Stats Cards -->
+            <div class="stats-section">
+                <div class="stats-row">
+                    <div class="stats-card sales">
+                        <div class="stats-value">UGX {{ total_sales|intcomma }}</div>
+                        <div class="stats-label">Sales</div>
+                    </div>
+                    <div class="stats-card orders">
+                        <div class="stats-value">UGX 15,000,000</div>
+                        <div class="stats-label">Orders</div>
+                    </div>
+                </div>
+                <br><br><br><br><br><br>
+                <div class="stats-row">
+                    <div class="stats-card in-stock">
+                        <div class="stats-value">UGX 42,000,000</div>
+                        <div class="stats-label">In stock</div>
+                    </div>
+                    <div class="stats-card out-of-stock">
+                        <div class="stats-value"> 5 </div>
+                        <div class="stats-label">Out of stock</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Form -->
+            <div class="form-section">
+                <div class="product-form">
+                    <h2>Add Product</h2>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="button-group">
+                            <button type="submit" class="save-btn">SAVE</button>
+                            <button type="reset" class="clear-btn">CLEAR</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="table-container">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>CATEGORY</th>
+                        <th>PRICE (UGX)</th>
+                        <th>QUANTITY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price|intcomma }}</td>
+                        <td>{{ product.Quantity }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

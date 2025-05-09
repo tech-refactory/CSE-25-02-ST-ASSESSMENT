@@ -1,55 +1,66 @@
-/* Custom styles that enhance Bootstrap */
-.stats-container {
-    margin-bottom: 2rem;
+/* Custom styles */
+body {
+    background-color: #f8f9fa;
 }
 
-.stat-box {
-    background: white;
-    padding: 1.25rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
-    height: 100%;
+.card {
+    border-radius: 8px;
 }
 
-.form-container {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
-    margin-bottom: 2rem;
+.form-control {
+    padding: 0.75rem 1rem;
 }
 
-.save-btn {
-    background: #f4811e;
+.form-control:focus {
+    border-color: #f4811e;
+    box-shadow: 0 0 0 0.2rem rgba(244, 129, 30, 0.25);
+}
+
+.btn-warning {
+    background-color: #f4811e;
+    border-color: #f4811e;
     color: white;
 }
 
-.save-btn:hover {
-    background: #e67613;
+.btn-warning:hover {
+    background-color: #e67613;
+    border-color: #e67613;
     color: white;
+}
+
+.table th {
+    font-weight: 500;
+    padding: 1rem;
+}
+
+.table td {
+    padding: 1rem;
+    vertical-align: middle;
 }
 
 /* Form validation styles */
 .form-control.valid {
     border-color: #198754;
+    background-color: #f8fff9;
 }
 
 .form-control.invalid {
     border-color: #dc3545;
+    background-color: #fff8f8;
 }
 
-/* Table styles */
-.table th {
-    background-color: #212529;
-    color: white;
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
 }
 
-/* Animation for new products */
+/* Animation for new entries */
 tr.new-product {
     animation: highlightNew 2s ease-out;
 }
 
 @keyframes highlightNew {
-    0% { background-color: rgba(25, 135, 84, 0.1); }
-    100% { background-color: transparent; }
+    from { background-color: rgba(244, 129, 30, 0.1); }
+    to { background-color: transparent; }
 }

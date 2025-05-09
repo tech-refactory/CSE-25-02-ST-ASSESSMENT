@@ -1,110 +1,116 @@
 document.addEventListener('DOMContentLoaded', () => {
     const productForm = document.getElementById('productForm');
     const productTable = document.getElementById('productTable');
-    const inputs = productForm.querySelectorAll('input[required]');
-    
-    // Validate inputs on change
-    inputs.forEach(input => {
-        input.addEventListener('input', () => {
-            validateInput(input);
-        });
-    });
-    
+    let productId = 1;
+
+    // Validation functions
     function validateInput(input) {
-        if (input.type === 'number') {
-            const isValid = input.value > 0;
-            input.classList.toggle('valid', isValid);
-            input.classList.toggle('invalid', !isValid);
-            return isValid;
-        } else {
-            const isValid = input.value.trim().length > 0;
-            input.classList.toggle('valid', isValid);
-            input.classList.toggle('invalid', !isValid);
-            return isValid;
-        }
-    }
-    
-    // Handle form submission
-    productForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        // Validate all required fields
+        const value = input.value.trim();
         let isValid = true;
-        inputs.forEach(input => {
-            if (!validateInput(input)) {
-                isValid = false;
-            }
-        });
-        
-        if (!isValid) return;
-        
-        const formData = {
-            name: productForm.querySelector('[name="name"]').value,
-            category: productForm.querySelector('[name="category"]').value,
-            price: Number(productForm.querySelector('[name="price"]').value),
-            quantity: Number(productForm.querySelector('[name="quantity"]').value),
-            color: productForm.querySelector('[name="color"]').value
-        };
-        
-        try {
-            const response = await fetch('products', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            });
-            
-            if (response.ok) {
-                const newProduct = await response.json();
-                showAlert('Product added successfully!', 'success');
-                productForm.reset();
-                inputs.forEach(input => input.classList.remove('valid'));
-                await fetchProducts();
-            }
-        } catch (error) {
-            showAlert('Error adding product', 'error');
-            console.error('Error:', error);
+        let errorMessage = '';
+
+        switch(input.name) {
+            case 'name':
+                isValid = value.length >= 3 && value.length <= 50;
+                errorMessage = 'Product name must be between 3 and 50 characters';
+                break;
+            case 'category':
+                isValid = value.length >= 2;
+                errorMessage = 'Category is required';
+                break;
+            case 'price':
+                isValid = !isNaN(value) && Number(value) > 0;
+                errorMessage = 'Price must be greater than 0';
+                break;
+            case 'quantity':
+                isValid = !isNaN(value) && Number(value) >= 0;
+                errorMessage = 'Quantity must be 0 or greater';
+                break;
         }
+
+        toggleError(input, isValid, errorMessage);
+        return isValid;
+    }
+
+    function toggleError(input, isValid, message) {
+        input.classList.toggle('valid', isValid);
+        input.classList.toggle('invalid', !isValid);
+
+        let errorDiv = input.nextElementSibling;
+        if (!errorDiv?.classList.contains('error-message')) {
+            errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            input.parentNode.insertBefore(errorDiv, input.nextSibling);
+        }
+        errorDiv.textContent = isValid ? '' : message;
+    }
+
+    // Form submission handler
+    productForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const inputs = ['name', 'category', 'price', 'quantity'].map(
+            name => productForm.querySelector(`[name="${name}"]`)
+        );
+
+        // Validate all required fields
+        const isValid = inputs.every(input => validateInput(input));
+
+        if (!isValid) {
+            showAlert('Please fix the errors before submitting', 'danger');
+            return;
+        }
+
+        // Add new product to table
+        const newProduct = {
+            id: `#${String(productId).padStart(6, '0')}`,
+            name: inputs[0].value,
+            category: inputs[1].value,
+            price: Number(inputs[2].value),
+            quantity: Number(inputs[3].value)
+        };
+
+        addProductToTable(newProduct);
+        productId++;
+        
+        // Reset form and show success message
+        productForm.reset();
+        inputs.forEach(input => input.classList.remove('valid', 'invalid'));
+        showAlert('Product added successfully!', 'success');
     });
-    
-  function showAlert(message, type) {
-    const alert = document.createElement('div');
-    alert.className = `alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show`;
-    alert.innerHTML = `
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    `;
-    document.getElementById('alertContainer').appendChild(alert);
-    
-    setTimeout(() => {
-        alert.classList.remove('show');
-        setTimeout(() => alert.remove(), 150);
-    }, 3000);
-}
-    
-    // Fetch and display products
-    async function fetchProducts() {
-        try {
-            const response = await fetch('products');
-            const products = await response.json();
-            
-            productTable.innerHTML = products.map(product => `
-                <tr class="new-product">
-                    <td>${product._id}</td>
-                    <td>${product.name}</td>
-                    <td>${product.category}</td>
-                    <td>UGX ${product.price.toLocaleString()}</td>
-                    <td>${product.quantity}</td>
-                </tr>
-            `).join('');
-            
-            updateStats(products);
-        } catch (error) {
-            console.error('Error:', error);
+
+    function addProductToTable(product) {
+        const row = document.createElement('tr');
+        row.classList.add('new-product');
+        row.innerHTML = `
+            <td>${product.id}</td>
+            <td>${product.name}</td>
+            <td>${product.category}</td>
+            <td>${product.price.toLocaleString()}</td>
+            <td>${product.quantity}</td>
+        `;
+
+        // Add to top of table
+        if (productTable.firstChild) {
+            productTable.insertBefore(row, productTable.firstChild);
+        } else {
+            productTable.appendChild(row);
         }
     }
-    
-    // Initial load
-    fetchProducts();
+
+    function showAlert(message, type) {
+        const alertContainer = document.getElementById('alertContainer');
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type} alert-dismissible fade show`;
+        alert.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        alertContainer.appendChild(alert);
+
+        setTimeout(() => {
+            alert.classList.remove('show');
+            setTimeout(() => alert.remove(), 150);
+        }, 3000);
+    }
 });

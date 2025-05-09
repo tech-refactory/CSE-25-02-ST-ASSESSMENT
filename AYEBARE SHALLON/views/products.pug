@@ -2,61 +2,71 @@ doctype html
 html
   head
     title E-COMMERCE
-    // Bootstrap CSS
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet")
     link(rel="stylesheet", href="/css/prod.css")
     script(src='/js/products.js' defer)
 
   body.bg-light
     .container-fluid.py-4
-      .row.stats-container
-        .col-md-3
-          .stat-box
-            h3.text-primary UGX 50,000,000
-            p.text-muted Sales
+      // Two Column Layout
+      .row.mb-4
+        // Cards Column
+        .col-md-7
+          .row.g-3
+            .col-md-6
+              .card.border-0.shadow-sm
+                .card-body
+                  h3.text-dark.mb-1 UGX 50,000,000
+                  p.text-muted.mb-0 Sales
 
-        .col-md-3
-          .stat-box
-            h3.text-success UGX 15,000,000
-            p.text-muted Orders
+            .col-md-6
+              .card.border-0.shadow-sm
+                .card-body
+                  h3.text-dark.mb-1 UGX 15,000,000
+                  p.text-muted.mb-0 Orders
 
-        .col-md-3
-          .stat-box
-            h3.text-info UGX 42,000,000
-            p.text-muted In stock
+            .col-md-6
+              .card.border-0.shadow-sm
+                .card-body
+                  h3.text-success.mb-1 UGX 42,000,000
+                  p.text-muted.mb-0 In stock
 
-        .col-md-3
-          .stat-box
-            h3.text-warning 5
-            p.text-muted Out of stock
+            .col-md-6
+              .card.border-0.shadow-sm
+                .card-body
+                  h3.text-danger.mb-1 5
+                  p.text-muted.mb-0 Out of stock
 
-      .row
-        .col-12
-          .form-container
-            h2 Add Product
-            #alertContainer
-            form#productForm.row.g-3
-              .col-md-6
-                input.form-control(type='text' name='name' placeholder='Product Name' required)
-              .col-md-6
-                input.form-control(type='text' name='category' placeholder='Category' required)
-              .col-md-6
-                input.form-control(type='number' name='price' placeholder='Price' required)
-              .col-md-6
-                input.form-control(type='number' name='quantity' placeholder='Quantity' required)
-              .col-md-6
-                input.form-control(type='text' name='color' placeholder='Color')
-              .col-md-6
-                input.form-control(type='file' name='image' accept='image/*')
-              .col-12.text-end
-                button.btn.btn-secondary.me-2(type='reset') CLEAR
-                button.btn.btn-primary.save-btn(type='submit') SAVE
+        // Form Column
+        .col-md-5
+          .card.border-0.shadow-sm
+            .card-body
+              h5.mb-3 Add Product
+              #alertContainer
+              form#productForm
+                .mb-3
+                  input.form-control(type='text' name='name' placeholder='Product Name')
+                .mb-3
+                  input.form-control(type='text' name='category' placeholder='Category')
+                .mb-3
+                  input.form-control(type='number' name='price' placeholder='Price')
+                .mb-3
+                  input.form-control(type='number' name='quantity' placeholder='Quantity')
+                .row.g-3.mb-3
+                  .col-6
+                    input.form-control(type='text' name='color' placeholder='Color')
+                  .col-6
+                    input.form-control(type='file' name='image' placeholder='Upload Image')
+                .d-flex.gap-2.justify-content-end
+                  button.btn.btn-secondary(type='reset') CLEAR
+                  button.btn.btn-warning(type='submit') SAVE
 
-      .row
-        .col-12
+      // Table Section
+      .card.border-0.shadow-sm
+        .card-body.p-0
           .table-responsive
-            table.table.table-hover
-              thead.table-dark
+            table.table.mb-0
+              thead.bg-dark.text-white
                 tr
                   th ID
                   th NAME
@@ -64,6 +74,3 @@ html
                   th PRICE (UGX)
                   th QUANTITY
               tbody#productTable
-
-    // Bootstrap JS
-    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js")

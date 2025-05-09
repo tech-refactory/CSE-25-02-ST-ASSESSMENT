@@ -33,17 +33,15 @@ router.post('/addproduct', async (req, res) => {
 
 module.exports = router;
 
-
-// router.post('/addproduct', async (req, res) => {
-//     try {
-//       const product = new Product(req.body);
-//       await product.save();
-//       const products = await Product.find().sort({ _id: -1 });
-//       res.render('index', { Products: products, success: true });
-//     } catch (error) {
-//       console.error('Error saving product:', error);
-//       const products = await Product.find().sort({ _id: -1 });
-//       res.status(400).render('index', { Products: products, success: false });
-//     }
-//   });
+router.post('/addproduct', async (req, res) => {
+    try {
+      const product = new Product(req.body);
+      await product.save();
+      res.redirect('/addproduct?success=true');
+    } catch (error) {
+      console.error('Error saving product:', error);
+      res.redirect('/addproduct?error=true');
+    }
+  });
+  
   

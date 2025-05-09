@@ -79,11 +79,11 @@ html
   .modal-dialog(role='document')
     .modal-content
       .modal-header
-        h5#successModalLabel.modal-title Product Saved Successfully!
+        h5#successModalLabel.modal-title Product has been added Successfully!
         button.close(type='button', data-dismiss='modal', aria-label='Close')
           span(aria-hidden='true') &times;
       .modal-body
-        p Your product has been added to the inventory.
+        p Product has been added Successfully!
       .modal-footer
         button.btn.btn-secondary(type='button', data-dismiss='modal') Close
 
@@ -92,3 +92,9 @@ html
 script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js")
 script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js")
 
+//- Script to show the success modal if 'success' is true
+if success
+  script.
+    $(document).ready(function () {
+      $('#successModal').modal('show');
+    });

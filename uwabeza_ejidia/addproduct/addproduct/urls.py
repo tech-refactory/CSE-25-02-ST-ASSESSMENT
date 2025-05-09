@@ -19,6 +19,6 @@ from django.urls import path
 from ecommerce import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-     path('product_dashboard/', views.vendor_dashboard, name='product_dashboard')
+     path('', views.vendor_dashboard, name='product_dashboard')
 
 ]

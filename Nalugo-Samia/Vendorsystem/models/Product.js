@@ -23,7 +23,7 @@ const produceSchema = new mongoose.Schema({
     trim: true
   },
   uploadimage: {
-    type: Image,
+    type: String,
     trim: true
   }
   

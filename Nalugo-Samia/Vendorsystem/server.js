@@ -12,13 +12,15 @@ const expressSession = require("express-session")({
 require("dotenv").config();
 
 //Import user's model
-const Signup = require('./models/SignUp');
+//const Signup = require('./models/SignUp');
 
 //2.Instanciations
 const app = express();
-const PORT = 3045;
+const PORT = 3008;
 
 //import routes
+const index = require("./routes/indexRoutes");
+
 
 //3.configuration
 app.locals.moment = moment;
@@ -51,12 +53,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // // passport configs
-passport.use(Signup.createStrategy());
-passport.serializeUser(Signup.serializeUser());
-passport.deserializeUser(Signup.deserializeUser());
+// passport.use(Signup.createStrategy());
+// passport.serializeUser(Signup.serializeUser());
+// passport.deserializeUser(Signup.deserializeUser());
 
 //5. Routes
 //using imported routes
+app.use("/", index);
 
 
 //redirection to unavailable page

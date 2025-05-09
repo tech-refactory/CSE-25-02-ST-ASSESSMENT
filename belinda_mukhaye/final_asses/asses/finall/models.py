@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.exceptions import ValidationError
+# from django.core.exceptions import ValidationError
 # Create your models here.
 
 class Product:
@@ -7,8 +7,6 @@ class Product:
     category = models.CharField(max_length=20, blank=True, null=True)
     price = models.IntegerField(default=0, blank=True, null=True)
     quantity = models.IntegerField( default=0, blank=True, null=True)
-
-
     def __str__(self):
         return self.name
     

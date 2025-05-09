@@ -4,16 +4,8 @@ from .forms import *
 from django.contrib import messages
 
 
-def product(requset):
-    if requset.method =='POST':
-        forms = AddProductForm(requset.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Form has been submitted successfully')
-            return redirect('/')
-        else:
-             messages.error(request, 'lnvalid field')
-        else:
-        form = AddProductForm()
-    return render(request, 'product.html', {'form': form})
+def index(request):
+    #getting all the registered stock from our database
+    stocks = Product.objects.all().order_by('-id')
+    return render(request, 'index.html', {'stocks':stocks})
 

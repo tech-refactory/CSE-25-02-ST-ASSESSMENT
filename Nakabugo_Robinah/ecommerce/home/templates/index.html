@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Product Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        .container-fluid {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .row {
+            margin-bottom: 20px;
+        }
+        
+        .stats-card {
+            border-radius: 8px;
+            padding: 25px 20px;
+            background-color: white;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            height: 420px;
+            margin-bottom: 0px;
+        }
+        
+        .small-card {
+            border-radius: 8px;
+            padding: 25px 20px;
+            background-color: white;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            height: 120px;
+            margin-top: 0px;
+        }
+        
+        .big-number {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .in-stock {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #28a745;
+        }
+        
+        .out-of-stock-number {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #dc3545;
+            text-align: center;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .form-container {
+            border-radius: 8px;
+            padding: 20px;
+            background-color: white;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .form-container h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        
+        .invalid-feedback {
+            display: none;
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        
+        .invalid-form .invalid-feedback {
+            display: block;
+        }
+        
+        .invalid-form .form-control {
+            border-color: #dc3545;
+        }
+        
+        .upload-image-button {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .btn-save, .btn-clear {
+            padding: 12px 0;
+            border-radius: 4px;
+            border: none;
+            font-weight: bold;
+            width: 48%;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        
+        .btn-save {
+            background-color: #f7923d;
+            color: white;
+        }
+        
+        .btn-clear {
+            background-color: #e2e2e2;
+            color: #333;
+        }
+        
+        .table {
+            background-color: white;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 0;
+        }
+        
+        .table thead th {
+            background-color: #000;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 12px 15px;
+        }
+        
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .table td, .table th {
+            padding: 12px 15px;
+            vertical-align: middle;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .vertical-divider {
+            border-right: 1px solid #dee2e6;
+            height: 100%;
+        }
+        
+        .success-message {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .error-message {
+            padding: 10px 15px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        table, th, td {
+    border: 5px solid #000;
+    border-collapse: collapse;
+}
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="stats-card">
+                            <div class="big-number">UGX {{ total_sales|floatformat:0 }}</div>
+                            <div class="stat-label">Sales</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="stats-card">
+                            <div class="big-number">UGX {{ total_orders|floatformat:0 }}</div>
+                            <div class="stat-label">Orders</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-container">
+                    <h3>Add Product</h3>
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="success-message">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% if form_submitted and not form_valid %}
+                        <div class="error-message">
+                            Invalid form. Please check all fields.
+                        </div>
+                    {% endif %}
+                    
+                    <form method="post" enctype="multipart/form-data" class="{% if form_submitted and not form_valid %}invalid-form{% endif %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" name="{{ form.name.name }}" class="form-control" placeholder="Product Name" value="{{ form.name.value|default:'' }}">
+                            <div class="invalid-feedback">{{ form.name.errors|first }}</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="{{ form.category.name }}" class="form-control" placeholder="Category" value="{{ form.category.value|default:'' }}">
+                            <div class="invalid-feedback">{{ form.category.errors|first }}</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="{{ form.price.name }}" class="form-control" placeholder="Price" value="{{ form.price.value|default:'' }}">
+                            <div class="invalid-feedback">{{ form.price.errors|first }}</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="{{ form.quantity.name }}" class="form-control" placeholder="Quantity" value="{{ form.quantity.value|default:'' }}">
+                            <div class="invalid-feedback">{{ form.quantity.errors|first }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="{{ form.color.name }}" class="form-control" placeholder="Color" value="{{ form.color.value|default:'' }}">
+                                    <div class="invalid-feedback">{{ form.color.errors|first }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="{{ form.image.id_for_label }}" class="upload-image-button">Upload Image</label>
+                                    <input type="file" name="{{ form.image.name }}" id="{{ form.image.id_for_label }}" class="form-control-file">
+                                    <div class="invalid-feedback">{{ form.image.errors|first }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-save">Save</button>
+                            <button type="reset" class="btn-clear">Clear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col-md-3">
+                <div class="small-card">
+                    <div class="in-stock">UGX {{ in_stock_value|floatformat:0 }}</div>
+                    <div class="stat-label">In stock</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="small-card">
+                    <div class="out-of-stock-number">{{ out_of_stock_count }}</div>
+                    <div class="stat-label">Out of stock</div>
+                </div>
+            </div>
+        </div>
+
+    
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>CATEGORY</th>
+                            <th>PRICE (UGX)</th>
+                            <th>QUANTITY</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>#{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.quantity }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+       
+    </script>
+</body>
+</html>

@@ -16,7 +16,7 @@ def homePage(request):
             new_stock.category = stock.category
             new_stock.price = stock.price
             new_stock.quantity = stock.quantity
-            sales_form.save()
+            stock.save()
         else:
             return redirect(failPage)    
 

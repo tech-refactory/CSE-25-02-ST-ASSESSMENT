@@ -12,8 +12,9 @@ def homePage(request):
     if request.method == 'POST':
         if sales_form.is_valid():
             sales_form.save()
-        else:
             return redirect('success/')    
+        else:
+            return redirect('')   
 
     context = {
         'sales_form': sales_form,
@@ -31,12 +32,13 @@ def failPage(request):
     if request.method == 'POST':
         if sales_form.is_valid():
             sales_form.save()
-        else:
             return redirect('success/')    
+        else:
+            return redirect('')    
 
     context = {
         'sales_form': sales_form,
         'stocks': stock,
         'sales': "{:,}".format(total_amount),
     }
-    return render(request, 'failPage.html')
+    return render(request, 'failPage.html', context)

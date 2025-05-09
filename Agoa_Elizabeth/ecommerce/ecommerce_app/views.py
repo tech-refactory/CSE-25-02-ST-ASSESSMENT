@@ -7,7 +7,7 @@ from .forms import ProductForm
 # Create your views here.
 
 def homepage(request):
-    return HttpResponse("Welcome to the E-commerce Homepage!")
+    return render(request, "vendors.html")
 
 def vendors_products(request):
     products = Product.objects.all()
@@ -29,3 +29,11 @@ def vendors_products(request):
         "success": success,
     }
     return render(request, "vendors.html", context)
+
+def add_product(request):
+    if request.method == "POST":
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("homepage")
+    return redirect("homepage")

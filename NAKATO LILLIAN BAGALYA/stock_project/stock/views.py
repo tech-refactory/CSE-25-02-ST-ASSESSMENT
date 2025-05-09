@@ -1,10 +1,25 @@
-from django.shortcuts import render
-from .models import *
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Product
+from .forms import ProductForm
 # Create your views here.
 def mystock(request):
-    product = Product.objects.all().order_by('id')
-    return render(request, "mystock.html", {'products': product})
+    products = Product.objects.all().order_by('-id')
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Product added successfully!")
+            return redirect('mystock') 
+    else:
+        form = ProductForm()
+
+    return render(request, "mystock.html", {
+        'products': products,
+        'form': form
+    })
     
         
 

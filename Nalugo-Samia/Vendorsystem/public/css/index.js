@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Validate Category
       if (!categoryRegex.test(category.value.trim())) {
         category.style.border = "1px solid red";
+        document.getElementById('categoryError').textContent = 'Invalid field';
         isValid = false;
       } else {
         category.style.border = "1px solid green";
@@ -42,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Validate Price
       if (!priceRegex.test(price.value.trim()) || parseFloat(price.value.trim()) <= 0) {
         price.style.border = "1px solid red";
+        document.getElementById('priceError').textContent = 'Invalid field';
         isValid = false;
       } else {
         price.style.border = "1px solid green";
@@ -50,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Validate Quantity
       if (!quantityRegex.test(quantity.value.trim()) || parseInt(quantity.value.trim()) <= 0) {
         quantity.style.border = "1px solid red";
+        document.getElementById('quantityError').textContent = 'Invalid field';
         isValid = false;
       } else {
         quantity.style.border = "1px solid green";
@@ -58,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Validate Color
       if (!colorRegex.test(color.value.trim())) {
         color.style.border = "1px solid red";
+        document.getElementById('colorError').textContent = 'Invalid field';
         isValid = false;
       } else {
         color.style.border = "1px solid green";
@@ -66,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Validate Image Upload
       if (!uploadimage.value) {
         uploadimage.style.border = "1px solid red";
+        document.getElementById('uploadimageError').textContent = 'Invalid field';
         isValid = false;
       } else {
         uploadimage.style.border = "1px solid green";

@@ -36,16 +36,22 @@ html
                 <span class="error-message" id="pnameError"></span>
                 br
                 input(type='text', id='category', name='category', placeholder='Category')
+                <span class="error-message" id="categoryError"></span>
                 br
                 input(type='number', id='price', name='price', placeholder='Price')
+                <span class="error-message" id="priceError"></span>
                 br
                 input(type='number', id='quantity', name='quantity', placeholder='Quantity')
+                <span class="error-message" id="quantityError"></span>
                 br
                 input(type='text', id='color', name='color', placeholder='Color')
+                <span class="error-message" id="colorError"></span>
                 br
                 input(type='file', id='uploadimage', name='uploadimage', placeholder='Upload Image', accept='image/*')
+                <span class="error-message" id="uploadimageError"></span>
                 br
                 button.save(type='submit') SAVE
+                br
                 button.clear(type='reset') CLEAR
       .cards
         .table-content
@@ -61,10 +67,10 @@ html
               if Products.length
                 each product in Products
                   tr
-                    td #{product.id}
+                    td #{product._id}
                     td #{product.pname}
                     td #{product.category}
                     td #{product.price}
                     td #{product.quantity}
-                    td
+                    
     script(src='../css/index.js')

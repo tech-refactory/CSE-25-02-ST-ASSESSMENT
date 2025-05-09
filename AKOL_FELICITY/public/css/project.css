@@ -1,0 +1,92 @@
+/* General layout */
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+/* Card styling */
+.card {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  
+}
+.small{
+    padding: 18%;
+}
+.card .card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.card .card-text {
+  font-size: 0.95rem;
+  color: #6c757d;
+}
+
+/* Large card specifically */
+.card.mb-4 {
+  background-color: #fff;
+  padding: 1rem;
+}
+
+/* Input and form styling */
+form h3 {
+  margin-bottom: 20px;
+}
+
+form input.form-control {
+  padding: 10px;
+  font-size: 1rem;
+}
+
+form input[type="image"] {
+  padding: 5px;
+  height: 38px;
+}
+
+/* Button styling */
+form button {
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  margin-right: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button[type="reset"] {
+  color: white;
+  background-color: orange;
+  width: 40%;
+}
+
+form button[type="submit"] {
+  background-color: #e9ecef;
+  color: #000;
+   width: 40%;
+}
+
+/* Utility spacing */
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+thead th {
+    background-color: black;
+    color: white;
+}
+
+
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+#successmessage{
+    display: none; border: 2px solid green; padding: 10px; border-radius: 5px; background-color: #e6ffe6;
+}

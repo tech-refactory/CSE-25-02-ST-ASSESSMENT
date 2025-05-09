@@ -1,0 +1,95 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title Phones
+    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css' rel='stylesheet')
+    link(rel='stylesheet' href='/css/project.css')
+
+  body
+    .container.mt-4
+      .row
+        // Left Column
+        .col-md-6
+          // Large Card
+          .card.mb-4(style='width: 100%; height: 250px;')
+            .card-body.d-flex.align-items-center.justify-content-between
+              // Left Section
+              div
+                h5.card-title UGX 50,000,000
+                p.card-text Sales.
+              
+              // Vertical Line
+              div(style='border-left: 1px solid #000; height: 80px; margin: 0 10px;')
+              
+              // Right Section
+              div
+                h5.card-title UGX 42,000,000
+                p.card-text Orders.
+
+          // Two Smaller Cards
+          .row
+            .col-sm-6.mb-3
+              .card
+                .card-body
+                  h5.card-title(style='color: rgb(4, 144, 13); height: 100px; display: flex; padding: 16%;') UGX 42,000,000
+                  p.card-text In Stock.
+            .col-sm-6.mb-3
+              .card
+                .card-body
+                  h5.card-title(style='color: rgb(236, 92, 31); height: 100px; padding: 18%;') 5
+                  p.card-text Out of stock.
+
+        // Right Column
+        .col-md-6
+          .card.p-3
+            form(onsubmit='return validateform()' method="POST" action="/Phones" enctype='multipart/form-data') 
+              h3 Add Product
+              h2#successmessage Successfully submitted
+              .mb-3
+                input#name.form-control(type='text' placeholder='Product Name' name='productName')
+                span#name-error.text-danger
+              .mb-3
+                input#category.form-control(type='text' placeholder='Category' name='category')
+                span#category-error.text-danger
+              .mb-3
+                input#price.form-control(type='number' placeholder='Price' name='price')
+                span#price-error.text-danger
+              .mb-3
+                input#quantity.form-control(type='number' placeholder='Quantity' name='quantity')
+                span#quantity-error.text-danger
+              .row.mb-3
+                .col-md-6
+                  input#color.form-control(type='text' placeholder='Color' name='color')
+                  span#color-error.text-danger
+                .col-md-6
+                  input#image.form-control(type='file' placeholder='Upload Image' name='image')
+                  span#image-error.text-danger
+              button(type='submit' style='background-color: orange;') Save
+              button(type='reset' style='background-color: rgb(240, 240, 240);') Clear
+
+      br
+      br
+      br
+      br
+
+      table.thead-dark
+        thead
+          tr
+            th ID
+            th NAME
+            th CATEGORY
+            th PRICE (UGX)
+            th QUANTITY
+        tbody
+          if phones&& phones.length
+            each phone in phones
+              tr
+                td ##{phone._id}
+                td #{phone.productName}
+                td #{phone.category}
+                td #{phone.price}
+                td #{phone.quantity}
+    script(src='/js/project.js')
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js')

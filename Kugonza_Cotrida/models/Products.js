@@ -2,12 +2,29 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-  productName: String,
-  category: String,
-  price: Number,
-  quantity: String,
-  color: String,
-  imageUrl: String
+  productName: {
+    type:String,
+    trim:true
+  },
+  category: {
+    type:String,
+    trim:true
+  } ,
+  price:{
+    type:Number,
+    trim:true
+  } ,
+  quantity: {
+    type:Number,
+    trim:true
+  },
+  color:{
+     type:String,
+    trim:true,
+  } ,
+  imageUrl: {
+     type:String,
+  }
 }, {
   timestamps: true
 });

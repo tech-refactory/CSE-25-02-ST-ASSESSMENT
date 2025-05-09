@@ -12,32 +12,73 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
-    .card-box {
+    .equal-card, .sales-orders-card {
       background-color: white;
       border-radius: 8px;
-      padding: 20px;
+      padding: 30px;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-      text-align: center;
       margin-bottom: 20px;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .card-box h4 {
+    .sales-orders-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      padding: 30px;
+      height: 180px;
+    }
+
+    .sales-orders-card .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .sales-orders-card .stat span.amount {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    .sales-orders-card .stat span.label {
+      color: #666;
+    }
+
+    /* Vertical divider between Sales and Orders */
+    .sales-orders-card .divider {
+      height: 100%;
+      width: 1px;
+      background-color: #ccc;
+    }
+
+    .card-row-2 {
+      display: flex;
+      gap: 20px;
+    }
+
+    .equal-card h4 {
       font-size: 1.4rem;
       font-weight: bold;
       margin-bottom: 5px;
     }
 
-    .card-box p {
+    .equal-card p {
       color: #666;
       margin: 0;
     }
 
     #product-form {
       background-color: white;
-      padding: 25px;
+      padding: 30px;
       border-radius: 8px;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-      margin-top: 10px;
+      height: 100%;
     }
 
     #product-form input[type="text"],
@@ -69,77 +110,40 @@
       border-radius: 4px;
       font-weight: bold;
     }
-
-    .form-container {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    /* Single card with side-by-side stats and a vertical divider */
-    .sales-orders-card {
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 30px;
-    }
-
-    .sales-orders-card .stat {
-      text-align: center;
-      flex: 1;
-    }
-
-    .sales-orders-card .divider {
-      width: 1px;
-      height: 50px;
-      background-color: #ccc;
-    }
-
-    /* In stock & out of stock row */
-    .card-row-2 {
-      display: flex;
-      gap: 20px;
-    }
   </style>
 </head>
 <body>
 
-  <div class="form-container">
-    <!-- Left: Cards -->
-    <div class="col-md-6">
-      <!-- Sales and Orders in one card -->
+  <div class="d-flex align-items-stretch gap-4">
+    <!-- Left Column -->
+    <div class="w-50 d-flex flex-column justify-content-between">
       <div class="sales-orders-card">
         <div class="stat">
-          <h4>UGX 50,000,000</h4>
-          <p>Sales</p>
+          <span class="label">Sales:</span>
+          <span class="amount">UGX 50,000,000</span>
         </div>
         <div class="divider"></div>
         <div class="stat">
-          <h4>UGX 15,000,000</h4>
-          <p>Orders</p>
+          <span class="label">Orders:</span>
+          <span class="amount">UGX 15,000,000</span>
         </div>
       </div>
 
-      <!-- In stock and out of stock -->
       <div class="card-row-2">
-        <div class="card-box">
+        <div class="equal-card w-50">
           <h4 style="color: green;">UGX 42,000,000</h4>
           <p>In stock</p>
         </div>
-        <div class="card-box">
+        <div class="equal-card w-50">
           <h4 style="color: red;">5</h4>
           <p>Out of stock</p>
         </div>
       </div>
     </div>
 
-    <!-- Right: Product Form -->
-    <div class="col-md-6">
-      <div id="product-form">
+    <!-- Right Column -->
+    <div class="w-50">
+      <div id="product-form" class="h-100">
         <h5 class="mb-3"><strong>Add Product</strong></h5>
         <form>
           <input type="text" placeholder="Product Name" required>

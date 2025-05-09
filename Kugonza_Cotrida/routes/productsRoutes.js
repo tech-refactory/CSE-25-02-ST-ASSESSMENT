@@ -44,4 +44,4 @@ router.get("/productList", async (req, res) => {
   }
 });
 
-module.exports = router; // ✅ EXPORT the router here
+module.exports = router; //  EXPORT the router here

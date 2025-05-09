@@ -1,0 +1,173 @@
+<!-- templates/dashboard.html -->
+{% load static %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vendor Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="max-w-7xl mx-auto p-4">
+    <div class="flex flex-wrap md:flex-nowrap gap-6 mb-6">
+        <!-- Cards -->
+        <div class="w-full md:w-1/3 grid grid-cols-2 gap-4">
+            <div class="bg-white shadow p-6 flex justify-between items-center col-span-2">
+        <!-- Left: Sales -->
+                <div class="flex-1 text-center">
+                    <p class="text-lg font-bold">UGX {{ total_sales|default:"0"|floatformat:2|intcomma }}</p>
+                    <p class="text-gray-500">Sales</p>
+                </div>
+
+                <!-- Divider -->
+                <div class="w-px h-12 bg-gray-300 mx-6"></div>
+
+                <!-- Orders -->
+                <div class="flex-1 text-center">
+                    <p class="text-lg font-bold">5</p>
+                    <p class="text-gray-500">Orders</p>
+                </div>
+            </div>
+            <!-- In Stock -->
+            <div class="bg-white shadow p-4 flex-1 flex items-center justify-center text-center">
+                <div>
+                    <p class="text-green-600 font-bold text-xl">{{ in_stock_count }}</p>
+                    <p class="text-gray-500">In stock</p>
+                </div>
+            </div>
+
+            <!-- Out of Stock -->
+            <div class="bg-white shadow p-4 flex-1 flex items-center justify-center text-center">
+                <div>
+                    <p class="text-red-600 font-bold text-xl">{{ out_of_stock_count }}</p>
+                    <p class="text-gray-500">Out of stock</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Form -->
+        <div class="w-full md:w-2/3 bg-white shadow p-6">
+            <h2 class="text-lg font-semibold mb-2">Add Product</h2>
+            {% if success %}
+                <div class="bg-green-500 text-white p-2 mb-4">Product has been added successfully!</div>
+            {% endif %}
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 gap-4">
+
+                <!-- Product Name -->
+                <div>
+                <label for="product_name" class="block text-sm font-medium text-gray-700">Product Name*</label>
+                <input type="text" name="product_name" id="product_name"
+                        value="{{ form.product_name.value|default_if_none:'' }}"
+                        class="w-full px-4 py-2 rounded border text-sm
+                        {% if form.product_name.errors %}border-red-500{% elif form.is_bound %}border-green-500{% else %}border-gray-300{% endif %}">
+                        {% if form.product_name.errors %}
+                            <p class="text-red-500 text-xs mt-1">{{ form.product_name.errors.0 }}</p>
+                        {% endif %}
+                </div>
+
+                <!-- Category -->
+                <div>
+                <label for="category" class="block text-sm font-medium text-gray-700">Category*</label>
+                <input type="text" name="category" id="category"
+                        value="{{ form.category.value|default_if_none:'' }}"
+                        class="w-full px-4 py-2 rounded border text-sm
+                        {% if form.category.errors %}border-red-500{% elif form.is_bound %}border-green-500{% else %}border-gray-300{% endif %}">
+                {% if form.category.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.category.errors.0 }}</p>
+                {% endif %}
+                </div>
+
+                <!-- Price -->
+                <div>
+                <label for="price" class="block text-sm font-medium text-gray-700">Price (UGX)*</label>
+                <input type="number" step="0.01" name="price" id="price"
+                        value="{{ form.price.value|default_if_none:'' }}"
+                        class="w-full px-4 py-2 rounded border text-sm
+                        {% if form.price.errors %}border-red-500{% elif form.is_bound %}border-green-500{% else %}border-gray-300{% endif %}">
+                {% if form.price.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.price.errors.0 }}</p>
+                {% endif %}
+                </div>
+
+                <!-- Quantity -->
+                <div>
+                <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity*</label>
+                <input type="number" name="quantity" id="quantity"
+                        value="{{ form.quantity.value|default_if_none:'' }}"
+                        class="w-full px-4 py-2 rounded border text-sm
+                        {% if form.quantity.errors %}border-red-500{% elif form.is_bound %}border-green-500{% else %}border-gray-300{% endif %}">
+                {% if form.quantity.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.quantity.errors.0 }}</p>
+                {% endif %}
+                </div>
+
+                <!-- Color -->
+                <div>
+                <label for="color" class="block text-sm font-medium text-gray-700">Color*</label>
+                <input type="text" name="color" id="color"
+                        value="{{ form.color.value|default_if_none:'' }}"
+                        class="w-full px-4 py-2 rounded border text-sm
+                        {% if form.color.errors %}border-red-500{% elif form.is_bound %}border-green-500{% else %}border-gray-300{% endif %}">
+                {% if form.color.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.color.errors.0 }}</p>
+                {% endif %}
+                </div>
+
+                <!-- Image -->
+                <div>
+                <label for="image" class="block text-sm font-medium text-gray-700">Image*</label>
+                <input type="file" name="image" id="image"
+                        class="w-full px-4 py-2 rounded border text-sm bg-white
+                        {% if form.image.errors %}border-red-500{% elif form.is_bound %}border-green-500{% else %}border-gray-300{% endif %}">
+                {% if form.image.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.image.errors.0 }}</p>
+                {% endif %}
+                </div>
+
+            </div>
+
+            <!-- Buttons -->
+            <div class="mt-4 flex gap-4">
+                <button type="submit" class="bg-orange-500 text-white px-6 py-2 font-bold rounded hover:bg-orange-600">
+                SAVE
+                </button>
+                <a href="." class="bg-gray-300 text-black px-6 py-2 font-bold rounded hover:bg-gray-400">
+                CLEAR
+                </a>
+            </div>
+            </form>
+        </div>
+    </div>
+    <!-- Product Table -->
+    <div class="p-4">
+        <table class="bg-white table-auto w-full border">
+            <thead>
+                <tr class="bg-black text-left">
+                    <th class="px-2 py-1 text-white">ID</th>
+                    <th class="px-2 py-1 text-white">NAME</th>
+                    <th class="px-2 py-1 text-white">CATEGORY</th>
+                    <th class="px-2 py-1 text-white">PRICE(UGX)</th>
+                    <th class="px-2 py-1 text-white ">QUANTITY</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr class="border-t">
+                    <td class="px-2 py-1">#64534{{ product.id }}</td>
+                    <td class="px-2 py-1">{{ product.product_name }}</td>
+                    <td class="px-2 py-1">{{ product.category }}</td>
+                    <td class="px-2 py-1">{{ product.price|floatformat:2|intcomma }}</td>
+                    <td class="px-2 py-1">{{ product.quantity }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

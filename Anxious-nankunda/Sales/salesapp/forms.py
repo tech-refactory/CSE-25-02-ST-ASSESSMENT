@@ -4,19 +4,23 @@ from . models import*
 
 from .models import Sale
 
+from django import forms
+from .models import Sale, Product  # Assuming you have these models
+
 class SaleForm(forms.ModelForm):
+    # Add extra fields that are in your template but not in your original fields list
+    category = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Category'}))
+    price = forms.DecimalField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Price'}))
+    color = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Color'}))
+    image = forms.ImageField(required=True, widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    
     class Meta:
         model = Sale
-        fields = ['product','quantity_sold']
+        fields = ['product', 'quantity_sold', 'category', 'price', 'color', 'image']
 
         widgets = {
-            'product': forms.TextInput(attrs={'class': 'form-control'}),
-            'category': forms.TextInput(attrs={'class': 'form-control'}),
-            'price': forms.Select(attrs={'class': 'form-control'}),
-            'quantity_sold': forms.Select(attrs={'class': 'form-control'}),
-            'color': forms.Select(attrs={'class': 'form-control'}),
-            'image': forms.Select(attrs={'class': 'form-control'}),
-            
+            'product': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Product Name'}),
+            'quantity_sold': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}),
         }
         
         error_messages = {
@@ -26,14 +30,18 @@ class SaleForm(forms.ModelForm):
             'quantity_sold': {'required': 'Invalid field'},
             'color': {'required': 'Invalid field'},
             'image': {'required': 'Invalid field'},
-          
         }
     
-
-
     def clean_quantity_sold(self):
-        qty = self.cleaned_data['quantity_sold']
-        product = self.cleaned_data.get('product')
-        if product and qty > product.quantity:
+        """Validate quantity sold against available stock"""
+        try:
+            qty = self.cleaned_data['quantity_sold']
+            product = self.cleaned_data.get('product')
             
-         return qty
+            if product and qty > product.quantity:
+                raise forms.ValidationError(f"Not enough stock available. Only {product.quantity} units in stock.")
+            
+            return qty
+        except KeyError:
+            
+            return None

@@ -16,5 +16,10 @@ class Product(models.Model):
     color = models.CharField(max_length=100, verbose_name="Color", blank=False, null=False)
     image = models.ImageField(verbose_name="Upload Image", blank=False, null=False)
 
+    def total_sales(self):
+        if self.price and self.quantity:
+            return self.price * self.quantity
+        return 0
+
     def __str__(self):
         return self.product_name

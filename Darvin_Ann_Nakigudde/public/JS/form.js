@@ -1,195 +1,115 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
-    const productForm = document.getElementById('product-form');
-    const clearButton = document.getElementById('clear-button');
-    const alertContainer = document.getElementById('alert-container');
-    const productTableBody = document.getElementById('product-table-body');
+function validateform() {
+    const nameField = document.getElementById("name");
+    const categoryField = document.getElementById("category");
+    const priceField = document.getElementById("price");
+    const quantityField = document.getElementById("quantity");
+    const colorField = document.getElementById("color");
+    const imageField = document.getElementById("image");
+    const successMessage = document.getElementById("successmessage");
     
-    // Form fields
-    const formFields = {
-      name: document.getElementById('product-name'),
-      category: document.getElementById('category'),
-      price: document.getElementById('price'),
-      quantity: document.getElementById('quantity'),
-      color: document.getElementById('color'),
-      imageUrl: document.getElementById('image-url')
-    };
-    
-    // Error message elements
-    const errorMessages = {
-      name: document.getElementById('product-name-error'),
-      category: document.getElementById('category-error'),
-      price: document.getElementById('price-error'),
-      quantity: document.getElementById('quantity-error'),
-      color: document.getElementById('color-error'),
-      imageUrl: document.getElementById('image-url-error')
-    };
-    
-    // Form validation
-    function validateForm() {
-      let isValid = true;
-      
-      // Clear all error messages first
-      Object.values(errorMessages).forEach(el => el.textContent = '');
-      
-      // Required fields validation
-      if (!formFields.name.value.trim()) {
-        errorMessages.name.textContent = 'Product name is required';
-        isValid = false;
-      }
-      
-      if (!formFields.category.value.trim()) {
-        errorMessages.category.textContent = 'Category is required';
-        isValid = false;
-      }
-      
-      // Price validation
-      if (!formFields.price.value.trim()) {
-        errorMessages.price.textContent = 'Price is required';
-        isValid = false;
-      } else if (isNaN(formFields.price.value) || parseFloat(formFields.price.value) < 0) {
-        errorMessages.price.textContent = 'Please enter a valid price';
-        isValid = false;
-      }
-      
-      // Quantity validation
-      if (!formFields.quantity.value.trim()) {
-        errorMessages.quantity.textContent = 'Quantity is required';
-        isValid = false;
-      } else if (isNaN(formFields.quantity.value) || parseInt(formFields.quantity.value) < 0) {
-        errorMessages.quantity.textContent = 'Please enter a valid quantity';
-        isValid = false;
-      }
-      
-      return isValid;
-    }
-    
-    // Reset form
-    function resetForm() {
-      productForm.reset();
-      Object.values(errorMessages).forEach(el => el.textContent = '');
-      
-      // Show success message
-      showAlert('Form has been cleared', 'success');
-      
-      // Add animation to form
-      productForm.classList.add('form-reset');
-      setTimeout(() => {
-        productForm.classList.remove('form-reset');
-      }, 300);
-    }
-    
-    // Show alert message
-    function showAlert(message, type) {
-      const alertEl = document.createElement('div');
-      alertEl.className = `alert alert-${type}`;
-      alertEl.textContent = message;
-      
-      // Clear existing alerts
-      alertContainer.innerHTML = '';
-      alertContainer.appendChild(alertEl);
-      
-      // Auto-close alert after 3 seconds
-      setTimeout(() => {
-        alertEl.style.opacity = '0';
-        setTimeout(() => {
-          alertContainer.removeChild(alertEl);
-        }, 300);
-      }, 3000);
-    }
-    
-    // Update product table
-    function updateProductTable(products) {
-      productTableBody.innerHTML = '';
-      
-      products.forEach(product => {
-        const row = document.createElement('tr');
-        
-        // Format price with commas
-        const formattedPrice = new Intl.NumberFormat().format(product.price);
-        
-        row.innerHTML = `
-          <td>${product.productId}</td>
-          <td>${product.name}</td>
-          <td>${product.category}</td>
-          <td>${formattedPrice}</td>
-          <td>${product.quantity}</td>
-        `;
-        
-        productTableBody.appendChild(row);
-      });
-    }
-    
-    // Update statistics
-    function updateStats(stats) {
-      if (stats.inStock !== undefined) {
-        const inStockElement = document.querySelector('.in-stock');
-        inStockElement.textContent = `UGX ${new Intl.NumberFormat().format(stats.inStock)}`;
-      }
-      
-      if (stats.outOfStock !== undefined) {
-        const outOfStockElement = document.querySelector('.out-of-stock-count');
-        outOfStockElement.textContent = stats.outOfStock;
-      }
-    }
-    
-    // Form submission handler
-    productForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      if (validateForm()) {
-        // Get form data
-        const formData = {
-          name: formFields.name.value.trim(),
-          category: formFields.category.value.trim(),
-          price: formFields.price.value.trim(),
-          quantity: formFields.quantity.value.trim(),
-          color: formFields.color.value.trim(),
-          imageUrl: formFields.imageUrl.value.trim()
-        };
-        
-        // Send form data to server
-        fetch('/products', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            // Reset form
-            resetForm();
-            
-            // Show success message
-            showAlert('Product added successfully!', 'success');
-            
-            // Update product table
-            updateProductTable(data.products);
-            
-            // Update stats
-            updateStats(data.stats);
-          } else {
-            // Show validation errors
-            if (data.errors) {
-              Object.keys(data.errors).forEach(field => {
-                if (errorMessages[field]) {
-                  errorMessages[field].textContent = data.errors[field];
-                }
-              });
-            } else {
-              showAlert('Error adding product', 'danger');
-            }
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          showAlert('An error occurred. Please try again.', 'danger');
-        });
-      }
+  
+  
+    const name = nameField.value.trim();
+    const category = categoryField.value.trim();
+    const price = priceField.value;
+    const quantity = quantityField.value;
+    const color = colorField.value.trim();
+    const image = imageField.files[0]; // Correct for file input
+  
+    const nameErr = document.getElementById("name-error");
+    const categoryErr = document.getElementById("category-error");
+    const priceErr = document.getElementById("price-error");
+    const quantityErr = document.getElementById("quantity-error");
+    const colorErr = document.getElementById("color-error");
+    const imageErr = document.getElementById("image-error");
+  
+    // Reset styles
+    [nameField, categoryField, priceField, quantityField, colorField, imageField].forEach(field => {
+      field.style.border = "";
     });
-    
-    // Clear button event listener
-    clearButton.addEventListener('click', resetForm);
-  });
+  
+    nameErr.textContent = "";
+    categoryErr.textContent = "";
+    priceErr.textContent = "";
+    quantityErr.textContent = "";
+    colorErr.textContent = "";
+    imageErr.textContent = "";
+  
+    let isValid = true;
+  
+    // Name validation
+    if (name === "") {
+      nameErr.textContent = "Enter a valid product name.";
+      nameField.style.border = "2px solid red";
+      isValid = false;
+    } else {
+      nameField.style.border = "2px solid green";
+    }
+  
+    // Category validation
+    if (category === "" || /\d/.test(category)) {
+      categoryErr.textContent = "Enter a product category.";
+      categoryField.style.border = "2px solid red";
+      isValid = false;
+    } else {
+      categoryField.style.border = "2px solid green";
+    }
+  
+    // Price validation
+    if (price === "" || isNaN(price) || Number(price) <= 0) {
+      priceErr.textContent = "Enter a valid price greater than 0.";
+      priceField.style.border = "2px solid red";
+      isValid = false;
+    } else {
+      priceField.style.border = "2px solid green";
+    }
+  
+    // Quantity validation
+    if (quantity === "" || isNaN(quantity) || Number(quantity) <= 0) {
+      quantityErr.textContent = "Enter a valid quantity.";
+      quantityField.style.border = "2px solid red";
+      isValid = false;
+    } else {
+      quantityField.style.border = "2px solid green";
+    }
+  
+    // Color validation
+    if (color === "" || /\d/.test(color)) {
+      colorErr.textContent = "Enter a color.";
+      colorField.style.border = "2px solid red";
+      isValid = false;
+    } else {
+      colorField.style.border = "2px solid green";
+    }
+  
+    // Image validation
+    if (!image) {
+      imageErr.textContent = "Please upload an image.";
+      imageField.style.border = "2px solid red";
+      isValid = false;
+    } else {
+      const validTypes = ["image/jpeg", "image/png", "image/gif"];
+      const maxSizeMB = 2;
+  
+      if (!validTypes.includes(image.type)) {
+        imageErr.textContent = "Only JPG, PNG, or GIF files are allowed.";
+        imageField.style.border = "2px solid red";
+        isValid = false;
+      } else if (image.size > maxSizeMB * 1024 * 1024) {
+        imageErr.textContent = "Image must be less than 2MB.";
+        imageField.style.border = "2px solid red";
+        isValid = false;
+      } else {
+        imageField.style.border = "2px solid green";
+      }
+    }
+  
+    if (isValid) {
+      alert("Product added successfully!");
+     successMessage.style.display = "block"; 
+  
+    }
+  
+    return isValid;
+  }
+  

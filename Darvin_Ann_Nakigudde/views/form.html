@@ -1,94 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Management</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../public/css/style.css">
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/public/css/project.css" />
 </head>
 <body>
-    <div class="container-main">
-        <div class="row mb-3 h-100">
-            <div class="col-md-6 pe-md-3 d-flex flex-column">
-                <div class="stats-row">
-                    <div class="stat-card">
-                        <div class="combined-stats">
-                            <div class="stat-value-container">
-                                <div class="large-stat">UGX 50,000,000</div>
-                                <p class="text-muted mb-0">Sales</p>
-                            </div>
-                            <div class="stat-divider"></div>
-                            <div class="stat-value-container">
-                                <div class="large-stat">UGX 15,000,000</div>
-                                <p class="text-muted mb-0">Orders</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="container mt-4">
+    <div class="row">
+      
+      <!-- Left Column -->
+      <div class="col-md-6">
+        <!-- Large Card -->
+       <div class="card mb-4" style="width: 100%; height: 250px;">
+  <div class="card-body d-flex align-items-start justify-content-between">
+    <!-- Left Section -->
+    <div >
+      <h5 class="card-title">UGX 50,000,000</h5>
+      <p class="card-text">Sales.</p>
+    </div>
 
-                <div class="stats-row">
-                    <div class="stock-stats-container">
-                        <div class="pe-md-2">
-                            <div class="stat-card">
-                                <div class="large-stat in-stock">UGX 42,000,000</div>
-                                <p class="text-muted mb-0">In stock</p>
-                            </div>
-                        </div>
-                        <div class="ps-md-2">
-                            <div class="stat-card">
-                                <div class="out-of-stock-count">5</div>
-                                <p class="out-of-stock-label mb-0">Out of stock</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Vertical Line -->
+    <div style="border-left: 1px solid #000; height: 80px; margin: 0 10px;"></div>
 
-            <div class="col-md-6 ps-md-3">
-                <div class="add-product-form h-100">
-                    <h3 class="form-title">Add Product</h3>
-                    <div class="mb-2">
-                        <input type="text" class="form-control form-control-sm" id="product-name" placeholder="Product Name">
-                        <span class="error-message" id="product-name-error"></span>
-                    </div>
-                    <div class="mb-2">
-                        <input type="text" class="form-control form-control-sm" id="category" placeholder="Category">
-                        <span class="error-message" id="category-error"></span>
-                    </div>
-                    <div class="mb-2">
-                        <input type="text" class="form-control form-control-sm" id="price" placeholder="Price">
-                        <span class="error-message" id="price-error"></span>
-                    </div>
-                    <div class="mb-2">
-                        <input type="text" class="form-control form-control-sm" id="quantity" placeholder="Quantity">
-                        <span class="error-message" id="quantity-error"></span>
-                    </div>
-                    <div class="row mb-2 gx-2">
-                        <div class="col-md-6">
-                            <input type="text" class="form-control form-control-sm" id="color" placeholder="Color">
-                            <span class="error-message" id="color-error"></span>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control form-control-sm" id="size" placeholder="Upload Image">
-                            <span class="error-message" id="size-error"></span>
-                        </div>
-                    </div>
-                   <div class="d-flex justify-content-center gap-2">
-                        <button type="button" class="btn save-btn py-1" id="save-button">SAVE</button>
-                        <button type="button" class="btn clear-btn py-1" id="clear-button">CLEAR</button>
-                    </div>
-                </div>
+    <!-- Right Section -->
+    <div>
+      <h5 class="card-title">UGX 42,000,000</h5>
+      <p class="card-text">Orders.</p>
+    </div>
+  </div>
+</div>
+
+
+
+        <!-- Two Smaller Cards -->
+        <div class="row">
+          <div class="col-sm-6 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title" style="color: rgb(4, 144, 13); height: 100px; display: flex; padding: 16%;">UGX 42,000,000</h5>
+                <p class="card-text">In Stock.</p>
+                
+              </div>
             </div>
+          </div>
+          <div class="col-sm-6 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title" style="color: rgb(236, 92, 31) ; height: 100px; padding: 18%;">5</h5>
+                <p class="card-text">Out of stock.</p>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+    <div class="col-md-6">
+  <div class="card p-3">
+    <form onsubmit="return validateform()">
+      <h3>Add Product</h3>
+
+      <div class="mb-3">
+        <input type="text" class="form-control" id="name" placeholder="Product Name" name="productName">
+        <span id="name-error" class="text-danger"></span>
+      </div>
+
+      <div class="mb-3">
+        <input type="text" class="form-control" id="category" placeholder="Category"name="  category">
+        <span id="category-error" class="text-danger"></span>
+      </div>
+
+      <div class="mb-3">
+        <input type="number" class="form-control" id="price" placeholder="Price"name="price">
+        <span id="price-error" class="text-danger"></span>
+      </div>
+
+      <div class="mb-3">
+        <input type="number" class="form-control" id="quantity" placeholder="Quantity" name="quantity">
+        <span id="quantity-error" class="text-danger"></span>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <input type="text" class="form-control" id="color" placeholder="Color"  name="color">
+          <span id="color-error" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control" id="image" placeholder="Upload Image" name="image">
+          <span id="image-error" class="text-danger"></span>
         </div>
 
-        <div class="row table-container">
-            <div class="col-12">
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-sm">
-                        <thead class="table-header">
-                            <tr>
+      </div>
+
+      <button type="reset" style="background-color: orange;">Save</button>
+      <button type="submit" style="background-color: rgb(240, 240, 240);">Clear</button>
+    </form>
+  </div>
+</div>
+
+  <br><br><br><br>
+<table class="table">
+    <thead>
+   <tr>
                                 <th>ID</th>
                                 <th>NAME</th>
                                 <th>CATEGORY</th>
@@ -111,8 +128,7 @@
                                 <td>500,000</td>
                                 <td>100</td>
                             </tr>
-                            <tr>
-                                <td>#645342</td>
+                             <td>#645342</td>
                                 <td>XL Zara Shirt</td>
                                 <td>Fashion</td>
                                 <td>600,000</td>
@@ -139,16 +155,10 @@
                                 <td>15,800,000</td>
                                 <td>144</td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-<script>
-    
-</script>
-    <script src="'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js'"></script>
-    <script src="../public/JS/form.js"></script>
+  </tbody>
+</table>
+
+  <script src="/js/project.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

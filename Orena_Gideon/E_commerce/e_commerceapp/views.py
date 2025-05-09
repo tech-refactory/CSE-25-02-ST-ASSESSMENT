@@ -37,13 +37,32 @@ def index(request):
         else:
             # Give an error if the requierments a not met.
             error = 'product and quantity a required'
-
+    # Fetch all products from the database
     products = Product.objects.all()
 
+    # Dashboard data calculations.
+    # Total revenue.
+    total_revenue = sum(product.price * product.quantity for product in products)
+    # Expected revenue (assume it is one per product ).
+    expected_revenue = sum(product.price for product in products) 
+    # Capital in stock.
+    capital_in_stock = sum(product.price * product.quantity for product in products if product.quantity > 0) 
+    # number of products out of stock.
+    out_of_stock = products.filter(quantity=0).count()
     # Use a context to pass the products table in the tampate.
+
+
+    
+    # pass the products, error and dashboard caluculations to the template. 
     context = {
         'all_products' : products, 
         'error' : error,
+        'dashboard' : {
+            'total_revenue' : total_revenue, 
+            'expected_revenue' : expected_revenue,
+            'capital_in_stock' : capital_in_stock,
+            'out_of_stock' : out_of_stock,
+        },
     }
 
 

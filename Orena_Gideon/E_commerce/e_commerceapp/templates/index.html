@@ -40,14 +40,41 @@
                     <input name="image" type="file" class="form-control">
                 </div> 
                 <input type="submit" class="btn" value="SAVE">
+                <input type="submit" class="btn" value="CLEAR">
             </form>
         </div>
-    </div>    
-</div>
+        
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"> Total revenue </h5>
+                    <p class="card-text"> {{ dashboard.total_revenue }} shs </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"> Expected revenue </h5>
+                    <p class="card-text"> {{ dashboard.expected_revenue }} shs </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-text"> Cpital in stock </h5>
+                    <p class="card-text"> {{ dashboard.capital_in_stock }} shs </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-body"> Out of stock </h5>
+                    <p class="card-text"> {{ dashboard.out_of_stock_count }} </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- The produc display form -->
-<div class="containcer">
-    <table class="table table-hover">
+    <!-- The produc display form -->
+    <h1><strong> Table to display products recorded </strong></h1>
+        <table class="table table-hover">
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
@@ -67,7 +94,10 @@
                 <td>{{ product.quantity }}</td>                
             </tr>
             {% endfor %}
-        </tbody>
+        </tbody>    
 </div>
+
+
+
 
 {% endblock %}

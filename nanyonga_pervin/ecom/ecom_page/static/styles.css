@@ -1,0 +1,74 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+
+thead{
+    background-color: black;
+    color:white
+}
+td, th {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.divider {
+    width: 1px;
+    background-color: #ccc;
+    margin: 0 20px;
+}
+
+label{
+    display: none;
+}
+
+.btn-orange {
+    background-color: rgb(255, 115, 0);
+    color: white;
+    border: none;
+}
+.btn-orange:hover {
+    background-color: rgb(255, 115, 0) !important;
+    color: white !important;
+}
+.btn-grey {
+    background-color: grey;
+    color: white;
+    border: none;
+}
+.btn-grey:hover {
+    background-color: grey !important;
+    color: white !important;
+}
+
+.is-invalid {
+    border-color: red !important;
+}
+
+.is-invalid:focus {
+    border-color: darkred !important;
+    box-shadow: 0 0 5px darkred !important;
+}
+
+.custom-alert {
+    border: 2px solid green !important;  
+    color: green !important;             
+    background-color: transparent !important;  
+    text-align: center;                  
+    position: relative;
+    padding-right: 2.5rem;  
+  }
+  
+  .custom-close {
+    position: absolute;
+    top: 0.25rem;           
+    right: 0.25rem;
+    font-size: 0.75rem;      
+    width: 1.25rem;         
+    height: 1.25rem;        
+    padding: 0.25rem;       
+  }
+

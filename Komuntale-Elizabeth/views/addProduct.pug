@@ -6,13 +6,13 @@ head
 .dashboard
   .cards
     .card
-      h2 UGX 50,000,000
+      h2 UGX 50000
       p Sales
     .card
-      h2 UGX 15,000,000
+      h2 UGX 150000
       p Orders
     .card.green
-      h2 UGX 42,000,000
+      h2 UGX 10000
       p In stock
     .card.red
       h2 5
@@ -22,19 +22,19 @@ head
       h3 Add Product
       #successMessage.success-message
       .form-group
-        input#productName(type='text' placeholder='Product Name')
+        input#productName(type='text' name='Product Name')
         #productNameError.error
       .form-group
-        input#category(type='text' placeholder='Category')
+        input#category(type='text' name='Category')
         #categoryError.error
       .form-group
-        input#price(type='number' placeholder='Price')
+        input#price(type='number' name='Price')
         #priceError.error
       .form-group
-        input#quantity(type='number' placeholder='Quantity')
+        input#quantity(type='number' name='Quantity')
         #quantityError.error
       .form-group
-        input#color(type='text' placeholder='Color')
+        input#color(type='text' name='Color')
         #colorError.error
       .buttons
         button(onclick='validateForm()') SAVE

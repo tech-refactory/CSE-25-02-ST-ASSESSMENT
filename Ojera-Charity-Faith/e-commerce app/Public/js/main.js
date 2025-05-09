@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("addProductForm");
+  const form = document.getElementById("productForm");
   const table = document.getElementById("productsTable");
   const clearBtn = document.getElementById("clearBtn");
+  const successAlert = document.getElementById("successAlert");
 
   // Load initial data
   fetchInsights();
@@ -12,21 +13,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const formData = new FormData(form);
     const product = {
-      name: formData.get("name").trim(),
+      name: formData.get("productName").trim(),
       category: formData.get("category").trim(),
       price: parseFloat(formData.get("price")),
       quantity: parseInt(formData.get("quantity")),
-      color: formData.get("color").trim()
+      color: formData.get("color").trim(),
+      image: formData.get("image") // Handle image upload
     };
 
     // Basic Validation
-    if (!product.name || !product.category || isNaN(product.price) || isNaN(product.quantity) || !product.color) {
-      alert("Please fill all fields correctly.");
+    const errors = validateProduct(product);
+    if (errors.length > 0) {
+      alert(errors.join("\n"));
       return;
     }
 
     try {
-      const res = await fetch("/api/products", {
+      const res = await fetch("/vendor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(product),
@@ -57,6 +60,19 @@ document.addEventListener("DOMContentLoaded", () => {
     form.parentElement.insertBefore(alertBox, form);
 
     setTimeout(() => alertBox.remove(), 3000);
+  }
+
+  // Validation function
+  function validateProduct(product) {
+    const errors = [];
+    if (!product.name) errors.push("Product name is required.");
+    if (!product.category) errors.push("Category is required.");
+    if (isNaN(product.price) || product.price <= 0) errors.push("Please enter a valid price.");
+    if (isNaN(product.quantity) || product.quantity <= 0) errors.push("Please enter a valid quantity.");
+    if (!product.color) errors.push("Color is required.");
+    if (!product.image) errors.push("Image is required.");
+
+    return errors;
   }
 
   async function fetchProducts() {

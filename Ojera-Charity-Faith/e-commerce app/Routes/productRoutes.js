@@ -1,52 +1,52 @@
-// routes/products.js
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
 const Product = require('../models/Product');
 
-// Get all products
-router.get('/', async (req, res) => {
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'public/uploads/'),
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
+});
+const upload = multer({ storage });
+
+// GET: render product form with existing products
+router.get("/vendor", async (req, res) => {
   try {
-    const products = await Product.find();
-    res.json(products);
+    const products = await Product.find().lean();
+    res.render("vendor", { products: producs });  // Render 'vendor.pug'
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).send("Failed to load products");
   }
 });
 
-// Add new product
-router.post('/', async (req, res) => {
-  const product = new Product({
-    name: req.body.name,
-    category: req.body.category,
-    price: req.body.price,
-    quantity: req.body.quantity,
-    color: req.body.color
-  });
 
+// POST: handle new product upload
+router.post('/vendor', upload.single('image'), async (req, res) => {
   try {
-    const newProduct = await product.save();
-    res.status(201).json(newProduct);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
+    const { productName, category, price, quantity, color } = req.body;
 
-// Get dashboard stats
-router.get('/stats', async (req, res) => {
-  try {
-    const products = await Product.find();
-    const totalSales = products.reduce((sum, product) => sum + (product.price * product.quantity), 0);
-    const outOfStock = products.filter(product => product.quantity === 0).length;
-    const inStock = products.reduce((sum, product) => sum + product.quantity, 0);
+    if (!productName || !category || !price || !quantity || !color || !req.file) {
+      return res.status(400).json({ success: false, message: 'All fields are required' });
+    }
 
-    res.json({
-      totalSales,
-      outOfStock,
-      inStock
+    const newProduct = new Product({
+      productName,
+      category,
+      price: parseFloat(price),
+      quantity: parseInt(quantity),
+      color,
+      image: `/uploads/${req.file.filename}`  // Fixed: added proper string concatenation
     });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+
+    await newProduct.save();
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error saving product:", error);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 });
+
+
 
 module.exports = router;

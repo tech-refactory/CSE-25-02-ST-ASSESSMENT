@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ecom_page'
+    'ecom_page',
     'crispy_forms',
     'crispy_bootstrap5',
 ]

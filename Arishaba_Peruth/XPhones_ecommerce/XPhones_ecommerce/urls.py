@@ -20,5 +20,5 @@ from phoneapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.Xphones, name='Xphones'),
+    path('', views.Xphones, name='index'),
 ]

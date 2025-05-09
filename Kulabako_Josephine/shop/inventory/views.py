@@ -1,34 +1,27 @@
 from django.shortcuts import render, redirect
-from django.db.models import Sum, F
+from .models import*
+from .forms import SaleForm
 from django.contrib import messages
-from .models import Product
-from .forms import ProductForm
 
-def product_dashboard(request):
-    success = False
+# Create your views here.
+# views.py
+
+def index(request):
+    
+    sale_form = SaleForm()
+    products = Product.objects.filter(sold_at__isnull=False).order_by('-sold_at')
 
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            success = True
-            form = ProductForm()  # reseting the form after successfully  being submitted
+        sale_form = SaleForm(request.POST, request.FILES)
+        if sale_form.is_valid():
+            sale_form.save()
+            messages.success(request, "Product added successfully!")
+            sale_form = SaleForm()  
         else:
-            messages.error(request, 'Form is not valid')
-    else:
-        form = ProductForm()
-
-    products = Product.objects.all()
-    total_sales = products.aggregate(total=Sum('price'))['total'] or 0
-    total_stock = products.aggregate(stock_value=Sum(F('price') * F('quantity')))['stock_value'] or 0
-    out_of_stock = products.filter(quantity=0).count()
+            messages.error(request, "Invalid field.") 
 
     context = {
-        'form': form,
+        'sale_form': sale_form,
         'products': products,
-        'total_sales': total_sales,
-        'total_stock': total_stock,
-        'out_of_stock': out_of_stock,
-        'success': success,
     }
     return render(request, 'index.html', context)

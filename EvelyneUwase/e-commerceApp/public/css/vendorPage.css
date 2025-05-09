@@ -1,129 +1,151 @@
 
-  /* Reset and base styles */
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f6f7;
-    margin: 0;
-    padding: 2rem;
-    color: #222;
-  }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f6f7;
+  margin: 0;
+  padding: 2rem;
+  color: #222;
+}
 
-  h1 {
-    margin-top: 2rem;
-    font-size: 1.5rem;
-  }
+h1 {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+}
 
-  /* Summary Cards Section */
-  .dashboard-summary {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
+/* Columns Layout for Cards and Form */
+.dashboard-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: rem;
+}
 
-  .summary-card {
-    flex: 1 1 200px;
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 6px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
-    text-align: center;
-    min-width: 180px;
-  }
+.left-column {
+  flex: 2;
+  min-width: 300px;
+}
 
-  .summary-title {
-    font-size: 1.4rem;
-    font-weight: bold;
-  }
+.right-column {
+  flex: 1;
+  min-width: 300px;
+}
 
-  .summary-subtitle {
-    color: #888;
-    margin-top: 0.4rem;
+/* Responsive stacking */
+@media (max-width: 768px) {
+  .dashboard-columns {
+    flex-direction: column;
   }
+}
 
-  .green-card .summary-title {
-    color: #14a44d;
-  }
+/* Summary Cards Section */
+.dashboard-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
 
-  .red-card .summary-title {
-    color: red;
-  }
+.summary-card {
+  flex: 1 1 200px;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  min-width: 180px;
+}
 
-  /* Form styles */
-  form {
-    background: #f9f9f9;
-    padding: 1.5rem;
-    border-radius: 8px;
-    max-width: 400px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
-  }
+.summary-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
 
-  form input[type="text"],
-  form input[type="number"],
-  form input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 0.4rem;
-    margin-bottom: 0.2rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-  }
+.summary-subtitle {
+  color: #888;
+  margin-top: 0.4rem;
+}
 
-  .error-message {
-    font-size: 0.8rem;
-    color: red;
-    display: block;
-    margin-bottom: 0.6rem;
-  }
+.green-card .summary-title {
+  color: #14a44d;
+}
 
-  .form-buttons {
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-  }
+.red-card .summary-title {
+  color: red;
+}
 
-  .save-btn,
-  .clear-btn {
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-  }
+/* Form styles */
+form {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 400px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
+}
 
-  .save-btn {
-    background-color: #e67e22;
-    color: white;
-  }
+form input[type="text"],
+form input[type="number"],
+form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 0.4rem;
+  margin-bottom: 0.2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
 
-  .clear-btn {
-    background-color: #ccc;
-    color: black;
-  }
+.error-message {
+  font-size: 0.8rem;
+  color: red;
+  display: block;
+  margin-bottom: 0.6rem;
+}
 
-  /* Table styles */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 2rem;
-    background-color: white;
-    border: 1px solid #ddd;
-  }
+.form-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
 
-  table thead {
-    background-color: black;
-    color: white;
-  }
+.save-btn,
+.clear-btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-  th,
-  td {
-    padding: 12px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
+.save-btn {
+  background-color: #e67e22;
+  color: white;
+}
 
-  tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
+.clear-btn {
+  background-color: #ccc;
+  color: black;
+}
 
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  background-color: white;
+  border: 1px solid #ddd;
+}
+
+table thead {
+  background-color: black;
+  color: white;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}

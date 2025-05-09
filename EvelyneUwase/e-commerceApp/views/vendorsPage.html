@@ -9,56 +9,60 @@
 </head>
 
 <body>
+    <div class="dashboard-columns">
+        <div class="left-column">
+            <div class="dashboard-summary">
+                <div class="summary-card">
+                    <div class="summary-title">UGX 50,000,000</div>
+                    <div class="summary-subtitle">Sales</div>
+                </div>
 
-    <div class="dashboard-summary">
-        <div class="summary-card">
-            <div class="summary-title">UGX 50,000,000</div>
-            <div class="summary-subtitle">Sales</div>
-        </div>
+                <div class="summary-card">
+                    <div class="summary-title">UGX 15,000,000</div>
+                    <div class="summary-subtitle">Orders</div>
+                </div>
 
-        <div class="summary-card">
-            <div class="summary-title">UGX 15,000,000</div>
-            <div class="summary-subtitle">Orders</div>
-        </div>
+                <div class="summary-card green-card">
+                    <div class="summary-title">UGX 42,000,000</div>
+                    <div class="summary-subtitle">In stock</div>
+                </div>
 
-        <div class="summary-card green-card">
-            <div class="summary-title">UGX 42,000,000</div>
-            <div class="summary-subtitle">In stock</div>
-        </div>
-
-        <div class="summary-card red-card">
-            <div class="summary-title">5</div>
-            <div class="summary-subtitle">Out of stock</div>
-        </div>
-    </div>
-
-    <div>
-        <h1>Add produce</h1>
-        <form id="productForm" action="/products/add" method="POST" enctype="multipart/form-data">
-            <input type="text" name="productName" placeholder="Product Name" required />
-            <span class="error-message">Invalid field</span>
-
-            <input type="text" name="category" placeholder="Category" required />
-            <span class="error-message">Invalid field</span>
-
-            <input type="number" name="price" placeholder="Price" required />
-            <span class="error-message">Invalid field</span>
-
-            <input type="number" name="quantity" placeholder="Quantity" required />
-            <span class="error-message">Invalid field</span>
-
-            <input type="text" name="color" placeholder="Color" required />
-            <span class="error-message">Invalid field</span>
-
-            <input type="file" name="image" accept="image/*" required />
-            <span class="error-message">Invalid field</span>
-
-            <div class="form-buttons">
-                <button type="submit" class="save-btn">SAVE</button>
-                <button type="reset" class="clear-btn">CLEAR</button>
+                <div class="summary-card red-card">
+                    <div class="summary-title">5</div>
+                    <div class="summary-subtitle">Out of stock</div>
+                </div>
             </div>
-        </form>
+        </div>
+
+        <div class="right-column">
+            <h1>Add Product</h1>
+            <form id="productForm" action="/addProduct" method="post" enctype="multipart/form-data">
+                <input type="text" id="productName" name="productName" placeholder="Product Name" required />
+                <span class="error-message">Invalid field</span>
+
+                <input type="text" id="category" name="category" placeholder="Category" required />
+                <span class="error-message">Invalid field</span>
+
+                <input type="number" id="price" name="price" placeholder="Price" required />
+                <span class="error-message">Invalid field</span>
+
+                <input type="number" id="quantity" name="quantity" placeholder="Quantity" required />
+                <span class="error-message">Invalid field</span>
+
+                <input type="text" id="color" name="color" placeholder="Color" required />
+                <span class="error-message">Invalid field</span>
+
+                <input type="file" id="image" name="image" accept="image/*" required />
+                <span class="error-message">Invalid field</span>
+
+                <div class="form-buttons">
+                    <button type="submit" class="save-btn">SAVE</button>
+                    <button type="reset" class="clear-btn">CLEAR</button>
+                </div>
+            </form>
+        </div>
     </div>
+
 
     <div>
         <table>

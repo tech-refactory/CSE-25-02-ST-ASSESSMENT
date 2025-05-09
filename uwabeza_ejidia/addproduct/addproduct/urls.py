@@ -17,8 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ecommerce import views
-urlpatterns = [
-    path('admin/', admin.site.urls),
-     path('', views.vendor_dashboard, name='product_dashboard')
 
+urlpatterns = [
+    path('', views.vendor_dashboard, name='vendor_dashboard'),
 ]

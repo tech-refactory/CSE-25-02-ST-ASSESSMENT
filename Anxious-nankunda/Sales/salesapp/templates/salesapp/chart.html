@@ -1,4 +1,4 @@
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,24 +9,25 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            background-color: #e6eaef;
             padding: 20px;
         }
         .card {
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
-            height: 100%;
             background-color: white;
         }
         .stats-card {
             padding: 35px 20px;
             text-align: center;
+            height: 100%;
         }
         .big-number {
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 5px;
+            min-height: 100%;
         }
         .stat-label {
             color: #6c757d;
@@ -56,6 +57,7 @@
         }
         .add-product-card {
             padding: 20px;
+            height: 100%;
         }
         .form-control {
             margin-bottom: 15px;
@@ -86,37 +88,75 @@
             font-weight: bold;
             width: 100%;
         }
+        .messages {
+            margin-bottom: 15px;
+        }
+        .message-success {
+            color: #28a745;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+        .message-error {
+            color: #dc3545;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+        .invalid-feedback {
+            display: none;
+        }
+        .is-invalid + .invalid-feedback {
+            display: block;
+        }
     </style>
 </head>
 <body>
-    <!--<div class="container-fluid">
+    <div class="container-fluid">
         <div class="row mb-4">
-            
             <div class="col-md-4">
                 <div class="card stats-card">
                     <div class="big-number">UGX 50,000,000</div>
                     <div class="stat-label">Sales</div>
                 </div>
             </div>
-            
             <div class="col-md-4">
                 <div class="card stats-card">
                     <div class="big-number">UGX 15,000,000</div>
                     <div class="stat-label">Orders</div>
                 </div>
             </div>
-            
             <div class="col-md-4">
                 <div class="card add-product-card">
                     <h5 class="mb-3">Add Product</h5>
-                    <form method="POST">
+                    <div class="messages">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="{% if message.tags == 'success' %}message-success{% elif message.tags == 'error' %}message-error{% endif %}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <form method="POST" enctype="multipart/form-data" class="form">
                         {% csrf_token %}
-                        <input type="text" class="form-control" placeholder="Product Name">
-                        <input type="text" class="form-control" placeholder="Category">
-                        <input type="text" class="form-control" placeholder="Price">
-                        <input type="text" class="form-control" placeholder="Quantity">
-                        <input type="text" class="form-control" placeholder="Color">
-                        <div class="btn-upload">Upload Image</div>
+
+                        {% for field in sale_form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            <input
+                                type="{{ field.field.widget.input_type }}"
+                                name="{{ field.name }}"
+                                id="{{ field.id_for_label }}"
+                                class="form-control {% if field.errors %}is-invalid{% endif %}"
+                                value="{{ field.value|default_if_none:'' }}"
+                            >
+                            {% for error in field.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+
                         <div class="row">
                             <div class="col-6">
                                 <button type="submit" class="btn btn-save">SAVE</button>
@@ -128,131 +168,15 @@
                     </form>
                 </div>
             </div>
-        </div>-->
-        <div class="col-md-4">
-    <div class="card add-product-card">
-        <h5 class="mb-3">Add Product</h5>
-        
-        <!-- Display form-wide errors if any -->
-        {% if sale_form.non_field_errors %}
-        <div class="alert alert-danger">
-            {% for error in sale_form.non_field_errors %}
-                {{ error }}
-            {% endfor %}
         </div>
-        {% endif %}
-        
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            
-            <!-- Product Name -->
-            <div class="form-group">
-                <input type="text" name="product" class="form-control {% if sale_form.product.errors %}is-invalid{% endif %} {% if request.POST and not sale_form.product.errors %}is-valid{% endif %}" 
-                       placeholder="Product Name" value="{{ sale_form.product.value|default:'' }}">
-                {% if sale_form.product.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in sale_form.product.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            
-            
-            <div class="form-group">
-                <input type="text" name="category" class="form-control {% if sale_form.category.errors %}is-invalid{% endif %} {% if request.POST and not sale_form.category.errors %}is-valid{% endif %}" 
-                       placeholder="Category" value="{{ sale_form.category.value|default:'' }}">
-                {% if sale_form.category.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in sale_form.category.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            
-        
-            <div class="form-group">
-                <input type="text" name="price" class="form-control {% if sale_form.price.errors %}is-invalid{% endif %} {% if request.POST and not sale_form.price.errors %}is-valid{% endif %}" 
-                       placeholder="Price" value="{{ sale_form.price.value|default:'' }}">
-                {% if sale_form.price.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in sale_form.price.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            
-            
-            <div class="form-group">
-                <input type="text" name="quantity_sold" class="form-control {% if sale_form.quantity_sold.errors %}is-invalid{% endif %} {% if request.POST and not sale_form.quantity_sold.errors %}is-valid{% endif %}" 
-                       placeholder="Quantity" value="{{ sale_form.quantity_sold.value|default:'' }}">
-                {% if sale_form.quantity_sold.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in sale_form.quantity_sold.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            
-            
-            <div class="form-group">
-                <input type="text" name="color" class="form-control {% if sale_form.color.errors %}is-invalid{% endif %} {% if request.POST and not sale_form.color.errors %}is-valid{% endif %}" 
-                       placeholder="Color" value="{{ sale_form.color.value|default:'' }}">
-                {% if sale_form.color.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in sale_form.color.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            
-            <!-- Image Upload -->
-            <div class="form-group">
-                <div class="btn-upload">Upload Image</div>
-                <input type="file" name="image" class="form-control-file {% if sale_form.image.errors %}is-invalid{% endif %}">
-                {% if sale_form.image.errors %}
-                    <div class="invalid-feedback d-block">
-                        {% for error in sale_form.image.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            
-            <!-- Success message after successful save -->
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-success">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-            
-            <div class="row">
-                <div class="col-6">
-                    <button type="submit" class="btn btn-save">SAVE</button>
-                </div>
-                <div class="col-6">
-                    <button type="reset" class="btn btn-clear">CLEAR</button>
-                </div>
-            </div>
-        </form>
-    </div>
- </div>
-        
+
         <div class="row mb-4">
-            <!-- In Stock Value -->
             <div class="col-md-6">
                 <div class="card stats-card">
                     <div class="big-number green-text">UGX 42,000,000</div>
                     <div class="stat-label">In stock</div>
                 </div>
             </div>
-            <!-- Out of Stock Count -->
             <div class="col-md-6">
                 <div class="card stats-card">
                     <div class="big-number red-text">5</div>
@@ -260,33 +184,35 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Products Table -->
-        <div class="table-container">
-            <table class="table table-bordered product-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>NAME</th>
-                        <th>CATEGORY</th>
-                        <th>PRICE (UGX)</th>
-                        <th>QUANTITY</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for product in products %}
-                    <tr>
-                        <td>#{{ product.id }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.category }}</td>
-                        <td>{{ product.price|floatformat:0 }}</td>
-                        <td>{{ product.quantity }}</td>
-                    </tr>
-                    {% empty %}
-                    <!-- Empty state - no rows to show -->
-                    {% endfor %}
-                </tbody>
-            </table>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-container">
+                    <table class="table table-bordered product-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NAME</th>
+                                <th>CATEGORY</th>
+                                <th>PRICE (UGX)</th>
+                                <th>QUANTITY</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td>#{{ product.id }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.price|floatformat:0 }}</td>
+                                <td>{{ product.quantity }}</td>
+                            </tr>
+                            {% empty %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 

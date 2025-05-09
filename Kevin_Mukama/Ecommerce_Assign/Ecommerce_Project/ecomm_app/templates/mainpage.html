@@ -1,3 +1,4 @@
+{%load crispy_forms_tags%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,14 +52,13 @@
             <!-- Form Column (Right) -->
             <div class="col-md-4">
                 <h3>Add Product</h3>
-                <form action="">
-                    {% for field in form %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                    
                     <div class="mb-3">
-                        {{ field.label_tag }}
-                        {{ field }}
-                        {{ field.errors }}
+                        {{ form | crispy}}
                     </div>
-                    {% endfor %}
+                    
                     <div class="d-flex justify-content-between">
                         <button type="submit" class="btn btn-primary">SAVE</button>
                         <button type="reset" class="btn btn-secondary">Clear</button>
@@ -74,20 +74,22 @@
                   <th>#</th>
                   <th>Name</th>
                   <th>Category</th>
-                  <th>Price</th>
-                  <th>Stock</th>
+                  <th>Price(UGX)</th>
+                  <th>Quantity</th>
                 </tr>
               </thead>
+              {% for item in all_products %}
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>Example Product</td>
-                  <td>Electronics</td>
-                  <td>$100</td>
-                  <td>25</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.category}}</td>
+                  <td>{{item.price}}</td>
+                  <td>{{item.quantity}}</td>
                 </tr>
                 <!-- Add more rows as needed -->
               </tbody>
+              {% endfor %}
             </table>
           </div>
     </div>

@@ -1,46 +1,45 @@
+{% load crispy_forms_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>my stock</title>
 </head>
+
 <body>
     <div class="container mt-5">
-        <div class="row mb-4">
-            <div class ="col-md-3">
-                <div class ="card text-center">
-                    <div class=" card-body">
-                        <p>UGX 1000,000</p>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <p>UGX 1,000,000</p>
                         <p>Sales</p>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row mb-4">
-            <div class ="col-md-3">
-                <div class ="card text-center">
-                    <div class=" card-body">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
                         <p>UGX 300,000</p>
                         <p>Orders</p>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row mb-4">
-            <div class ="col-md-3">
-                <div class ="card text-center">
-                    <div class=" card-body">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
                         <p>UGX 300,000,000</p>
                         <p>In Stock</p>
                     </div>
                 </div>
             </div>
-        </div><div class="row mb-4">
-            <div class ="col-md-3">
-                <div class ="card text-center">
-                    <div class=" card-body">
-                        <p> 5 </p>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <p>5</p>
                         <p>Out of Stock</p>
                     </div>
                 </div>
@@ -48,9 +47,15 @@
         </div>
     </div>
 
-    <div class="card mb-4">
-        
+    <div class="card">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+        </form>
     </div>
-    
+
+
+
 </body>
+
 </html>

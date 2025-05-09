@@ -31,4 +31,4 @@ def landing_page(request):
         'products': products,
     }
 
-    return render(request, 'index.html', context)
+    return render(request, 'landingpage.html', context)
